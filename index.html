@@ -1,27 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="az">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interval Validation Form</title>
+    <title>Tapşırıqlar</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Interval Validation Form</h1>
-    <form id="inputForm">
-        <label for="azer">Azarbaycan dili (20-30): </label>
-        <input type="number" id="azer" name="azer" required>
-        <br><br>
+    <h1>Tapşırıqlar</h1>
+    <form id="taskForm">
+        <label for="language">Dil Seçin:</label>
+        <select id="language">
+            <option value="azerbaijani">Azərbaycan dili</option>
+            <option value="english">İngilis dili</option>
+            <option value="math">Riyaziyyat</option>
+        </select>
 
-        <label for="english">İngilis dili (23-30): </label>
-        <input type="number" id="english" name="english" required>
-        <br><br>
+        <label for="closed">Qapalı tipli tapşırıqlar:</label>
+        <input type="number" id="closed" min="0">
 
-        <label for="math">Riyaziyyat (13-20): </label>
-        <input type="number" id="math" name="math" required>
-        <br><br>
+        <label for="open">Açıq tipli tapşırıqlar:</label>
+        <input type="number" id="open" min="0">
 
-        <button type="submit">Submit</button>
+        <label for="openCode">Kodlaşdırılması tələb olunan açıq tipli tapşırıqlar:</label>
+        <input type="number" id="openCode" min="0">
+
+        <button type="submit">Yoxla</button>
     </form>
+    
+    <div id="message"></div>
 
     <script src="script.js"></script>
 </body>
