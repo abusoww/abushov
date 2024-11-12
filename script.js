@@ -1,33 +1,19 @@
-function showGraduationForm() {
-    document.getElementById('graduation-form').style.display = 'block';
+function showExamForm(examType) {
+    const formContainer = document.getElementById('exam-form');
+    formContainer.style.display = 'block';
+    document.getElementById('result').style.display = 'none';  // Hide result on new form load
+
+    // You can customize the form for each exam type if needed, like adding more fields for specific exams
 }
 
-function calculateScores() {
-    const openMath = parseInt(document.getElementById('open-math').value);
-    const closedMath = parseInt(document.getElementById('closed-math').value);
-    const codingMath = parseInt(document.getElementById('coding-math').value);
+function calculateScore() {
+    const correctOpen = parseInt(document.getElementById('correct-open').value);
+    const correctClosed = parseInt(document.getElementById('correct-closed').value);
+    const incorrectClosed = parseInt(document.getElementById('incorrect-closed').value);
 
-    const openEnglish = parseInt(document.getElementById('open-english').value);
-    const closedEnglish = parseInt(document.getElementById('closed-english').value);
+    // Example for calculating score for "Azərbaycan Dili" (you can add similar logic for other subjects)
+    const score = (2.5 * (2 * correctOpen + correctClosed)).toFixed(2);
 
-    const openRussian = parseInt(document.getElementById('open-russian').value);
-    const closedRussian = parseInt(document.getElementById('closed-russian').value);
-
-    const mathScore = (25 / 8) * (2 * openMath + closedMath + codingMath);
-    const englishScore = (100 / 37) * (2 * openEnglish + closedEnglish);
-    const russianScore = 2.5 * (2 * openRussian + closedRussian);
-
-    document.getElementById('math-result').textContent = `Математика: ${mathScore.toFixed(2)} баллов`;
-    document.getElementById('english-result').textContent = `Английский: ${englishScore.toFixed(2)} баллов`;
-    document.getElementById('russian-result').textContent = `Русский: ${russianScore.toFixed(2)} баллов`;
-
-    document.getElementById('results').style.display = 'block';
-}
-
-function changeValue(id, delta) {
-    const input = document.getElementById(id);
-    let value = parseInt(input.value);
-    value += delta;
-    if (value < 0) value = 0;
-    input.value = value;
+    document.getElementById('score').innerText = score;
+    document.getElementById('result').style.display = 'block';
 }
