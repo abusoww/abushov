@@ -13,6 +13,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            flex-direction: column;
         }
         .container {
             background-color: white;
@@ -32,6 +33,7 @@
             cursor: pointer;
             width: 100%;
             transition: background-color 0.3s ease;
+            margin: 5px 0;
         }
         button:hover {
             background-color: #45a049;
@@ -84,10 +86,24 @@
             font-weight: bold;
             margin: 10px 0;
         }
+        .group-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .group-buttons button {
+            width: 22%;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="group-buttons">
+            <button>1 группа</button>
+            <button>2 группа</button>
+            <button>3 группа</button>
+            <button>4 группа</button>
+        </div>
         <button onclick="showGraduationForm()">Выпускной экзамен</button>
 
         <div id="graduation-form" class="form-container">
