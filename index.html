@@ -31,21 +31,49 @@
                 <tbody>
                     <tr>
                         <td>Математика</td>
-                        <td><input type="number" id="open-questions-math" placeholder="Правильные ответы"></td>
-                        <td><input type="number" id="closed-questions-math" placeholder="Правильные ответы"></td>
-                        <td><input type="number" id="coding-questions-math" placeholder="Правильные ответы"></td>
+                        <td>
+                            <button onclick="decrement('open-questions-math')">-</button>
+                            <input type="number" id="open-questions-math" placeholder="Правильные ответы" value="0">
+                            <button onclick="increment('open-questions-math')">+</button>
+                        </td>
+                        <td>
+                            <button onclick="decrement('closed-questions-math')">-</button>
+                            <input type="number" id="closed-questions-math" placeholder="Правильные ответы" value="0">
+                            <button onclick="increment('closed-questions-math')">+</button>
+                        </td>
+                        <td>
+                            <button onclick="decrement('coding-questions-math')">-</button>
+                            <input type="number" id="coding-questions-math" placeholder="Правильные ответы" value="0">
+                            <button onclick="increment('coding-questions-math')">+</button>
+                        </td>
                     </tr>
                     <tr>
                         <td>Английский</td>
-                        <td><input type="number" id="open-questions-english" placeholder="Правильные ответы"></td>
-                        <td><input type="number" id="closed-questions-english" placeholder="Правильные ответы"></td>
-                        <td></td> <!-- Пустое поле для английского языка -->
+                        <td>
+                            <button onclick="decrement('open-questions-english')">-</button>
+                            <input type="number" id="open-questions-english" placeholder="Правильные ответы" value="0">
+                            <button onclick="increment('open-questions-english')">+</button>
+                        </td>
+                        <td>
+                            <button onclick="decrement('closed-questions-english')">-</button>
+                            <input type="number" id="closed-questions-english" placeholder="Правильные ответы" value="0">
+                            <button onclick="increment('closed-questions-english')">+</button>
+                        </td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>Русский</td>
-                        <td><input type="number" id="open-questions-russian" placeholder="Правильные ответы"></td>
-                        <td><input type="number" id="closed-questions-russian" placeholder="Правильные ответы"></td>
-                        <td></td> <!-- Пустое поле для русского языка -->
+                        <td>
+                            <button onclick="decrement('open-questions-russian')">-</button>
+                            <input type="number" id="open-questions-russian" placeholder="Правильные ответы" value="0">
+                            <button onclick="increment('open-questions-russian')">+</button>
+                        </td>
+                        <td>
+                            <button onclick="decrement('closed-questions-russian')">-</button>
+                            <input type="number" id="closed-questions-russian" placeholder="Правильные ответы" value="0">
+                            <button onclick="increment('closed-questions-russian')">+</button>
+                        </td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
