@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="az">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Подсчет баллов выпускного экзамена</title>
+    <title>Məzun İmtahan Balının Hesablanması</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -88,80 +88,80 @@
 </head>
 <body>
     <div class="container">
-        <button onclick="showGraduationForm()">Выпускной экзамен</button>
+        <button onclick="showGraduationForm()">Məzun İmtahanı</button>
 
         <div id="graduation-form" class="form-container">
-            <h2>Выпускной экзамен</h2>
+            <h2>Məzun İmtahanı</h2>
             <table id="subject-table">
                 <thead>
                     <tr>
-                        <th>Предмет</th>
-                        <th>Открытые вопросы</th>
-                        <th>Закрытые вопросы</th>
-                        <th>Вопросы с кодированием</th>
+                        <th>Fənn</th>
+                        <th>Açıq tipli suallar</th>
+                        <th>Qapalı tipli suallar</th>
+                        <th>Kodlaşdırmalı suallar</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Математика</td>
+                        <td>Riyaziyyat</td>
                         <td><div class="input-wrapper">
-                                <button onclick="changeValue('open-math', -1)">-</button>
-                                <input type="number" id="open-math" value="0">
-                                <button onclick="changeValue('open-math', 1)">+</button>
+                                <button onclick="changeValue('open-math', -1, 0, 7)">-</button>
+                                <input type="number" id="open-math" value="0" min="0" max="7">
+                                <button onclick="changeValue('open-math', 1, 0, 7)">+</button>
                             </div>
                         </td>
                         <td><div class="input-wrapper">
-                                <button onclick="changeValue('closed-math', -1)">-</button>
-                                <input type="number" id="closed-math" value="0">
-                                <button onclick="changeValue('closed-math', 1)">+</button>
+                                <button onclick="changeValue('closed-math', -1, 0, 13)">-</button>
+                                <input type="number" id="closed-math" value="0" min="0" max="13">
+                                <button onclick="changeValue('closed-math', 1, 0, 13)">+</button>
                             </div>
                         </td>
                         <td><div class="input-wrapper">
-                                <button onclick="changeValue('coding-math', -1)">-</button>
-                                <input type="number" id="coding-math" value="0">
-                                <button onclick="changeValue('coding-math', 1)">+</button>
+                                <button onclick="changeValue('coding-math', -1, 0, 5)">-</button>
+                                <input type="number" id="coding-math" value="0" min="0" max="5">
+                                <button onclick="changeValue('coding-math', 1, 0, 5)">+</button>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <td>Английский</td>
+                        <td>İngilis dili</td>
                         <td><div class="input-wrapper">
-                                <button onclick="changeValue('open-english', -1)">-</button>
-                                <input type="number" id="open-english" value="0">
-                                <button onclick="changeValue('open-english', 1)">+</button>
+                                <button onclick="changeValue('open-english', -1, 0, 7)">-</button>
+                                <input type="number" id="open-english" value="0" min="0" max="7">
+                                <button onclick="changeValue('open-english', 1, 0, 7)">+</button>
                             </div>
                         </td>
                         <td><div class="input-wrapper">
-                                <button onclick="changeValue('closed-english', -1)">-</button>
-                                <input type="number" id="closed-english" value="0">
-                                <button onclick="changeValue('closed-english', 1)">+</button>
+                                <button onclick="changeValue('closed-english', -1, 0, 23)">-</button>
+                                <input type="number" id="closed-english" value="0" min="0" max="23">
+                                <button onclick="changeValue('closed-english', 1, 0, 23)">+</button>
                             </div>
                         </td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Русский</td>
+                        <td>Azərbaycan dili</td>
                         <td><div class="input-wrapper">
-                                <button onclick="changeValue('open-russian', -1)">-</button>
-                                <input type="number" id="open-russian" value="0">
-                                <button onclick="changeValue('open-russian', 1)">+</button>
+                                <button onclick="changeValue('open-russian', -1, 0, 10)">-</button>
+                                <input type="number" id="open-russian" value="0" min="0" max="10">
+                                <button onclick="changeValue('open-russian', 1, 0, 10)">+</button>
                             </div>
                         </td>
                         <td><div class="input-wrapper">
-                                <button onclick="changeValue('closed-russian', -1)">-</button>
-                                <input type="number" id="closed-russian" value="0">
-                                <button onclick="changeValue('closed-russian', 1)">+</button>
+                                <button onclick="changeValue('closed-russian', -1, 0, 20)">-</button>
+                                <input type="number" id="closed-russian" value="0" min="0" max="20">
+                                <button onclick="changeValue('closed-russian', 1, 0, 20)">+</button>
                             </div>
                         </td>
                         <td></td>
                     </tr>
                 </tbody>
             </table>
-            <button onclick="calculateScores()">Рассчитать баллы</button>
+            <button onclick="calculateScores()">Bal hesabla</button>
         </div>
 
         <div id="results" class="results">
-            <h3>Результаты:</h3>
+            <h3>Nəticələr:</h3>
             <p id="math-result" class="result-item"></p>
             <p id="english-result" class="result-item"></p>
             <p id="russian-result" class="result-item"></p>
@@ -188,18 +188,19 @@
             const englishScore = (100 / 37) * (2 * openEnglish + closedEnglish);
             const russianScore = 2.5 * (2 * openRussian + closedRussian);
 
-            document.getElementById('math-result').textContent = `Математика: ${mathScore.toFixed(2)} баллов`;
-            document.getElementById('english-result').textContent = `Английский: ${englishScore.toFixed(2)} баллов`;
-            document.getElementById('russian-result').textContent = `Русский: ${russianScore.toFixed(2)} баллов`;
+            document.getElementById('math-result').textContent = `Riyaziyyat: ${mathScore.toFixed(2)} bal`;
+            document.getElementById('english-result').textContent = `İngilis dili: ${englishScore.toFixed(2)} bal`;
+            document.getElementById('russian-result').textContent = `Azərbaycan dili: ${russianScore.toFixed(2)} bal`;
 
             document.getElementById('results').style.display = 'block';
         }
 
-        function changeValue(id, delta) {
+        function changeValue(id, delta, min, max) {
             const input = document.getElementById(id);
             let value = parseInt(input.value);
             value += delta;
-            if (value < 0) value = 0;
+            if (value < min) value = min;
+            if (value > max) value = max;
             input.value = value;
         }
     </script>
