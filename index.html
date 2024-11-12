@@ -179,41 +179,6 @@
         </div>
     </div>
 
-    <script>
-        function showGraduationForm() {
-            const form = document.getElementById('graduation-form');
-            form.style.display = 'block';
-        }
-
-        function calculateScores() {
-            const openMath = parseInt(document.getElementById('open-math').value);
-            const closedMath = parseInt(document.getElementById('closed-math').value);
-            const codingMath = parseInt(document.getElementById('coding-math').value);
-
-            const openEnglish = parseInt(document.getElementById('open-english').value);
-            const closedEnglish = parseInt(document.getElementById('closed-english').value);
-
-            const openRussian = parseInt(document.getElementById('open-russian').value);
-            const closedRussian = parseInt(document.getElementById('closed-russian').value);
-
-            let valid = true;
-            resetErrorMessages();
-
-            // Validate inputs
-            valid &= validateInput('open-math', openMath, 0, 10, 'open-math-error');
-            valid &= validateInput('closed-math', closedMath, 0, 13, 'closed-math-error');
-            valid &= validateInput('coding-math', codingMath, 0, 5, 'coding-math-error');
-            valid &= validateInput('open-english', openEnglish, 0, 3, 'open-english-error');
-            valid &= validateInput('closed-english', closedEnglish, 0, 16, 'closed-english-error');
-            valid &= validateInput('open-russian', openRussian, 0, 3, 'open-russian-error');
-            valid &= validateInput('closed-russian', closedRussian, 0, 13, 'closed-russian-error');
-
-            if (!valid) return;
-
-            const mathScore = (25 / 8) * (2 * openMath + closedMath + codingMath);
-            const englishScore = (100 / 37) * (2 * openEnglish + closedEnglish);
-            const russianScore = 2.5 * (2 * openRussian + closedRussian);
-
-            document.getElementById('math-result').textContent = `Riyaziyyat: ${mathScore.toFixed(2)} bal`;
-            document.getElementByIdI've updated the code so that it will show error messages in red if the user enters a value outside the valid range for each subject. When a value exceeds the allowed range, a specific error message will appear next to the corresponding input field.
-
+    <script src="script.js"></script>
+</body>
+</html>
