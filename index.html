@@ -1,208 +1,28 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Məzun İmtahan Balının Hesablanması</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #f9f9f9, #e0e0e0);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 700px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .form-container {
-            margin-top: 20px;
-            display: none;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        th, td {
-            padding: 12px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-        input[type="number"] {
-            width: 60px;
-            padding: 8px;
-            text-align: center;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        .input-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .input-wrapper button {
-            background-color: #ddd;
-            width: 30px;
-            height: 30px;
-            font-size: 18px;
-            padding: 0;
-            margin: 0 5px;
-            border: none;
-            cursor: pointer;
-        }
-        .input-wrapper button:hover {
-            background-color: #bbb;
-        }
-        .results {
-            margin-top: 20px;
-            display: none;
-        }
-        .result-item {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-    </style>
+    <title>Interval Validation Form</title>
 </head>
 <body>
-    <div class="container">
-        <button onclick="showGraduationForm()">Məzun İmtahanı</button>
+    <h1>Interval Validation Form</h1>
+    <form id="inputForm">
+        <label for="azer">Azarbaycan dili (20-30): </label>
+        <input type="number" id="azer" name="azer" required>
+        <br><br>
 
-        <div id="graduation-form" class="form-container">
-            <h2>Məzun İmtahanı</h2>
-            <table id="subject-table">
-                <thead>
-                    <tr>
-                        <th>Fənn</th>
-                        <th>Açıq tipli suallar</th>
-                        <th>Qapalı tipli suallar</th>
-                        <th>Kodlaşdırmalı suallar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Riyaziyyat</td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('open-math', -1, 0, 7)">-</button>
-                                <input type="number" id="open-math" value="0" min="0" max="7">
-                                <button onclick="changeValue('open-math', 1, 0, 7)">+</button>
-                            </div>
-                        </td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('closed-math', -1, 0, 13)">-</button>
-                                <input type="number" id="closed-math" value="0" min="0" max="13">
-                                <button onclick="changeValue('closed-math', 1, 0, 13)">+</button>
-                            </div>
-                        </td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('coding-math', -1, 0, 5)">-</button>
-                                <input type="number" id="coding-math" value="0" min="0" max="5">
-                                <button onclick="changeValue('coding-math', 1, 0, 5)">+</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>İngilis dili</td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('open-english', -1, 0, 7)">-</button>
-                                <input type="number" id="open-english" value="0" min="0" max="7">
-                                <button onclick="changeValue('open-english', 1, 0, 7)">+</button>
-                            </div>
-                        </td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('closed-english', -1, 0, 23)">-</button>
-                                <input type="number" id="closed-english" value="0" min="0" max="23">
-                                <button onclick="changeValue('closed-english', 1, 0, 23)">+</button>
-                            </div>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Azərbaycan dili</td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('open-russian', -1, 0, 10)">-</button>
-                                <input type="number" id="open-russian" value="0" min="0" max="10">
-                                <button onclick="changeValue('open-russian', 1, 0, 10)">+</button>
-                            </div>
-                        </td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('closed-russian', -1, 0, 20)">-</button>
-                                <input type="number" id="closed-russian" value="0" min="0" max="20">
-                                <button onclick="changeValue('closed-russian', 1, 0, 20)">+</button>
-                            </div>
-                        </td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-            <button onclick="calculateScores()">Bal hesabla</button>
-        </div>
+        <label for="english">İngilis dili (23-30): </label>
+        <input type="number" id="english" name="english" required>
+        <br><br>
 
-        <div id="results" class="results">
-            <h3>Nəticələr:</h3>
-            <p id="math-result" class="result-item"></p>
-            <p id="english-result" class="result-item"></p>
-            <p id="russian-result" class="result-item"></p>
-        </div>
-    </div>
+        <label for="math">Riyaziyyat (13-20): </label>
+        <input type="number" id="math" name="math" required>
+        <br><br>
 
-    <script>
-        function showGraduationForm() {
-            document.getElementById('graduation-form').style.display = 'block';
-        }
+        <button type="submit">Submit</button>
+    </form>
 
-        function calculateScores() {
-            const openMath = parseInt(document.getElementById('open-math').value);
-            const closedMath = parseInt(document.getElementById('closed-math').value);
-            const codingMath = parseInt(document.getElementById('coding-math').value);
-
-            const openEnglish = parseInt(document.getElementById('open-english').value);
-            const closedEnglish = parseInt(document.getElementById('closed-english').value);
-
-            const openRussian = parseInt(document.getElementById('open-russian').value);
-            const closedRussian = parseInt(document.getElementById('closed-russian').value);
-
-            const mathScore = (25 / 8) * (2 * openMath + closedMath + codingMath);
-            const englishScore = (100 / 37) * (2 * openEnglish + closedEnglish);
-            const russianScore = 2.5 * (2 * openRussian + closedRussian);
-
-            document.getElementById('math-result').textContent = `Riyaziyyat: ${mathScore.toFixed(2)} bal`;
-            document.getElementById('english-result').textContent = `İngilis dili: ${englishScore.toFixed(2)} bal`;
-            document.getElementById('russian-result').textContent = `Azərbaycan dili: ${russianScore.toFixed(2)} bal`;
-
-            document.getElementById('results').style.display = 'block';
-        }
-
-        function changeValue(id, delta, min, max) {
-            const input = document.getElementById(id);
-            let value = parseInt(input.value);
-            value += delta;
-            if (value < min) value = min;
-            if (value > max) value = max;
-            input.value = value;
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
