@@ -1,32 +1,41 @@
-// Function to show the Graduation Exam form
-function showGraduationForm() {
-    document.getElementById("graduation-form").style.display = "block";
-}
+document.getElementById("inputForm").addEventListener("submit", function(event) {
+    // Prevent form submission
+    event.preventDefault();
 
-// Function to calculate scores based on open, closed, and coding questions
-function calculateScores() {
-    const rows = document.querySelectorAll("#subject-table tbody tr");
-    let totalScore = 0;
-    let maxPossibleScore = 0;
+    // Get the values from input fields
+    const azerValue = parseInt(document.getElementById("azer").value, 10);
+    const englishValue = parseInt(document.getElementById("english").value, 10);
+    const mathValue = parseInt(document.getElementById("math").value, 10);
 
-    rows.forEach((row) => {
-        const openQuestions = parseInt(row.querySelector("td:nth-child(2) input").value) || 0;
-        const closedQuestions = parseInt(row.querySelector("td:nth-child(3) input").value) || 0;
-        const codingQuestions = parseInt(row.querySelector("td:nth-child(4) input").value) || 0;
+    // Set valid ranges
+    const ranges = {
+        azer: [20, 30],
+        english: [23, 30],
+        math: [13, 20]
+    };
 
-        // Example scoring logic
-        const score = (openQuestions * 2) + (closedQuestions * 1) + (codingQuestions * 3);
-        const maxScore = 10 * 2 + 20 * 1 + 5 * 3; // Customize as needed
+    // Validation flag
+    let isValid = true;
 
-        totalScore += score;
-        maxPossibleScore += maxScore;
-    });
+    // Check if values are within the specified ranges
+    if (azerValue < ranges.azer[0] || azerValue > ranges.azer[1]) {
+        alert("Azarbaycan dili should be between " + ranges.azer[0] + " and " + ranges.azer[1]);
+        isValid = false;
+    }
 
-    // Display results
-    const resultsDiv = document.querySelector(".results");
-    resultsDiv.style.display = "block";
-    resultsDiv.innerHTML = `
-        <div class="result-item">Total Score: ${totalScore}</div>
-        <div class="result-item">Max Possible Score: ${maxPossibleScore}</div>
-    `;
-}
+    if (englishValue < ranges.english[0] || englishValue > ranges.english[1]) {
+        alert("İngilis dili should be between " + ranges.english[0] + " and " + ranges.english[1]);
+        isValid = false;
+    }
+
+    if (mathValue < ranges.math[0] || mathValue > ranges.math[1]) {
+        alert("Riyaziyyat should be between " + ranges.math[0] + " and " + ranges.math[1]);
+        isValid = false;
+    }
+
+    // If all values are valid, show a success message
+    if (isValid) {
+        alert("All values are valid! Form submitted successfully.");
+        // You can add additional code to process the form data here if needed
+    }
+});
