@@ -1,41 +1,45 @@
-document.getElementById("inputForm").addEventListener("submit", function(event) {
-    // Prevent form submission
-    event.preventDefault();
+document.getElementById('taskForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-    // Get the values from input fields
-    const azerValue = parseInt(document.getElementById("azer").value, 10);
-    const englishValue = parseInt(document.getElementById("english").value, 10);
-    const mathValue = parseInt(document.getElementById("math").value, 10);
+    const language = document.getElementById('language').value;
+    const closed = parseInt(document.getElementById('closed').value, 10);
+    const open = parseInt(document.getElementById('open').value, 10);
+    const openCode = parseInt(document.getElementById('openCode').value, 10);
+    let message = "";
 
-    // Set valid ranges
-    const ranges = {
-        azer: [20, 30],
-        english: [23, 30],
-        math: [13, 20]
-    };
-
-    // Validation flag
-    let isValid = true;
-
-    // Check if values are within the specified ranges
-    if (azerValue < ranges.azer[0] || azerValue > ranges.azer[1]) {
-        alert("Azarbaycan dili should be between " + ranges.azer[0] + " and " + ranges.azer[1]);
-        isValid = false;
+    switch (language) {
+        case 'azerbaijani':
+            if (closed < 20 || closed > 20) {
+                message += "Qapalı tipli tapşırıqlar 20 olmalıdır. ";
+            }
+            if (open < 10 || open > 10) {
+                message += "Açıq tipli tapşırıqlar 10 olmalıdır. ";
+            }
+            break;
+        case 'english':
+            if (closed < 23 || closed > 23) {
+                message += "Closed questions should be 23. ";
+            }
+            if (open < 7 || open > 7) {
+                message += "Open questions should be 7. ";
+            }
+            break;
+        case 'math':
+            if (closed < 13 || closed > 13) {
+                message += "Closed math questions should be 13. ";
+            }
+            if (open < 7 || open > 7) {
+                message += "Open math questions should be 7. ";
+            }
+            if (openCode < 5 || openCode > 5) {
+                message += "Coding questions should be 5. ";
+            }
+            break;
     }
 
-    if (englishValue < ranges.english[0] || englishValue > ranges.english[1]) {
-        alert("İngilis dili should be between " + ranges.english[0] + " and " + ranges.english[1]);
-        isValid = false;
+    if (message === "") {
+        message = "Bütün tapşırıqlar düzgündür!";
     }
 
-    if (mathValue < ranges.math[0] || mathValue > ranges.math[1]) {
-        alert("Riyaziyyat should be between " + ranges.math[0] + " and " + ranges.math[1]);
-        isValid = false;
-    }
-
-    // If all values are valid, show a success message
-    if (isValid) {
-        alert("All values are valid! Form submitted successfully.");
-        // You can add additional code to process the form data here if needed
-    }
+    document.getElementById('message').textContent = message;
 });
