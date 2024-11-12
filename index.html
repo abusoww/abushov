@@ -1,35 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buraxılış İmtahanı Balqları Hesablama</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Экзамены</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .exam-button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+        }
+        .form-section {
+            display: none;
+            margin-top: 20px;
+        }
+        .form-section.active {
+            display: block;
+        }
+        .form-section input {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 100%;
+        }
+        .form-section button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .form-section h3 {
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Buraxılış İmtahanı Balqları Hesablama</h1>
-        </header>
-        <nav>
-            <button onclick="showGroupForm('general')">Buraxılış İmtahanı</button>
-            <button onclick="showGroupForm('group1')">1-ci Qrup</button>
-            <button onclick="showGroupForm('group2')">2-ci Qrup</button>
-            <button onclick="showGroupForm('group3')">3-cü Qrup</button>
-            <button onclick="showGroupForm('group4')">4-cü Qrup</button>
-        </nav>
-        <div id="exam-form" class="form-container">
-            <h2>İmtahan Forması</h2>
-            <div id="subject-fields">
-                <!-- Fields will be inserted here based on the selected group -->
-            </div>
-            <button onclick="calculateScore()">Hesabla</button>
+
+    <h1>Выбор экзамена</h1>
+    <button class="exam-button" onclick="showForm('buraxilis')">Buraxılış imtahanı</button>
+    <button class="exam-button" onclick="showForm('group1')">1-ci qrup</button>
+    <button class="exam-button" onclick="showForm('group2')">2-ci qrup</button>
+    <button class="exam-button" onclick="showForm('group3')">3-cü qrup</button>
+    <button class="exam-button" onclick="showForm('group4')">4-cü qrup</button>
+
+    <!-- Form for Buraxılış imtahanı -->
+    <div id="buraxilis" class="form-section">
+        <h3>Buraxılış imtahanı</h3>
+        <label>Azərbaycan dili:</label>
+        <div>
+            <input type="number" id="azeri_open_written" placeholder="Açıq yazılı">
+            <input type="number" id="azeri_closed" placeholder="Qapalı">
         </div>
-        <div id="result">
-            <p>Nəticə: <span id="score">0</span></p>
+        <p>Формула: 2.5 * (2n(açıq yazılı) + n(qapalı))</p>
+        <label>İngilis dili:</label>
+        <div>
+            <input type="number" id="english_open_written" placeholder="Açıq yazılı">
+            <input type="number" id="english_closed" placeholder="Qapalı">
         </div>
+        <p>Формула: 100/37 * (2n(açıq yazılı) + n(qapalı))</p>
+        <label>Riyaziyyat:</label>
+        <div>
+            <input type="number" id="math_open_written" placeholder="Açıq yazılı">
+            <input type="number" id="math_closed" placeholder="Qapalı">
+            <input type="number" id="math_open_coding" placeholder="Açıq kodlaşma">
+        </div>
+        <p>Формула: 25/8 * (2n(açıq yazılı) + n(qapalı) + n(açıq kodlaş.))</p>
+        <button onclick="calculate('buraxilis')">Рассчитать</button>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Form for 1-ci qrup -->
+    <div id="group1" class="form-section">
+        <h3>1-ci qrup</h3>
+        <label>Riyaziyyat:</label>
+        <div>
+            <input type="number" id="math_group1_closed" placeholder="Qapalı">
+            <input type="number" id="math_group1_wrong_closed" placeholder="Yalnış qapalı">
+            <input type="number" id="math_group1_open_written" placeholder="Açıq yazılı">
+            <input type="number" id="math_group1_open_coding" placeholder="Açıq kodlaşma">
+        </div>
+        <p>Формула: 1.5 * 100/33 * (n(qapalı) - n(yalnış qapalı)/4) + 100/33 * (2n(açıq yazılı) + n(açıq kodlaş.))</p>
+        <!-- Similar form for Fizika and Kimya -->
+        <button onclick="calculate('group1')">Рассчитать</button>
+    </div>
+
+    <!-- Similar sections for other groups -->
+
+    <script>
+        function showForm(group) {
+            // Hide all form sections
+            document.querySelectorAll('.form-section').forEach(function (section) {
+                section.classList.remove('active');
+            });
+
+            // Show selected form
+            document.getElementById(group).classList.add('active');
+        }
+
+        function calculate(group) {
+            // Add your calculation logic here based on the group and input values
+            alert('Calculation for ' + group + ' is not yet implemented.');
+        }
+    </script>
 </body>
 </html>
