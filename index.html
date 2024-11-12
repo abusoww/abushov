@@ -19,34 +19,37 @@
         <div id="graduation" class="form-group" style="display:none;">
             <h2>Выпускной экзамен</h2>
 
-            <!-- Математика -->
-            <div class="subject">
-                <h3>Математика</h3>
-                <label for="open-questions-math">Открытые вопросы:</label>
-                <input type="number" id="open-questions-math" placeholder="Количество правильных ответов">
-                <label for="closed-questions-math">Закрытые вопросы:</label>
-                <input type="number" id="closed-questions-math" placeholder="Количество правильных ответов">
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Предмет</th>
+                        <th>Открытые вопросы</th>
+                        <th>Закрытые вопросы</th>
+                        <th>Вопросы с кодированием</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Математика</td>
+                        <td><input type="number" id="open-questions-math" placeholder="Правильные ответы"></td>
+                        <td><input type="number" id="closed-questions-math" placeholder="Правильные ответы"></td>
+                        <td><input type="number" id="coding-questions-math" placeholder="Правильные ответы"></td>
+                    </tr>
+                    <tr>
+                        <td>Английский</td>
+                        <td><input type="number" id="open-questions-english" placeholder="Правильные ответы"></td>
+                        <td><input type="number" id="closed-questions-english" placeholder="Правильные ответы"></td>
+                        <td><input type="number" id="coding-questions-english" placeholder="Правильные ответы"></td>
+                    </tr>
+                    <tr>
+                        <td>Русский</td>
+                        <td><input type="number" id="open-questions-russian" placeholder="Правильные ответы"></td>
+                        <td><input type="number" id="closed-questions-russian" placeholder="Правильные ответы"></td>
+                        <td><input type="number" id="coding-questions-russian" placeholder="Правильные ответы"></td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <!-- Русский -->
-            <div class="subject">
-                <h3>Русский язык</h3>
-                <label for="open-questions-russian">Открытые вопросы:</label>
-                <input type="number" id="open-questions-russian" placeholder="Количество правильных ответов">
-                <label for="closed-questions-russian">Закрытые вопросы:</label>
-                <input type="number" id="closed-questions-russian" placeholder="Количество правильных ответов">
-            </div>
-
-            <!-- Английский -->
-            <div class="subject">
-                <h3>Английский язык</h3>
-                <label for="open-questions-english">Открытые вопросы:</label>
-                <input type="number" id="open-questions-english" placeholder="Количество правильных ответов">
-                <label for="closed-questions-english">Закрытые вопросы:</label>
-                <input type="number" id="closed-questions-english" placeholder="Количество правильных ответов">
-            </div>
-
-            <!-- Кнопка для расчета баллов -->
             <button onclick="calculateAllScores()">Рассчитать баллы</button>
 
             <div id="result">
