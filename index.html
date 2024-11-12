@@ -1,93 +1,90 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Выпускной экзамен</title>
+    <title>Exam Score Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Калькулятор баллов для выпускного экзамена</h1>
+            <h1>Exam Score Calculator</h1>
         </header>
-
         <nav>
             <button onclick="showGroup('graduation')">Выпускной экзамен</button>
+            <button onclick="showGroup('group1')">I группа</button>
+            <button onclick="showGroup('group2')">II группа</button>
+            <button onclick="showGroup('group3')">III группа</button>
+            <button onclick="showGroup('group4')">IV группа</button>
         </nav>
-
-        <div id="graduation" class="form-group" style="display:none;">
-            <h2>Выпускной экзамен</h2>
-
-            <table>
-                <thead>
+        <section id="content">
+            <div id="graduation" class="group">
+                <h2>Выпускной экзамен</h2>
+                <table>
                     <tr>
-                        <th>Предмет</th>
-                        <th>Открытые вопросы</th>
-                        <th>Закрытые вопросы</th>
-                        <th>Вопросы с кодированием</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Математика</td>
+                        <td>Математика (Открытые вопросы):</td>
                         <td>
                             <button onclick="decrement('open-questions-math')">−</button>
-                            <input type="number" id="open-questions-math" placeholder="Правильные ответы" value="0">
+                            <input id="open-questions-math" value="0">
                             <button onclick="increment('open-questions-math')">+</button>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>Математика (Закрытые вопросы):</td>
                         <td>
                             <button onclick="decrement('closed-questions-math')">−</button>
-                            <input type="number" id="closed-questions-math" placeholder="Правильные ответы" value="0">
+                            <input id="closed-questions-math" value="0">
                             <button onclick="increment('closed-questions-math')">+</button>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>Математика (Вопросы с кодированием):</td>
                         <td>
                             <button onclick="decrement('coding-questions-math')">−</button>
-                            <input type="number" id="coding-questions-math" placeholder="Правильные ответы" value="0">
+                            <input id="coding-questions-math" value="0">
                             <button onclick="increment('coding-questions-math')">+</button>
                         </td>
                     </tr>
                     <tr>
-                        <td>Английский</td>
-                        <td>
-                            <button onclick="decrement('open-questions-english')">−</button>
-                            <input type="number" id="open-questions-english" placeholder="Правильные ответы" value="0">
-                            <button onclick="increment('open-questions-english')">+</button>
-                        </td>
-                        <td>
-                            <button onclick="decrement('closed-questions-english')">−</button>
-                            <input type="number" id="closed-questions-english" placeholder="Правильные ответы" value="0">
-                            <button onclick="increment('closed-questions-english')">+</button>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Русский</td>
+                        <td>Русский язык (Открытые вопросы):</td>
                         <td>
                             <button onclick="decrement('open-questions-russian')">−</button>
-                            <input type="number" id="open-questions-russian" placeholder="Правильные ответы" value="0">
+                            <input id="open-questions-russian" value="0">
                             <button onclick="increment('open-questions-russian')">+</button>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>Русский язык (Закрытые вопросы):</td>
                         <td>
                             <button onclick="decrement('closed-questions-russian')">−</button>
-                            <input type="number" id="closed-questions-russian" placeholder="Правильные ответы" value="0">
+                            <input id="closed-questions-russian" value="0">
                             <button onclick="increment('closed-questions-russian')">+</button>
                         </td>
-                        <td></td>
                     </tr>
-                </tbody>
-            </table>
-
-            <button onclick="calculateAllScores()">Рассчитать баллы</button>
-
-            <div id="result">
-                <p id="math-score"></p>
-                <p id="russian-score"></p>
-                <p id="english-score"></p>
+                    <tr>
+                        <td>Английский язык (Открытые вопросы):</td>
+                        <td>
+                            <button onclick="decrement('open-questions-english')">−</button>
+                            <input id="open-questions-english" value="0">
+                            <button onclick="increment('open-questions-english')">+</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Английский язык (Закрытые вопросы):</td>
+                        <td>
+                            <button onclick="decrement('closed-questions-english')">−</button>
+                            <input id="closed-questions-english" value="0">
+                            <button onclick="increment('closed-questions-english')">+</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><button onclick="calculateScore()">Рассчитать баллы</button></td>
+                    </tr>
+                </table>
             </div>
-        </div>
+        </section>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
