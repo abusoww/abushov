@@ -44,8 +44,16 @@ nav button:hover {
     margin-top: 20px;
 }
 
-.subject {
+table {
+    width: 100%;
     margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
 }
 
 input[type="number"] {
@@ -73,4 +81,3 @@ p {
     font-size: 18px;
     color: #333;
 }
-
