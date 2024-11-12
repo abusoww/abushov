@@ -2,15 +2,42 @@ function showGroup(group) {
     const content = document.getElementById('content');
     content.innerHTML = ''; // Очистка содержимого
 
+    let subjects = '';
     if (group === 'graduation') {
-        content.innerHTML = '<h2>Выпускной экзамен</h2><p>Предметы: Математика, Русский, Английский.</p>';
+        subjects = 'Математика, Русский, Английский';
     } else if (group === 'group1') {
-        content.innerHTML = '<h2>I группа</h2><p>Предметы: Математика, Физика, Информатика.</p>';
+        subjects = 'Математика, Физика, Информатика';
     } else if (group === 'group2') {
-        content.innerHTML = '<h2>II группа</h2><p>Предметы: География, История, Математика.</p>';
+        subjects = 'География, История, Математика';
     } else if (group === 'group3') {
-        content.innerHTML = '<h2>III группа</h2><p>Предметы: Литература, История, Русский язык.</p>';
+        subjects = 'Литература, История, Русский язык';
     } else if (group === 'group4') {
-        content.innerHTML = '<h2>IV группа</h2><p>Предметы: Биология, Химия, Физика.</p>';
+        subjects = 'Биология, Химия, Физика';
     }
+
+    content.innerHTML = `
+        <h2>${group === 'graduation' ? 'Выпускной экзамен' : group.replace('group', 'Группа ')}</h2>
+        <p>Предметы: ${subjects}.</p>
+        <form id="scoreForm">
+            <label>Правильные ответы по каждому предмету: <input type="number" id="correctAnswers" min="0" required></label><br>
+            <label>Неправильные ответы по каждому предмету: <input type="number" id="wrongAnswers" min="0" required></label><br>
+            <button type="button" onclick="calculateScore()">Рассчитать балл</button>
+        </form>
+        <div id="result"></div>
+    `;
+}
+
+function calculateScore() {
+    const correctAnswers = document.getElementById('correctAnswers').value;
+    const wrongAnswers = document.getElementById('wrongAnswers').value;
+    const result = document.getElementById('result');
+
+    if (correctAnswers === '' || wrongAnswers === '') {
+        result.innerHTML = '<p>Пожалуйста, заполните все поля.</p>';
+        return;
+    }
+
+    // Примерный расчет: 4 балла за правильный ответ и -1 за неправильный
+    const score = (correctAnswers * 4) - (wrongAnswers * 1);
+    result.innerHTML = `<p>Ваш балл: ${score}</p>`;
 }
