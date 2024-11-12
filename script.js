@@ -20,10 +20,12 @@ function showGroup(group) {
     }).join('');
 
     groupInfo = `
-        <h2>${group === 'graduation' ? 'Выпускной экзамен' : 'Группа ' + group.charAt(group.length - 1)}</h2>
-        ${subjectInputs}
-        <button class="btn btn-success" onclick="calculateScore('${group}')">Рассчитать</button>
-        <p id="${group}-result"></p>
+        <div class="card">
+            <h2 class="card-title">${group === 'graduation' ? 'Выпускной экзамен' : 'Группа ' + group.charAt(group.length - 1)}</h2>
+            ${subjectInputs}
+            <button class="btn btn-primary" onclick="calculateScore('${group}')">Рассчитать</button>
+            <p id="${group}-result"></p>
+        </div>
     `;
 
     content.innerHTML = groupInfo;
