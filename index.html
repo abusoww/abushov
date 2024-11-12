@@ -1,193 +1,326 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="az">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форма экзаменов</title>
+    <title>Imtahan Balcları Hesablama</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #f4f7f6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            padding: 20px;
+            background-color: #f4f4f9;
         }
         .container {
-            width: 80%;
-            max-width: 1200px;
-            margin-top: 50px;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .header {
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .group-buttons {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             margin-bottom: 20px;
         }
-        .header button {
+        .group-buttons button {
             background-color: #4CAF50;
-            border: none;
             color: white;
-            padding: 15px 32px;
-            text-align: center;
-            font-size: 16px;
+            border: none;
+            padding: 10px 20px;
             cursor: pointer;
             border-radius: 5px;
+            font-size: 16px;
             transition: background-color 0.3s;
         }
-        .header button:hover {
+        .group-buttons button:hover {
             background-color: #45a049;
         }
-        .subject-fields {
+        .exam-form {
             display: none;
             margin-top: 20px;
         }
-        .subject-fields.active {
-            display: block;
-        }
-        .field-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-        .field-group input {
+        .exam-form input {
             margin-bottom: 10px;
-            padding: 10px;
+            padding: 8px;
+            width: 100%;
+            font-size: 14px;
             border-radius: 5px;
             border: 1px solid #ccc;
-            font-size: 16px;
+        }
+        .exam-form label {
+            font-weight: bold;
         }
         .result {
-            margin-top: 30px;
-            text-align: center;
-        }
-        .result button {
-            background-color: #2196F3;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
+            margin-top: 20px;
             font-size: 18px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            font-weight: bold;
+            color: #333;
         }
-        .result button:hover {
-            background-color: #1976D2;
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <button onclick="showFields('buraxilish')">Buraxılış imtahanı</button>
-        <button onclick="showFields('group1')">1-ci qrup</button>
-        <button onclick="showFields('group2')">2-ci qrup</button>
-        <button onclick="showFields('group3')">3-cü qrup</button>
-        <button onclick="showFields('group4')">4-cü qrup</button>
+    <div class="container">
+        <h1>Imtahan Balcları Hesablama</h1>
+        <div class="group-buttons">
+            <button onclick="showForm('buraxilis')">Buraxılış İmtahanı</button>
+            <button onclick="showForm('1ci')">1-ci Qrup</button>
+            <button onclick="showForm('2ci')">2-ci Qrup</button>
+            <button onclick="showForm('3cu')">3-cü Qrup</button>
+            <button onclick="showForm('4cu')">4-cü Qrup</button>
+        </div>
+
+        <!-- Buraxılış imtahanı formu -->
+        <div id="buraxilis" class="exam-form">
+            <h3>Buraxılış İmtahanı</h3>
+            <label>Azərbaycan dili:</label>
+            <input type="number" id="az_dili_aciq" placeholder="Açıq yazılı">
+            <input type="number" id="az_dili_qapali" placeholder="Qapalı">
+            <br><br>
+            <label>İngilis dili:</label>
+            <input type="number" id="ingilis_aciq" placeholder="Açıq yazılı">
+            <input type="number" id="ingilis_qapali" placeholder="Qapalı">
+            <br><br>
+            <label>Riyaziyyat:</label>
+            <input type="number" id="riyaziyyat_aciq" placeholder="Açıq yazılı">
+            <input type="number" id="riyaziyyat_qapali" placeholder="Qapalı">
+            <input type="number" id="riyaziyyat_aciq_kod" placeholder="Açıq kodlaşma">
+            <br><br>
+            <button onclick="calculate('buraxilis')">Hesabla</button>
+            <div id="result_buraxilis" class="result"></div>
+        </div>
+
+        <!-- 1-ci qrup formu -->
+        <div id="1ci" class="exam-form">
+            <h3>1-ci Qrup</h3>
+            <label>Riyaziyyat:</label>
+            <input type="number" id="riyaziyyat_qapali_1" placeholder="Qapalı">
+            <input type="number" id="riyaziyyat_yalnish_qapali_1" placeholder="Yalnış qapalı">
+            <input type="number" id="riyaziyyat_aciq_1" placeholder="Açıq yazılı">
+            <input type="number" id="riyaziyyat_aciq_kod_1" placeholder="Açıq kodlaşma">
+            <br><br>
+            <label>Fizika:</label>
+            <input type="number" id="fizika_qapali_1" placeholder="Qapalı">
+            <input type="number" id="fizika_yalnish_qapali_1" placeholder="Yalnış qapalı">
+            <input type="number" id="fizika_aciq_1" placeholder="Açıq yazılı">
+            <input type="number" id="fizika_aciq_kod_1" placeholder="Açıq kodlaşma">
+            <br><br>
+            <label>Kimya:</label>
+            <input type="number" id="kimya_qapali_1" placeholder="Qapalı">
+            <input type="number" id="kimya_yalnish_qapali_1" placeholder="Yalnış qapalı">
+            <input type="number" id="kimya_aciq_1" placeholder="Açıq yazılı">
+            <input type="number" id="kimya_aciq_kod_1" placeholder="Açıq kodlaşma">
+            <br><br>
+            <button onclick="calculate('1ci')">Hesabla</button>
+            <div id="result_1ci" class="result"></div>
+        </div>
+
+        <!-- 2-ci qrup formu -->
+        <div id="2ci" class="exam-form">
+            <h3>2-ci Qrup</h3>
+            <label>Riyaziyyat:</label>
+            <input type="number" id="riyaziyyat_qapali_2" placeholder="Qapalı">
+            <input type="number" id="riyaziyyat_yalnish_qapali_2" placeholder="Yalnış qapalı">
+            <input type="number" id="riyaziyyat_aciq_2" placeholder="Açıq yazılı">
+            <input type="number" id="riyaziyyat_aciq_kod_2" placeholder="Açıq kodlaşma">
+            <br><br>
+            <label>Tarix:</label>
+            <input type="number" id="tarix_qapali_2" placeholder="Qapalı">
+            <input type="number" id="tarix_yalnish_qapali_2" placeholder="Yalnış qapalı">
+            <input type="number" id="tarix_aciq_2" placeholder="Açıq yazılı">
+            <input type="number" id="tarix_aciq_kod_2" placeholder="Açıq kodlaşma">
+            <br><br>
+            <label>Coğrafiya:</label>
+            <input type="number" id="cografiya_qapali_2" placeholder="Qapalı">
+            <input type="number" id="cografiya_yalnish_qapali_2" placeholder="Yalnış qapalı">
+            <input type="number" id="cografiya_aciq_2" placeholder="Açıq yazılı">
+            <input type="number" id="cografiya_aciq_kod_2" placeholder="Açıq kodlaşma">
+            <br><br>
+            <button onclick="calculate('2ci')">Hesabla</button>
+            <div id="result_2ci" class="result"></div>
+        </div>
+
+        <!-- 3-cü qrup formu -->
+        <div id="3cu" class="exam-form">
+            <h3>3-cü Qrup</h3>
+            <label>Riyaziyyat:</label>
+            <input type="number" id="riyaziyyat_qapali_3" placeholder="Qapalı">
+            <input type="number" id="riyaziyyat_yalnish_qapali_3" placeholder="Yalnış qapalı">
+            <input type="number" id="riyaziyyat_aciq_3" placeholder="Açıq yazılı">
+            <input type="number" id="riyaziyyat_aciq_kod_3" placeholder="Açıq kodlaşma">
+            <br><br>
+            <label>Biologiya:</label>
+            <input type="number" id="biologiya_qapali_3" placeholder="Qapalı">
+            <input type="number" id="biologiya_yalnish_qapali_3" placeholder="Yalnış qapalı">
+            <input type="number" id="biologiya_aciq_3" placeholder="Açıq yazılı">
+            <input type="number" id="biologiya_aciq_kod_3" placeholder="Açıq kodlaşma">
+            <br><br>
+            <label>Kimya:</label>
+            <input type="number" id="kimya_qapali_3" placeholder="Qapalı">
+            <input type="number" id="kimya_yalnish_qapali_3" placeholder="Yalnış qapalı">
+            <input type="number" id="kimya_aciq_3" placeholder="Açıq yazılı">
+            <input type="number" id="kimya_aciq_kod_3" placeholder="Açıq kodlaşma">
+            <br><br>
+            <button onclick="calculate('3cu')">Hesabla</button>
+            <div id="result_3cu" class="result"></div>
+        </div>
+
+        <!-- 4-cü qrup formu -->
+        <div id="4cu" class="exam-form">
+            <h3>4-cü Qrup</h3>
+            <label>Riyaziyyat:</label>
+            <input type="number" id="riyaziyyat_qapali_4" placeholder="Qapalı">
+            <input type="number" id="riyaziyyat_yalnish_qapali_4" placeholder="Yalnış qapalı">
+            <input type="number" id="riyaziyyat_aciq_4" placeholder="Açıq yazılı">
+            <input type="number" id="riyaziyyat_aciq_kod_4" placeholder="Açıq kodlaşma">
+            <br><br>
+            <label>Ədəbiyyat:</label>
+            <input type="number" id="edebiyyat_qapali_4" placeholder="Qapalı">
+            <input type="number" id="edebiyyat_yalnish_qapali_4" placeholder="Yalnış qapalı">
+            <input type="number" id="edebiyyat_aciq_4" placeholder="Açıq yazılı">
+            <input type="number" id="edebiyyat_aciq_kod_4" placeholder="Açıq kodlaşma">
+            <br><br>
+            <label>İngilis dili:</label>
+            <input type="number" id="ingilis_dili_qapali_4" placeholder="Qapalı">
+            <input type="number" id="ingilis_dili_yalnish_qapali_4" placeholder="Yalnış qapalı">
+            <input type="number" id="ingilis_dili_aciq_4" placeholder="Açıq yazılı">
+            <input type="number" id="ingilis_dili_aciq_kod_4" placeholder="Açıq kodlaşma">
+            <br><br>
+            <button onclick="calculate('4cu')">Hesabla</button>
+            <div id="result_4cu" class="result"></div>
+        </div>
     </div>
 
-    <div id="buraxilish" class="subject-fields">
-        <div class="field-group">
-            <label>Azərbaycan dili: Açıq yazılı</label>
-            <input type="number" id="openAzerbaijani" placeholder="Введите баллы" />
-            <label>Azərbaycan dili: Qapalı</label>
-            <input type="number" id="closedAzerbaijani" placeholder="Введите баллы" />
-        </div>
-        <div class="field-group">
-            <label>İngilis dili: Açıq yazılı</label>
-            <input type="number" id="openEnglish" placeholder="Введите баллы" />
-            <label>İngilis dili: Qapalı</label>
-            <input type="number" id="closedEnglish" placeholder="Введите баллы" />
-        </div>
-        <div class="field-group">
-            <label>Riyaziyyat: Açıq yazılı</label>
-            <input type="number" id="openMath" placeholder="Введите баллы" />
-            <label>Riyaziyyat: Qapalı</label>
-            <input type="number" id="closedMath" placeholder="Введите баллы" />
-            <label>Riyaziyyat: Açıq kodlaşma</label>
-            <input type="number" id="openCodeMath" placeholder="Введите баллы" />
-        </div>
-    </div>
+    <script>
+        function showForm(group) {
+            // Göstərilən formu göstər və digər formaları gizlət
+            let forms = document.querySelectorAll('.exam-form');
+            forms.forEach(form => form.style.display = 'none');
+            document.getElementById(group).style.display = 'block';
+        }
 
-    <div id="group1" class="subject-fields">
-        <div class="field-group">
-            <label>Riyaziyyat: Qapalı</label>
-            <input type="number" id="group1ClosedMath" placeholder="Введите баллы" />
-            <label>Riyaziyyat: Yalnış qapalı</label>
-            <input type="number" id="group1WrongMath" placeholder="Введите баллы" />
-            <label>Riyaziyyat: Açıq yazılı</label>
-            <input type="number" id="group1OpenMath" placeholder="Введите баллы" />
-            <label>Riyaziyyat: Açıq kodlaşma</label>
-            <input type="number" id="group1OpenCodeMath" placeholder="Введите баллы" />
-        </div>
-        <div class="field-group">
-            <label>Fizika: Qapalı</label>
-            <input type="number" id="group1ClosedPhysics" placeholder="Введите баллы" />
-            <label>Fizika: Yalnış qapalı</label>
-            <input type="number" id="group1WrongPhysics" placeholder="Введите баллы" />
-            <label>Fizika: Açıq yazılı</label>
-            <input type="number" id="group1OpenPhysics" placeholder="Введите баллы" />
-            <label>Fizika: Açıq kodlaşma</label>
-            <input type="number" id="group1OpenCodePhysics" placeholder="Введите баллы" />
-        </div>
-        <div class="field-group">
-            <label>Kimya: Qapalı</label>
-            <input type="number" id="group1ClosedChemistry" placeholder="Введите баллы" />
-            <label>Kimya: Yalnış qapalı</label>
-            <input type="number" id="group1WrongChemistry" placeholder="Введите баллы" />
-            <label>Kimya: Açıq yazılı</label>
-            <input type="number" id="group1OpenChemistry" placeholder="Введите баллы" />
-            <label>Kimya: Açıq kodlaşma</label>
-            <input type="number" id="group1OpenCodeChemistry" placeholder="Введите баллы" />
-        </div>
-    </div>
+        function calculate(group) {
+            let result = 0;
 
-    <!-- Add the fields for other groups here, following the same structure -->
+            // Buraxılış imtahanı hesablaması
+            if (group === 'buraxilis') {
+                let az_dili_aciq = parseFloat(document.getElementById('az_dili_aciq').value);
+                let az_dili_qapali = parseFloat(document.getElementById('az_dili_qapali').value);
+                let ingilis_aciq = parseFloat(document.getElementById('ingilis_aciq').value);
+                let ingilis_qapali = parseFloat(document.getElementById('ingilis_qapali').value);
+                let riyaziyyat_aciq = parseFloat(document.getElementById('riyaziyyat_aciq').value);
+                let riyaziyyat_qapali = parseFloat(document.getElementById('riyaziyyat_qapali').value);
+                let riyaziyyat_aciq_kod = parseFloat(document.getElementById('riyaziyyat_aciq_kod').value);
 
-    <div class="result">
-        <button onclick="calculateScores()">Расчитать баллы</button>
-        <p id="totalScore">Общий балл: 0</p>
-    </div>
-</div>
+                result = az_dili_aciq + az_dili_qapali + ingilis_aciq + ingilis_qapali + riyaziyyat_aciq + riyaziyyat_qapali + riyaziyyat_aciq_kod;
+            }
 
-<script>
-    function showFields(group) {
-        const groups = document.querySelectorAll('.subject-fields');
-        groups.forEach(group => group.classList.remove('active'));
+            // 1-ci qrup hesablaması
+            if (group === '1ci') {
+                let riyaziyyat_qapali_1 = parseFloat(document.getElementById('riyaziyyat_qapali_1').value);
+                let riyaziyyat_yalnish_qapali_1 = parseFloat(document.getElementById('riyaziyyat_yalnish_qapali_1').value);
+                let riyaziyyat_aciq_1 = parseFloat(document.getElementById('riyaziyyat_aciq_1').value);
+                let riyaziyyat_aciq_kod_1 = parseFloat(document.getElementById('riyaziyyat_aciq_kod_1').value);
+                let fizika_qapali_1 = parseFloat(document.getElementById('fizika_qapali_1').value);
+                let fizika_yalnish_qapali_1 = parseFloat(document.getElementById('fizika_yalnish_qapali_1').value);
+                let fizika_aciq_1 = parseFloat(document.getElementById('fizika_aciq_1').value);
+                let fizika_aciq_kod_1 = parseFloat(document.getElementById('fizika_aciq_kod_1').value);
+                let kimya_qapali_1 = parseFloat(document.getElementById('kimya_qapali_1').value);
+                let kimya_yalnish_qapali_1 = parseFloat(document.getElementById('kimya_yalnish_qapali_1').value);
+                let kimya_aciq_1 = parseFloat(document.getElementById('kimya_aciq_1').value);
+                let kimya_aciq_kod_1 = parseFloat(document.getElementById('kimya_aciq_kod_1').value);
 
-        const activeGroup = document.getElementById(group);
-        activeGroup.classList.add('active');
-    }
+                result = (riyaziyyat_qapali_1 + riyaziyyat_yalnish_qapali_1 + riyaziyyat_aciq_1 + riyaziyyat_aciq_kod_1) +
+                         (fizika_qapali_1 + fizika_yalnish_qapali_1 + fizika_aciq_1 + fizika_aciq_kod_1) +
+                         (kimya_qapali_1 + kimya_yalnish_qapali_1 + kimya_aciq_1 + kimya_aciq_kod_1);
+            }
 
-    function calculateScores() {
-        // Собираем баллы по полям
-        const openAzerbaijani = parseInt(document.getElementById('openAzerbaijani').value) || 0;
-        const closedAzerbaijani = parseInt(document.getElementById('closedAzerbaijani').value) || 0;
-        const openEnglish = parseInt(document.getElementById('openEnglish').value) || 0;
-        const closedEnglish = parseInt(document.getElementById('closedEnglish').value) || 0;
-        const openMath = parseInt(document.getElementById('openMath').value) || 0;
-        const closedMath = parseInt(document.getElementById('closedMath').value) || 0;
-        const openCodeMath = parseInt(document.getElementById('openCodeMath').value) || 0;
+            // 2-ci qrup hesablaması
+            if (group === '2ci') {
+                let riyaziyyat_qapali_2 = parseFloat(document.getElementById('riyaziyyat_qapali_2').value);
+                let riyaziyyat_yalnish_qapali_2 = parseFloat(document.getElementById('riyaziyyat_yalnish_qapali_2').value);
+                let riyaziyyat_aciq_2 = parseFloat(document.getElementById('riyaziyyat_aciq_2').value);
+                let riyaziyyat_aciq_kod_2 = parseFloat(document.getElementById('riyaziyyat_aciq_kod_2').value);
+                let tarix_qapali_2 = parseFloat(document.getElementById('tarix_qapali_2').value);
+                let tarix_yalnish_qapali_2 = parseFloat(document.getElementById('tarix_yalnish_qapali_2').value);
+                let tarix_aciq_2 = parseFloat(document.getElementById('tarix_aciq_2').value);
+                let tarix_aciq_kod_2 = parseFloat(document.getElementById('tarix_aciq_kod_2').value);
+                let cografiya_qapali_2 = parseFloat(document.getElementById('cografiya_qapali_2').value);
+                let cografiya_yalnish_qapali_2 = parseFloat(document.getElementById('cografiya_yalnish_qapali_2').value);
+                let cografiya_aciq_2 = parseFloat(document.getElementById('cografiya_aciq_2').value);
+                let cografiya_aciq_kod_2 = parseFloat(document.getElementById('cografiya_aciq_kod_2').value);
 
-        const scoreBuraxilish = 2.5 * (2 * openAzerbaijani + closedAzerbaijani) +
-            (100 / 37) * (2 * openEnglish + closedEnglish) +
-            (25 / 8) * (2 * openMath + closedMath + openCodeMath);
+                result = (riyaziyyat_qapali_2 + riyaziyyat_yalnish_qapali_2 + riyaziyyat_aciq_2 + riyaziyyat_aciq_kod_2) +
+                         (tarix_qapali_2 + tarix_yalnish_qapali_2 + tarix_aciq_2 + tarix_aciq_kod_2) +
+                         (cografiya_qapali_2 + cografiya_yalnish_qapali_2 + cografiya_aciq_2 + cografiya_aciq_kod_2);
+            }
 
-        // Для других групп можно добавить дополнительные расчеты по аналогии
+            // 3-cü qrup hesablaması
+            if (group === '3cu') {
+                let riyaziyyat_qapali_3 = parseFloat(document.getElementById('riyaziyyat_qapali_3').value);
+                let riyaziyyat_yalnish_qapali_3 = parseFloat(document.getElementById('riyaziyyat_yalnish_qapali_3').value);
+                let riyaziyyat_aciq_3 = parseFloat(document.getElementById('riyaziyyat_aciq_3').value);
+                let riyaziyyat_aciq_kod_3 = parseFloat(document.getElementById('riyaziyyat_aciq_kod_3').value);
+                let biologiya_qapali_3 = parseFloat(document.getElementById('biologiya_qapali_3').value);
+                let biologiya_yalnish_qapali_3 = parseFloat(document.getElementById('biologiya_yalnish_qapali_3').value);
+                let biologiya_aciq_3 = parseFloat(document.getElementById('biologiya_aciq_3').value);
+                let biologiya_aciq_kod_3 = parseFloat(document.getElementById('biologiya_aciq_kod_3').value);
+                let kimya_qapali_3 = parseFloat(document.getElementById('kimya_qapali_3').value);
+                let kimya_yalnish_qapali_3 = parseFloat(document.getElementById('kimya_yalnish_qapali_3').value);
+                let kimya_aciq_3 = parseFloat(document.getElementById('kimya_aciq_3').value);
+                let kimya_aciq_kod_3 = parseFloat(document.getElementById('kimya_aciq_kod_3').value);
 
-        const totalScore = scoreBuraxilish; // Здесь комбинируем все баллы, как необходимо
+                result = (riyaziyyat_qapali_3 + riyaziyyat_yalnish_qapali_3 + riyaziyyat_aciq_3 + riyaziyyat_aciq_kod_3) +
+                         (biologiya_qapali_3 + biologiya_yalnish_qapali_3 + biologiya_aciq_3 + biologiya_aciq_kod_3) +
+                         (kimya_qapali_3 + kimya_yalnish_qapali_3 + kimya_aciq_3 + kimya_aciq_kod_3);
+            }
 
-        document.getElementById('totalScore').innerText = `Общий балл: ${totalScore.toFixed(2)}`;
-    }
-</script>
+            // 4-cü qrup hesablaması
+            if (group === '4cu') {
+                let riyaziyyat_qapali_4 = parseFloat(document.getElementById('riyaziyyat_qapali_4').value);
+                let riyaziyyat_yalnish_qapali_4 = parseFloat(document.getElementById('riyaziyyat_yalnish_qapali_4').value);
+                let riyaziyyat_aciq_4 = parseFloat(document.getElementById('riyaziyyat_aciq_4').value);
+                let riyaziyyat_aciq_kod_4 = parseFloat(document.getElementById('riyaziyyat_aciq_kod_4').value);
+                let edebiyyat_qapali_4 = parseFloat(document.getElementById('edebiyyat_qapali_4').value);
+                let edebiyyat_yalnish_qapali_4 = parseFloat(document.getElementById('edebiyyat_yalnish_qapali_4').value);
+                let edebiyyat_aciq_4 = parseFloat(document.getElementById('edebiyyat_aciq_4').value);
+                let edebiyyat_aciq_kod_4 = parseFloat(document.getElementById('edebiyyat_aciq_kod_4').value);
+                let ingilis_dili_qapali_4 = parseFloat(document.getElementById('ingilis_dili_qapali_4').value);
+                let ingilis_dili_yalnish_qapali_4 = parseFloat(document.getElementById('ingilis_dili_yalnish_qapali_4').value);
+                let ingilis_dili_aciq_4 = parseFloat(document.getElementById('ingilis_dili_aciq_4').value);
+                let ingilis_dili_aciq_kod_4 = parseFloat(document.getElementById('ingilis_dili_aciq_kod_4').value);
+
+                result = (riyaziyyat_qapali_4 + riyaziyyat_yalnish_qapali_4 + riyaziyyat_aciq_4 + riyaziyyat_aciq_kod_4) +
+                         (edebiyyat_qapali_4 + edebiyyat_yalnish_qapali_4 + edebiyyat_aciq_4 + edebiyyat_aciq_kod_4) +
+                         (ingilis_dili_qapali_4 + ingilis_dili_yalnish_qapali_4 + ingilis_dili_aciq_4 + ingilis_dili_aciq_kod_4);
+            }
+
+            // Nəticəni göstər
+            document.getElementById('result_' + group).innerText = 'Hesablama Nəticəsi: ' + result;
+        }
+    </script>
 
 </body>
 </html>
