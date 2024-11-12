@@ -1,93 +1,186 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="az">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Подсчет баллов выпускного экзамена</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Məzuniyyət İmtahası</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            margin: 50px auto;
+            width: 60%;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .input-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .input-wrapper button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .input-wrapper input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .results {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 30px;
+            width: 60%;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .result-item {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <button onclick="showGraduationForm()">Выпускной экзамен</button>
 
-        <div id="graduation-form" class="form-container">
-            <h2>Выпускной экзамен</h2>
-            <table id="subject-table">
-                <thead>
-                    <tr>
-                        <th>Предмет</th>
-                        <th>Открытые вопросы</th>
-                        <th>Закрытые вопросы</th>
-                        <th>Вопросы с кодированием</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Математика</td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('open-math', -1)">-</button>
-                                <input type="number" id="open-math" value="0">
-                                <button onclick="changeValue('open-math', 1)">+</button>
-                            </div>
-                        </td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('closed-math', -1)">-</button>
-                                <input type="number" id="closed-math" value="0">
-                                <button onclick="changeValue('closed-math', 1)">+</button>
-                            </div>
-                        </td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('coding-math', -1)">-</button>
-                                <input type="number" id="coding-math" value="0">
-                                <button onclick="changeValue('coding-math', 1)">+</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Английский</td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('open-english', -1)">-</button>
-                                <input type="number" id="open-english" value="0">
-                                <button onclick="changeValue('open-english', 1)">+</button>
-                            </div>
-                        </td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('closed-english', -1)">-</button>
-                                <input type="number" id="closed-english" value="0">
-                                <button onclick="changeValue('closed-english', 1)">+</button>
-                            </div>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Русский</td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('open-russian', -1)">-</button>
-                                <input type="number" id="open-russian" value="0">
-                                <button onclick="changeValue('open-russian', 1)">+</button>
-                            </div>
-                        </td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('closed-russian', -1)">-</button>
-                                <input type="number" id="closed-russian" value="0">
-                                <button onclick="changeValue('closed-russian', 1)">+</button>
-                            </div>
-                        </td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-            <button onclick="calculateScores()">Рассчитать баллы</button>
-        </div>
+    <button onclick="showGraduationForm()">Məzuniyyət imtahası</button>
 
-        <div id="results" class="results">
-            <h3>Результаты:</h3>
-            <p id="math-result" class="result-item"></p>
-            <p id="english-result" class="result-item"></p>
-            <p id="russian-result" class="result-item"></p>
-        </div>
+    <div id="graduation-form" class="form-container">
+        <h2>Məzuniyyət imtahası</h2>
+        <table id="subject-table">
+            <thead>
+                <tr>
+                    <th>Fənn</th>
+                    <th>Açıq suallar</th>
+                    <th>Bağlı suallar</th>
+                    <th>Kodlaşdırma sualları</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Riyaziyyat</td>
+                    <td><div class="input-wrapper">
+                            <button onclick="changeValue('open-math', -1)">-</button>
+                            <input type="number" id="open-math" value="0">
+                            <button onclick="changeValue('open-math', 1)">+</button>
+                        </div>
+                    </td>
+                    <td><div class="input-wrapper">
+                            <button onclick="changeValue('closed-math', -1)">-</button>
+                            <input type="number" id="closed-math" value="0">
+                            <button onclick="changeValue('closed-math', 1)">+</button>
+                        </div>
+                    </td>
+                    <td><div class="input-wrapper">
+                            <button onclick="changeValue('coding-math', -1)">-</button>
+                            <input type="number" id="coding-math" value="0">
+                            <button onclick="changeValue('coding-math', 1)">+</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>İngilis dili</td>
+                    <td><div class="input-wrapper">
+                            <button onclick="changeValue('open-english', -1)">-</button>
+                            <input type="number" id="open-english" value="0">
+                            <button onclick="changeValue('open-english', 1)">+</button>
+                        </div>
+                    </td>
+                    <td><div class="input-wrapper">
+                            <button onclick="changeValue('closed-english', -1)">-</button>
+                            <input type="number" id="closed-english" value="0">
+                            <button onclick="changeValue('closed-english', 1)">+</button>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Rus dili</td>
+                    <td><div class="input-wrapper">
+                            <button onclick="changeValue('open-russian', -1)">-</button>
+                            <input type="number" id="open-russian" value="0">
+                            <button onclick="changeValue('open-russian', 1)">+</button>
+                        </div>
+                    </td>
+                    <td><div class="input-wrapper">
+                            <button onclick="changeValue('closed-russian', -1)">-</button>
+                            <input type="number" id="closed-russian" value="0">
+                            <button onclick="changeValue('closed-russian', 1)">+</button>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <button onclick="calculateScores()">Balları hesablamaq</button>
     </div>
 
-    <script src="script.js"></script>
+    <div id="results" class="results">
+        <h3>Nəticələr:</h3>
+        <p id="math-result" class="result-item"></p>
+        <p id="english-result" class="result-item"></p>
+        <p id="russian-result" class="result-item"></p>
+    </div>
+
+    <script>
+        function showGraduationForm() {
+            document.getElementById('graduation-form').style.display = 'block';
+        }
+
+        function changeValue(id, change) {
+            let input = document.getElementById(id);
+            let value = parseInt(input.value);
+            if (value + change >= 0) {
+                input.value = value + change;
+            }
+        }
+
+        function calculateScores() {
+            let openMath = parseInt(document.getElementById('open-math').value);
+            let closedMath = parseInt(document.getElementById('closed-math').value);
+            let codingMath = parseInt(document.getElementById('coding-math').value);
+            let openEnglish = parseInt(document.getElementById('open-english').value);
+            let closedEnglish = parseInt(document.getElementById('closed-english').value);
+            let openRussian = parseInt(document.getElementById('open-russian').value);
+            let closedRussian = parseInt(document.getElementById('closed-russian').value);
+
+            let mathScore = openMath * 2 + closedMath * 1.5 + codingMath * 3;
+            let englishScore = openEnglish * 2 + closedEnglish * 1.5;
+            let russianScore = openRussian * 2 + closedRussian * 1.5;
+
+            document.getElementById('math-result').textContent = `Riyaziyyat: ${mathScore.toFixed(2)} bal`;
+            document.getElementById('english-result').textContent = `İngilis dili: ${englishScore.toFixed(2)} bal`;
+            document.getElementById('russian-result').textContent = `Rus dili: ${russianScore.toFixed(2)} bal`;
+        }
+    </script>
+
 </body>
 </html>
