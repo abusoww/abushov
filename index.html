@@ -6,55 +6,81 @@
     <title>Подсчет баллов выпускного экзамена</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #f9f9f9, #e0e0e0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
         .container {
-            max-width: 600px;
-            margin: 0 auto;
             background-color: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 700px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .container:hover {
+            transform: scale(1.05);
         }
         button {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
             border-radius: 5px;
+            font-size: 18px;
             cursor: pointer;
-            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
         }
         button:hover {
             background-color: #45a049;
         }
         .form-container {
             margin-top: 20px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .form-container.show {
+            display: block;
+            opacity: 1;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-top: 15px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
-        table, th, td {
-            border: 1px solid #ddd;
+        table.show {
+            opacity: 1;
         }
         th, td {
-            padding: 10px;
+            padding: 12px;
             text-align: center;
+            border: 1px solid #ddd;
         }
         input[type="number"] {
             width: 60px;
-            padding: 5px;
+            padding: 8px;
             text-align: center;
-            border: 1px solid #ddd;
             border-radius: 5px;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s;
+        }
+        input[type="number"]:focus {
+            border-color: #4CAF50;
         }
         .results {
             margin-top: 20px;
             display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
         .result-item {
             font-size: 18px;
@@ -67,9 +93,9 @@
     <div class="container">
         <button onclick="showGraduationForm()">Выпускной экзамен</button>
 
-        <div id="graduation-form" class="form-container" style="display:none;">
+        <div id="graduation-form" class="form-container">
             <h2>Выпускной экзамен</h2>
-            <table>
+            <table id="subject-table">
                 <thead>
                     <tr>
                         <th>Предмет</th>
@@ -112,7 +138,10 @@
 
     <script>
         function showGraduationForm() {
-            document.getElementById('graduation-form').style.display = 'block';
+            const form = document.getElementById('graduation-form');
+            const table = document.getElementById('subject-table');
+            form.classList.add('show');
+            table.classList.add('show');
         }
 
         function calculateScores() {
@@ -134,7 +163,9 @@
             document.getElementById('english-result').textContent = `Английский: ${englishScore.toFixed(2)} баллов`;
             document.getElementById('russian-result').textContent = `Русский: ${russianScore.toFixed(2)} баллов`;
 
-            document.getElementById('results').style.display = 'block';
+            const results = document.getElementById('results');
+            results.style.display = 'block';
+            results.style.opacity = 1;
         }
     </script>
 </body>
