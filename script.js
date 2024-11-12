@@ -1,45 +1,22 @@
-document.getElementById('taskForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+document.getElementById("score-form").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-    const language = document.getElementById('language').value;
-    const closed = parseInt(document.getElementById('closed').value, 10);
-    const open = parseInt(document.getElementById('open').value, 10);
-    const openCode = parseInt(document.getElementById('openCode').value, 10);
-    let message = "";
+    let subject1 = parseInt(document.getElementById("subject1").value);
+    let subject2 = parseInt(document.getElementById("subject2").value);
+    let subject3 = parseInt(document.getElementById("subject3").value);
+    let subject4 = parseInt(document.getElementById("subject4").value);
 
-    switch (language) {
-        case 'azerbaijani':
-            if (closed < 20 || closed > 20) {
-                message += "Qapalı tipli tapşırıqlar 20 olmalıdır. ";
-            }
-            if (open < 10 || open > 10) {
-                message += "Açıq tipli tapşırıqlar 10 olmalıdır. ";
-            }
-            break;
-        case 'english':
-            if (closed < 23 || closed > 23) {
-                message += "Closed questions should be 23. ";
-            }
-            if (open < 7 || open > 7) {
-                message += "Open questions should be 7. ";
-            }
-            break;
-        case 'math':
-            if (closed < 13 || closed > 13) {
-                message += "Closed math questions should be 13. ";
-            }
-            if (open < 7 || open > 7) {
-                message += "Open math questions should be 7. ";
-            }
-            if (openCode < 5 || openCode > 5) {
-                message += "Coding questions should be 5. ";
-            }
-            break;
+    if (checkRange(subject1) && checkRange(subject2) && checkRange(subject3) && checkRange(subject4)) {
+        let total = subject1 + subject2 + subject3 + subject4;
+        let average = total / 4;
+        document.getElementById("result").innerHTML = `Total: ${total}, Average: ${average}`;
     }
-
-    if (message === "") {
-        message = "Bütün tapşırıqlar düzgündür!";
-    }
-
-    document.getElementById('message').textContent = message;
 });
+
+function checkRange(value) {
+    if (value < 0 || value > 100) {
+        alert("Please enter a value between 0 and 100.");
+        return false;
+    }
+    return true;
+}
