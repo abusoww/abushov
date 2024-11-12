@@ -1,84 +1,64 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
 }
 
 .container {
-    max-width: 1200px;
+    width: 90%;
     margin: 0 auto;
-    padding: 20px;
+    text-align: center;
 }
 
 header h1 {
-    text-align: center;
-    color: #333;
+    margin-bottom: 20px;
 }
 
 nav {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
 
 nav button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
+    margin: 0 10px;
+    padding: 10px;
     cursor: pointer;
-    margin: 5px;
-    border-radius: 5px;
 }
 
-nav button:hover {
-    background-color: #45a049;
-}
-
-.form-group {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+.group {
+    display: block;
 }
 
 table {
     width: 100%;
-    margin-bottom: 20px;
+    margin: 20px 0;
     border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
 }
 
 th, td {
     padding: 10px;
     text-align: center;
-    border: 1px solid #ddd;
-}
-
-input[type="number"] {
-    padding: 10px;
-    width: 100px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ddd;
 }
 
 button {
-    padding: 10px 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 0 5px;
     background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
 }
 
-button:hover {
+button:active {
     background-color: #45a049;
 }
 
-p {
-    font-size: 18px;
-    color: #333;
+input {
+    width: 60px;
+    text-align: center;
+    padding: 5px;
+    font-size: 16px;
+    margin: 5px;
 }
-
