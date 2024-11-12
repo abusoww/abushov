@@ -72,5 +72,4 @@ function calculateAllScores() {
 
     document.getElementById('math-score').textContent = `Баллы по математике: ${mathScore.toFixed(2)}`;
     document.getElementById('russian-score').textContent = `Баллы по русскому языку: ${russianScore.toFixed(2)}`;
-    document.getElementById('english-score').textContent = `Баллы по английскому языку: ${englishScore.toFixed(2)}`;
-}
+    document.getElementById('english-score').textContent = `Баллы по английскому языку: ${english
