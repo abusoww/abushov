@@ -18,22 +18,23 @@
             <button onclick="showGroup('group3')">III группа</button>
             <button onclick="showGroup('group4')">IV группа</button>
         </nav>
-        <section id="content">
-            <p>Выберите группу для расчета баллов.</p>
-        </section>
         
-        <!-- Формы для расчета баллов -->
+        <!-- Выпускной экзамен -->
         <div id="graduation" class="form-group" style="display:none;">
             <h2>Выпускной экзамен</h2>
-            <label for="open-questions">Открытые вопросы (всего 2):</label>
-            <input type="number" id="open-questions" placeholder="Кол-во правильных ответов">
-            <label for="closed-questions">Закрытые вопросы (всего 10):</label>
-            <input type="number" id="closed-questions" placeholder="Кол-во правильных ответов">
-            <button onclick="calculateGraduationScore()">Рассчитать баллы</button>
-            <p id="graduation-score"></p>
+            <div class="subject">
+                <h3>Тədris dili (Азербайджанский язык)</h3>
+                <label for="open-questions-graduation">Открытые вопросы:</label>
+                <input type="number" id="open-questions-graduation" placeholder="Количество правильных ответов">
+                <label for="closed-questions-graduation">Закрытые вопросы:</label>
+                <input type="number" id="closed-questions-graduation" placeholder="Количество правильных ответов">
+                <button onclick="calculateGraduationScore()">Рассчитать баллы</button>
+                <p id="graduation-score"></p>
+            </div>
         </div>
-        
-        <!-- Аналогичные формы для других групп можно добавить сюда -->
+
+        <!-- Прочие группы аналогичные -->
+
     </div>
 
     <script src="script.js"></script>
