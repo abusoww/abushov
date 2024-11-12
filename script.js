@@ -10,6 +10,20 @@ function showGroup(group) {
     });
 }
 
+// Функция для увеличения значения
+function increment(id) {
+    let input = document.getElementById(id);
+    input.value = parseInt(input.value) + 1;
+}
+
+// Функция для уменьшения значения
+function decrement(id) {
+    let input = document.getElementById(id);
+    if (input.value > 0) {
+        input.value = parseInt(input.value) - 1;
+    }
+}
+
 // Расчет баллов для Математики
 function calculateMathScore() {
     const openQuestions = document.getElementById('open-questions-math').value;
