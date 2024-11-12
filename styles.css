@@ -2,28 +2,18 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
-    padding: 0;
+    padding: 20px;
 }
 
 .container {
     max-width: 800px;
-    margin: 50px auto;
+    margin: 0 auto;
+    background-color: #fff;
     padding: 20px;
-    background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-header h1 {
-    text-align: center;
-    font-size: 24px;
-}
-
-nav {
-    margin: 20px 0;
-    text-align: center;
-}
-
-nav button {
+button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -31,12 +21,17 @@ nav button {
     color: white;
     border: none;
     border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background-color: #45a049;
 }
 
 table {
     width: 100%;
+    margin-bottom: 20px;
     border-collapse: collapse;
-    margin-top: 20px;
 }
 
 table th, table td {
@@ -45,53 +40,17 @@ table th, table td {
     border: 1px solid #ddd;
 }
 
-table th {
-    background-color: #f4f4f4;
-}
-
-button {
-    font-size: 20px;
-    width: 30px;
-    height: 30px;
-    border: none;
-    cursor: pointer;
-    background-color: #f1f1f1;
-    font-weight: bold;
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-}
-
-button:hover {
-    background-color: #ddd;
-}
-
 input[type="number"] {
     width: 60px;
     padding: 5px;
-    text-align: center;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    text-align: center;
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-#result {
+.results {
     margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
 }
 
-button:disabled {
-    cursor: not-allowed;
-    background-color: #ccc;
-}
-
-h2 {
+h2, h3 {
     text-align: center;
 }
