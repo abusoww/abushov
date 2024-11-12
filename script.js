@@ -1,43 +1,47 @@
 function showGroup(group) {
     const content = document.getElementById('content');
-    content.innerHTML = ''; // Очистка содержимого
+    let groupInfo = '';
 
-    let subjects = '';
-    if (group === 'graduation') {
-        subjects = 'Математика, Русский, Английский';
-    } else if (group === 'group1') {
-        subjects = 'Математика, Физика, Информатика';
-    } else if (group === 'group2') {
-        subjects = 'География, История, Математика';
-    } else if (group === 'group3') {
-        subjects = 'Литература, История, Русский язык';
-    } else if (group === 'group4') {
-        subjects = 'Биология, Химия, Физика';
-    }
+    const subjects = {
+        'graduation': ['Математика', 'Русский язык', 'Английский'],
+        'group1': ['Математика', 'Физика', 'Информатика'],
+        'group2': ['География', 'История', 'Математика'],
+        'group3': ['Литература', 'История', 'Русский язык'],
+        'group4': ['Биология', 'Химия', 'Физика']
+    };
 
-    content.innerHTML = `
-        <h2>${group === 'graduation' ? 'Выпускной экзамен' : group.replace('group', 'Группа ')}</h2>
-        <p>Предметы: ${subjects}.</p>
-        <form id="scoreForm">
-            <label>Правильные ответы по каждому предмету: <input type="number" id="correctAnswers" min="0" required></label><br>
-            <label>Неправильные ответы по каждому предмету: <input type="number" id="wrongAnswers" min="0" required></label><br>
-            <button type="button" onclick="calculateScore()">Рассчитать балл</button>
-        </form>
-        <div id="result"></div>
+    let subjectInputs = subjects[group].map(subject => {
+        return `
+            <div class="mb-3">
+                <label for="${subject}" class="form-label">${subject}</label>
+                <input type="number" class="form-control" id="${subject}" placeholder="Введите балл">
+            </div>
+        `;
+    }).join('');
+
+    groupInfo = `
+        <h2>${group === 'graduation' ? 'Выпускной экзамен' : 'Группа ' + group.charAt(group.length - 1)}</h2>
+        ${subjectInputs}
+        <button class="btn btn-success" onclick="calculateScore('${group}')">Рассчитать</button>
+        <p id="${group}-result"></p>
     `;
+
+    content.innerHTML = groupInfo;
 }
 
-function calculateScore() {
-    const correctAnswers = document.getElementById('correctAnswers').value;
-    const wrongAnswers = document.getElementById('wrongAnswers').value;
-    const result = document.getElementById('result');
+function calculateScore(group) {
+    const subjects = {
+        'graduation': ['Математика', 'Русский язык', 'Английский'],
+        'group1': ['Математика', 'Физика', 'Информатика'],
+        'group2': ['География', 'История', 'Математика'],
+        'group3': ['Литература', 'История', 'Русский язык'],
+        'group4': ['Биология', 'Химия', 'Физика']
+    };
 
-    if (correctAnswers === '' || wrongAnswers === '') {
-        result.innerHTML = '<p>Пожалуйста, заполните все поля.</p>';
-        return;
-    }
+    const totalScore = subjects[group].reduce((total, subject) => {
+        const score = parseFloat(document.getElementById(subject).value);
+        return total + (isNaN(score) ? 0 : score);
+    }, 0);
 
-    // Примерный расчет: 4 балла за правильный ответ и -1 за неправильный
-    const score = (correctAnswers * 4) - (wrongAnswers * 1);
-    result.innerHTML = `<p>Ваш балл: ${score}</p>`;
+    document.getElementById(`${group}-result`).innerHTML = `Общий балл: ${totalScore}`;
 }
