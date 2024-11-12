@@ -92,26 +92,47 @@
             <button onclick="showForm('4cu')">4-cü Qrup</button>
         </div>
 
-        <!-- Buraxılış imtahanı formu -->
-        <div id="buraxilis" class="exam-form">
-            <h3>Buraxılış İmtahanı</h3>
-            <label>Azərbaycan dili:</label>
-            <input type="number" id="az_dili_aciq" placeholder="Açıq yazılı">
-            <input type="number" id="az_dili_qapali" placeholder="Qapalı">
-            <br><br>
-            <label>İngilis dili:</label>
-            <input type="number" id="ingilis_aciq" placeholder="Açıq yazılı">
-            <input type="number" id="ingilis_qapali" placeholder="Qapalı">
-            <br><br>
-            <label>Riyaziyyat:</label>
-            <input type="number" id="riyaziyyat_aciq" placeholder="Açıq yazılı">
-            <input type="number" id="riyaziyyat_qapali" placeholder="Qapalı">
-            <input type="number" id="riyaziyyat_aciq_kod" placeholder="Açıq kodlaşma">
-            <br><br>
-            <button onclick="calculate('buraxilis')">Hesabla</button>
-            <div id="result_buraxilis" class="result"></div>
-        </div>
+    <!-- Buraxılış imtahanı formu -->
+    <div id="buraxilis" class="exam-form">
+        <h3>Buraxılış İmtahanı</h3>
+        <table>
+            <tr>
+                <th>Azərbaycan dili</th>
+                <td>
+                    <input type="number" id="az_dili_aciq" placeholder="Açıq yazılı">
+                </td>
+                <td>
+                    <input type="number" id="az_dili_qapali" placeholder="Qapalı">
+                </td>
+            </tr>
+            <tr>
+                <th>İngilis dili</th>
+                <td>
+                    <input type="number" id="ingilis_aciq" placeholder="Açıq yazılı">
+                </td>
+                <td>
+                    <input type="number" id="ingilis_qapali" placeholder="Qapalı">
+                </td>
+            </tr>
+            <tr>
+                <th>Riyaziyyat</th>
+                <td>
+                    <input type="number" id="riyaziyyat_aciq" placeholder="Açıq yazılı">
+                </td>
+                <td>
+                    <input type="number" id="riyaziyyat_qapali" placeholder="Qapalı">
+                </td>
+                <td>
+                    <input type="number" id="riyaziyyat_aciq_kod" placeholder="Açıq kodlaşma">
+                </td>
+            </tr>
+        </table>
+        <button onclick="calculate('buraxilis')">Hesabla</button>
+        <div id="result_buraxilis" class="result"></div>
+    </div>
 
+
+        
         <!-- 1-ci qrup formu -->
         <div id="1ci" class="exam-form">
             <h3>1-ci Qrup</h3>
