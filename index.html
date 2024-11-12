@@ -3,114 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Подсчет баллов выпускного экзамена</title>
+    <title>Выпускной экзамен</title>
     <style>
+        /* Base styles */
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #f9f9f9, #e0e0e0);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            flex-direction: column;
+            padding: 0;
+            background-color: #f4f4f4;
         }
+
         .container {
+            width: 90%;
+            margin: 20px auto;
             background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 700px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
+        header h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
         button {
             background-color: #4CAF50;
             color: white;
-            padding: 12px 25px;
             border: none;
-            border-radius: 5px;
-            font-size: 18px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
             cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease;
-            margin: 5px 0;
         }
+
         button:hover {
             background-color: #45a049;
         }
-        .form-container {
-            margin-top: 20px;
+
+        .form-group {
             display: none;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            margin-top: 20px;
         }
+
         th, td {
             padding: 12px;
             text-align: center;
             border: 1px solid #ddd;
         }
-        input[type="number"] {
-            width: 60px;
-            padding: 8px;
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        td input {
+            width: 50px;
             text-align: center;
-            border-radius: 5px;
-            border: 1px solid #ddd;
+            padding: 5px;
         }
-        .input-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .input-wrapper button {
-            background-color: #ddd;
+
+        td button {
             width: 30px;
             height: 30px;
             font-size: 18px;
-            padding: 0;
-            margin: 0 5px;
-            border: none;
-            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
         }
-        .input-wrapper button:hover {
-            background-color: #bbb;
-        }
-        .results {
-            margin-top: 20px;
-            display: none;
-        }
-        .result-item {
+
+        .result p {
+            text-align: center;
             font-size: 18px;
-            font-weight: bold;
-            margin: 10px 0;
         }
-        .group-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
+
+        /* Media Queries for mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+
+            td input {
+                width: 40px;
+            }
+
+            td button {
+                font-size: 16px;
+            }
         }
-        .group-buttons button {
-            width: 22%;
+
+        @media (max-width: 480px) {
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+
+            button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            td input {
+                width: 35px;
+            }
+
+            td button {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Кнопки для групп -->
-        <div class="group-buttons">
-            <button>1 группа</button>
-            <button>2 группа</button>
-            <button>3 группа</button>
-            <button>4 группа</button>
-        </div>
-        <!-- Кнопка для выпускного экзамена -->
-        <button onclick="showGraduationForm()">Выпускной экзамен</button>
 
-        <div id="graduation-form" class="form-container">
+    <div class="container">
+        <header>
+            <h1>Калькулятор баллов для выпускного экзамена</h1>
+        </header>
+
+        <nav>
+            <button onclick="showGroup('graduation')">Выпускной экзамен</button>
+            <button onclick="showGroup('group1')">1 группа</button>
+            <button onclick="showGroup('group2')">2 группа</button>
+            <button onclick="showGroup('group3')">3 группа</button>
+            <button onclick="showGroup('group4')">4 группа</button>
+        </nav>
+
+        <div id="graduation" class="form-group">
             <h2>Выпускной экзамен</h2>
-            <table id="subject-table">
+
+            <table>
                 <thead>
                     <tr>
                         <th>Предмет</th>
@@ -122,106 +168,421 @@
                 <tbody>
                     <tr>
                         <td>Математика</td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('open-math', -1)">-</button>
-                                <input type="number" id="open-math" value="0">
-                                <button onclick="changeValue('open-math', 1)">+</button>
-                            </div>
+                        <td>
+                            <button onclick="decrement('open-questions-math')">−</button>
+                            <input type="number" id="open-questions-math" value="0">
+                            <button onclick="increment('open-questions-math')">+</button>
                         </td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('closed-math', -1)">-</button>
-                                <input type="number" id="closed-math" value="0">
-                                <button onclick="changeValue('closed-math', 1)">+</button>
-                            </div>
+                        <td>
+                            <button onclick="decrement('closed-questions-math')">−</button>
+                            <input type="number" id="closed-questions-math" value="0">
+                            <button onclick="increment('closed-questions-math')">+</button>
                         </td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('coding-math', -1)">-</button>
-                                <input type="number" id="coding-math" value="0">
-                                <button onclick="changeValue('coding-math', 1)">+</button>
-                            </div>
+                        <td>
+                            <button onclick="decrement('coding-questions-math')">−</button>
+                            <input type="number" id="coding-questions-math" value="0">
+                            <button onclick="increment('coding-questions-math')">+</button>
                         </td>
                     </tr>
                     <tr>
                         <td>Английский</td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('open-english', -1)">-</button>
-                                <input type="number" id="open-english" value="0">
-                                <button onclick="changeValue('open-english', 1)">+</button>
-                            </div>
+                        <td>
+                            <button onclick="decrement('open-questions-english')">−</button>
+                            <input type="number" id="open-questions-english" value="0">
+                            <button onclick="increment('open-questions-english')">+</button>
                         </td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('closed-english', -1)">-</button>
-                                <input type="number" id="closed-english" value="0">
-                                <button onclick="changeValue('closed-english', 1)">+</button>
-                            </div>
+                        <td>
+                            <button onclick="decrement('closed-questions-english')">−</button>
+                            <input type="number" id="closed-questions-english" value="0">
+                            <button onclick="increment('closed-questions-english')">+</button>
                         </td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Русский</td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('open-russian', -1)">-</button>
-                                <input type="number" id="open-russian" value="0">
-                                <button onclick="changeValue('open-russian', 1)">+</button>
-                            </div>
+                        <td>
+                            <button onclick="decrement('open-questions-russian')">−</button>
+                            <input type="number" id="open-questions-russian" value="0">
+                            <button onclick="increment('open-questions-russian')">+</button>
                         </td>
-                        <td><div class="input-wrapper">
-                                <button onclick="changeValue('closed-russian', -1)">-</button>
-                                <input type="number" id="closed-russian" value="0">
-                                <button onclick="changeValue('closed-russian', 1)">+</button>
-                            </div>
+                        <td>
+                            <button onclick="decrement('closed-questions-russian')">−</button>
+                            <input type="number" id="closed-questions-russian" value="0">
+                            <button onclick="increment('closed-questions-russian')">+</button>
                         </td>
                         <td></td>
                     </tr>
                 </tbody>
             </table>
-            <button onclick="calculateScores()">Рассчитать баллы</button>
+
+            <button onclick="calculateAllScores()">Рассчитать баллы</button>
+
+            <div id="result" class="result">
+                <p id="math-score"></p>
+                <p id="russian-score"></p>
+                <p id="english-score"></p>
+            </div>
         </div>
 
-        <div id="results" class="results">
-            <h3>Результаты:</h3>
-            <p id="math-result" class="result-item"></p>
-            <p id="english-result" class="result-item"></p>
-            <p id="russian-result" class="result-item"></p>
+        <div id="group1" class="form-group">
+            <!-- Group 1 content goes here -->
+        </div>
+
+        <div id="group2" class="form-group">
+            <!-- Group 2 content goes here -->
+        </div>
+
+        <div id="group3" class="form-group">
+            <!-- Group 3 content goes here -->
+        </div>
+
+        <div id="group4" class="form-group">
+            <!-- Group 4 content goes here -->
         </div>
     </div>
 
     <script>
-        function showGraduationForm() {
-            const form = document.getElementById('graduation-form');
-            form.style.display = 'block';
+        function showGroup(group) {
+            const groups = ['graduation', 'group1', 'group2', 'group3', 'group4'];
+            groups.forEach(g => {
+                const groupElement = document.getElementById(g);
+                if (group === g) {
+                    groupElement.style.display = 'block';
+                } else {
+                    groupElement.style.display = 'none';
+                }
+            });
         }
 
-        function calculateScores() {
-            const openMath = parseInt(document.getElementById('open-math').value);
-            const closedMath = parseInt(document.getElementById('closed-math').value);
-            const codingMath = parseInt(document.getElementById('coding-math').value);
-
-            const openEnglish = parseInt(document.getElementById('open-english').value);
-            const closedEnglish = parseInt(document.getElementById('closed-english').value);
-
-            const openRussian = parseInt(document.getElementById('open-russian').value);
-            const closedRussian = parseInt(document.getElementById('closed-russian').value);
-
-            const mathScore = (25 / 8) * (2 * openMath + closedMath + codingMath);
-            const englishScore = (100 / 37) * (2 * openEnglish + closedEnglish);
-            const russianScore = 2.5 * (2 * openRussian + closedRussian);
-
-            document.getElementById('math-result').textContent = `Математика: ${mathScore.toFixed(2)} баллов`;
-            document.getElementById('english-result').textContent = `Английский: ${englishScore.toFixed(2)} баллов`;
-            document.getElementById('russian-result').textContent = `Русский: ${russianScore.toFixed(2)} баллов`;
-
-            const results = document.getElementById('results');
-            results.style.display = 'block';
+        function increment(id) {
+            let input = document.getElementById(id);
+            input.value = parseInt(input.value) + 1;
         }
 
-        function changeValue(id, delta) {
-            const input = document.getElementById(id);
-            let value = parseInt(input.value);
-            value += delta;
-            if (value < 0) value = 0;
-            input.value = value;
+        function decrement(id) {
+            let input = document.getElementById(id);
+            if (input.value > 0) {
+                input.value = parseInt(input.value) - 1;
+            }
         }
-    </script>
-</body>
-</html>
+
+        function calculateMathScore() {
+            const openQuestions = document.getElementById('open-questions-math').value;
+            const closedQuestions = document.getElementById('closed-questions-math').value;
+            const codingQuestions = document.getElementById('coding-questions-math').value;
+
+            if (openQuestions === '' || closedQuestions === '' || codingQuestions === '') {
+                alert('Пожалуйста, заполните все поля для математики');
+                return 0;
+            }
+
+            return (25 / 8) * (2 * openQuestions + parseInt(closedQuestions) + parseInt(codingQuestions));
+        }
+
+        function calculateRussianScore() {
+            const openQuestions = document.getElementById('open-questions-russian').value;
+            const closedQuestions = document.getElementById('closed-questions-russian').value;
+
+            if (openQuestions === '' || closedQuestions === '') {
+                alert('Пожалуйста, заполните все поля для русского языка');
+                return 0;
+            }
+
+            return 2.5 * (2 * openQuestions +I understand you are facing challenges with the mobile responsiveness and functionality of the page. Here's an updated version with a focus on fixing mobile issues, and ensuring the button behavior works properly across devices:
+
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выпускной экзамен</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .form-group {
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        td input {
+            width: 50px;
+            text-align: center;
+            padding: 5px;
+        }
+
+        td button {
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+        }
+
+        .result p {
+            text-align: center;
+            font-size: 18px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+
+            td input {
+                width: 40px;
+            }
+
+            td button {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+
+            button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            td input {
+                width: 35px;
+            }
+
+            td button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Калькулятор баллов для выпускного экзамена</h1>
+        </header>
+
+        <nav>
+            <button onclick="showGroup('graduation')">Выпускной экзамен</button>
+            <button onclick="showGroup('group1')">1 группа</button>
+            <button onclick="showGroup('group2')">2 группа</button>
+            <button onclick="showGroup('group3')">3 группа</button>
+            <button onclick="showGroup('group4')">4 группа</button>
+        </nav>
+
+        <div id="graduation" class="form-group">
+            <h2>Выпускной экзамен</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Предмет</th>
+                        <th>Открытые вопросы</th>
+                        <th>Закрытые вопросы</th>
+                        <th>Вопросы с кодированием</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Математика</td>
+                        <td>
+                            <button onclick="decrement('open-questions-math')">−</button>
+                            <input type="number" id="open-questions-math" value="0">
+                            <button onclick="increment('open-questions-math')">+</button>
+                        </td>
+                        <td>
+                            <button onclick="decrement('closed-questions-math')">−</button>
+                            <input type="number" id="closed-questions-math" value="0">
+                            <button onclick="increment('closed-questions-math')">+</button>
+                        </td>
+                        <td>
+                            <button onclick="decrement('coding-questions-math')">−</button>
+                            <input type="number" id="coding-questions-math" value="0">
+                            <button onclick="increment('coding-questions-math')">+</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Английский</td>
+                        <td>
+                            <button onclick="decrement('open-questions-english')">−</button>
+                            <input type="number" id="open-questions-english" value="0">
+                            <button onclick="increment('open-questions-english')">+</button>
+                        </td>
+                        <td>
+                            <button onclick="decrement('closed-questions-english')">−</button>
+                            <input type="number" id="closed-questions-english" value="0">
+                            <button onclick="increment('closed-questions-english')">+</button>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Русский</td>
+                        <td>
+                            <button onclick="decrement('open-questions-russian')">−</button>
+                            <input type="number" id="open-questions-russian" value="0">
+                            <button onclick="increment('open-questions-russian')">+</button>
+                        </td>
+                        <td>
+                            <button onclick="decrement('closed-questions-russian')">−</button>
+                            <input type="number" id="closed-questions-russian" value="0">
+                            <button onclick="increment('closed-questions-russian')">+</button>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button onclick="calculateAllScores()">Рассчитать баллы</button>
+
+            <div id="result" class="result">
+                <p id="math-score"></p>
+                <p id="russian-score"></p>
+                <p id="english-score"></p>
+            </div>
+        </div>
+
+        <div id="group1" class="form-group">
+            <!-- Group 1 content goes here -->
+        </div>
+
+        <div id="group2" class="form-group">
+            <!-- Group 2 content goes here -->
+        </div>
+
+        <div id="group3" class="form-group">
+            <!-- Group 3 content goes here -->
+        </div>
+
+        <div id="group4" class="form-group">
+            <!-- Group 4 content goes here -->
+        </div>
+    </div>
+
+    <script>
+        function showGroup(group) {
+            const groups = ['graduation', 'group1', 'group2', 'group3', 'group4'];
+            groups.forEach(g => {
+                const groupElement = document.getElementById(g);
+                if (group === g) {
+                    groupElement.style.display = 'block';
+                } else {
+                    groupElement.style.display = 'none';
+                }
+            });
+        }
+
+        function increment(id) {
+            let input = document.getElementById(id);
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decrement(id) {
+            let input = document.getElementById(id);
+            if (input.value > 0) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+
+        function calculateMathScore() {
+            const openQuestions = document.getElementById('open-questions-math').value;
+            const closedQuestions = document.getElementById('closed-questions-math').value;
+            const codingQuestions = document.getElementById('coding-questions-math').value;
+
+            if (openQuestions === '' || closedQuestions === '' || codingQuestions === '') {
+                alert('Пожалуйста, заполните все поля для математики');
+                return 0;
+            }
+
+            return (25 / 8) * (2 * openQuestions + parseInt(closedQuestions) + parseInt(codingQuestions));
+        }
+
+        function calculateRussianScore() {
+            const openQuestions = document.getElementById('open-questions-russian').value;
+            const closedQuestions = document.getElementById('closed-questions-russian').value;
+
+            if (openQuestions === '' || closedQuestions === '') {
+                alert('Пожалуйста, заполните все поля для русского языка');
+                return 0;
+            }
+
+            return 2.5 * (2 * openQuestions + parseInt(closedQuestions));
+        }
+
+        function calculateYour updated HTML and CSS look great for making the page mobile-responsive and improving the button behavior. The main changes for mobile devices (under 768px and 480px) are:
+
+
