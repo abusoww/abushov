@@ -18,71 +18,35 @@
             <button onclick="showGroup('group3')">III группа</button>
             <button onclick="showGroup('group4')">IV группа</button>
         </nav>
-        <section id="content">
-            <div id="graduation" class="group">
-                <h2>Выпускной экзамен</h2>
-                <table>
-                    <tr>
-                        <td>Математика (Открытые вопросы):</td>
-                        <td>
-                            <button onclick="decrement('open-questions-math')">−</button>
-                            <input id="open-questions-math" value="0">
-                            <button onclick="increment('open-questions-math')">+</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Математика (Закрытые вопросы):</td>
-                        <td>
-                            <button onclick="decrement('closed-questions-math')">−</button>
-                            <input id="closed-questions-math" value="0">
-                            <button onclick="increment('closed-questions-math')">+</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Математика (Вопросы с кодированием):</td>
-                        <td>
-                            <button onclick="decrement('coding-questions-math')">−</button>
-                            <input id="coding-questions-math" value="0">
-                            <button onclick="increment('coding-questions-math')">+</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Русский язык (Открытые вопросы):</td>
-                        <td>
-                            <button onclick="decrement('open-questions-russian')">−</button>
-                            <input id="open-questions-russian" value="0">
-                            <button onclick="increment('open-questions-russian')">+</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Русский язык (Закрытые вопросы):</td>
-                        <td>
-                            <button onclick="decrement('closed-questions-russian')">−</button>
-                            <input id="closed-questions-russian" value="0">
-                            <button onclick="increment('closed-questions-russian')">+</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Английский язык (Открытые вопросы):</td>
-                        <td>
-                            <button onclick="decrement('open-questions-english')">−</button>
-                            <input id="open-questions-english" value="0">
-                            <button onclick="increment('open-questions-english')">+</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Английский язык (Закрытые вопросы):</td>
-                        <td>
-                            <button onclick="decrement('closed-questions-english')">−</button>
-                            <input id="closed-questions-english" value="0">
-                            <button onclick="increment('closed-questions-english')">+</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><button onclick="calculateScore()">Рассчитать баллы</button></td>
-                    </tr>
-                </table>
-            </div>
+        <section id="graduation" class="group">
+            <table>
+                <tr>
+                    <th>Предмет</th>
+                    <th>Открытые вопросы</th>
+                    <th>Закрытые вопросы</th>
+                    <th>Вопросы с кодированием</th>
+                </tr>
+                <tr>
+                    <td>Математика</td>
+                    <td><div class="input-container"><button class="btn" onclick="increment('math_open')">+</button><input type="number" id="math_open" value="0" min="0" /><button class="btn" onclick="decrement('math_open')">-</button></div></td>
+                    <td><div class="input-container"><button class="btn" onclick="increment('math_closed')">+</button><input type="number" id="math_closed" value="0" min="0" /><button class="btn" onclick="decrement('math_closed')">-</button></div></td>
+                    <td><div class="input-container"><button class="btn" onclick="increment('math_coded')">+</button><input type="number" id="math_coded" value="0" min="0" /><button class="btn" onclick="decrement('math_coded')">-</button></div></td>
+                </tr>
+                <tr>
+                    <td>Русский язык</td>
+                    <td><div class="input-container"><button class="btn" onclick="increment('russian_open')">+</button><input type="number" id="russian_open" value="0" min="0" /><button class="btn" onclick="decrement('russian_open')">-</button></div></td>
+                    <td><div class="input-container"><button class="btn" onclick="increment('russian_closed')">+</button><input type="number" id="russian_closed" value="0" min="0" /><button class="btn" onclick="decrement('russian_closed')">-</button></div></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Английский язык</td>
+                    <td><div class="input-container"><button class="btn" onclick="increment('english_open')">+</button><input type="number" id="english_open" value="0" min="0" /><button class="btn" onclick="decrement('english_open')">-</button></div></td>
+                    <td><div class="input-container"><button class="btn" onclick="increment('english_closed')">+</button><input type="number" id="english_closed" value="0" min="0" /><button class="btn" onclick="decrement('english_closed')">-</button></div></td>
+                    <td></td>
+                </tr>
+            </table>
+            <button onclick="calculateScores()">Рассчитать баллы</button>
+            <p id="result"></p>
         </section>
     </div>
     <script src="script.js"></script>
