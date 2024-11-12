@@ -1,191 +1,123 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imtahan Balcları Hesablama</title>
+    <title>Buraxılış İmtahanı Calculator</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+            margin: 20px;
         }
         .container {
-            width: 100%;
-            max-width: 900px;
+            max-width: 600px;
             margin: 0 auto;
-            background-color: white;
-            border-radius: 8px;
+            background-color: #f4f4f4;
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         h1 {
             text-align: center;
             color: #333;
-            margin-bottom: 30px;
         }
-        .group-buttons {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-        }
-        .group-buttons button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            cursor: pointer;
-            border-radius: 5px;
+        label {
             font-size: 16px;
-            transition: background-color 0.3s ease;
+            display: block;
+            margin: 10px 0 5px;
         }
-        .group-buttons button:hover {
-            background-color: #45a049;
-        }
-        .exam-form {
-            display: none;
-            margin-top: 20px;
-        }
-        .exam-form h3 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 15px;
-        }
-        .exam-form input {
-            margin-bottom: 12px;
-            padding: 10px;
-            width: calc(100% - 20px);
-            font-size: 14px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            display: inline-block;
-            margin-right: 10px;
-        }
-        .exam-form label {
-            font-weight: bold;
-        }
-        .exam-form input[type="number"] {
-            width: 48%;
-            margin-right: 4%;
-        }
-        .exam-form input[type="number"]:last-child {
-            margin-right: 0;
-        }
-        .exam-form button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
+        input[type="number"] {
             width: 100%;
-            margin-top: 15px;
+            padding: 8px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
-        .exam-form button:hover {
-            background-color: #0056b3;
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
         }
         .result {
-            margin-top: 20px;
             font-size: 18px;
             font-weight: bold;
-            color: #333;
-            text-align: center;
-        }
-        table {
-            width: 100%;
             margin-top: 20px;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 12px;
             text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Imtahan Balcları Hesablama</h1>
-        <div class="group-buttons">
-            <button onclick="showForm('buraxilis')">Buraxılış İmtahanı</button>
-            <button onclick="showForm('1ci')">1-ci Qrup</button>
-            <button onclick="showForm('2ci')">2-ci Qrup</button>
-            <button onclick="showForm('3cu')">3-cü Qrup</button>
-            <button onclick="showForm('4cu')">4-cü Qrup</button>
-        </div>
+        <h1>Buraxılış İmtahanı Calculator</h1>
+        <form id="scoreForm">
+            <!-- Azerbaijani language -->
+            <label for="azerbaijani_open">Azərbaycan dili (Açıq Yazılı):</label>
+            <input type="number" id="azerbaijani_open" placeholder="Enter open written score" required>
 
-        <!-- Buraxılış imtahanı formu -->
-        <div id="buraxilis" class="exam-form">
-            <h3>Buraxılış İmtahanı</h3>
-            <label>Azərbaycan dili:</label>
-            <input type="number" id="az_dili_aciq" placeholder="Açıq yazılı">
-            <input type="number" id="az_dili_qapali" placeholder="Qapalı">
-            <br><br>
-            <label>İngilis dili:</label>
-            <input type="number" id="ingilis_aciq" placeholder="Açıq yazılı">
-            <input type="number" id="ingilis_qapali" placeholder="Qapalı">
-            <br><br>
-            <label>Riyaziyyat:</label>
-            <input type="number" id="riyaziyyat_aciq" placeholder="Açıq yazılı">
-            <input type="number" id="riyaziyyat_qapali" placeholder="Qapalı">
-            <input type="number" id="riyaziyyat_aciq_kod" placeholder="Açıq kodlaşma">
-            <br><br>
-            <button onclick="calculate('buraxilis')">Hesabla</button>
-            <div id="result_buraxilis" class="result"></div>
-        </div>
+            <label for="azerbaijani_closed">Azərbaycan dili (Qapalı):</label>
+            <input type="number" id="azerbaijani_closed" placeholder="Enter closed score" required>
 
-        <!-- 1-ci qrup formu -->
-        <div id="1ci" class="exam-form">
-            <h3>1-ci Qrup</h3>
-            <label>Riyaziyyat:</label>
-            <input type="number" id="riyaziyyat_qapali_1" placeholder="Qapalı">
-            <input type="number" id="riyaziyyat_yalnish_qapali_1" placeholder="Yalnış qapalı">
-            <input type="number" id="riyaziyyat_aciq_1" placeholder="Açıq yazılı">
-            <input type="number" id="riyaziyyat_aciq_kod_1" placeholder="Açıq kodlaşma">
-            <br><br>
-            <label>Fizika:</label>
-            <input type="number" id="fizika_qapali_1" placeholder="Qapalı">
-            <input type="number" id="fizika_yalnish_qapali_1" placeholder="Yalnış qapalı">
-            <input type="number" id="fizika_aciq_1" placeholder="Açıq yazılı">
-            <input type="number" id="fizika_aciq_kod_1" placeholder="Açıq kodlaşma">
-            <br><br>
-            <label>Kimya:</label>
-            <input type="number" id="kimya_qapali_1" placeholder="Qapalı">
-            <input type="number" id="kimya_yalnish_qapali_1" placeholder="Yalnış qapalı">
-            <input type="number" id="kimya_aciq_1" placeholder="Açıq yazılı">
-            <input type="number" id="kimya_aciq_kod_1" placeholder="Açıq kodlaşma">
-            <br><br>
-            <button onclick="calculate('1ci')">Hesabla</button>
-            <div id="result_1ci" class="result"></div>
-        </div>
+            <!-- English language -->
+            <label for="english_open">İngilis dili (Açıq Yazılı):</label>
+            <input type="number" id="english_open" placeholder="Enter open written score" required>
 
-        <!-- Add similar exam form structures for other groups (2ci, 3cu, 4cu) -->
+            <label for="english_closed">İngilis dili (Qapalı):</label>
+            <input type="number" id="english_closed" placeholder="Enter closed score" required>
 
+            <!-- Mathematics -->
+            <label for="math_open">Riyaziyyat (Açıq Yazılı):</label>
+            <input type="number" id="math_open" placeholder="Enter open written score" required>
+
+            <label for="math_closed">Riyaziyyat (Qapalı):</label>
+            <input type="number" id="math_closed" placeholder="Enter closed score" required>
+
+            <label for="math_coding">Riyaziyyat (Açıq Kodlaşma):</label>
+            <input type="number" id="math_coding" placeholder="Enter open coding score" required>
+
+            <button type="submit">Calculate Score</button>
+        </form>
+
+        <div class="result" id="result"></div>
     </div>
 
     <script>
-        function showForm(group) {
-            // Hide all forms
-            const forms = document.querySelectorAll('.exam-form');
-            forms.forEach(form => form.style.display = 'none');
+        document.getElementById('scoreForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-            // Show the selected group form
-            const selectedForm = document.getElementById(group);
-            selectedForm.style.display = 'block';
-        }
+            // Get values from input fields
+            const azerbaijani_open = parseFloat(document.getElementById('azerbaijani_open').value);
+            const azerbaijani_closed = parseFloat(document.getElementById('azerbaijani_closed').value);
+            const english_open = parseFloat(document.getElementById('english_open').value);
+            const english_closed = parseFloat(document.getElementById('english_closed').value);
+            const math_open = parseFloat(document.getElementById('math_open').value);
+            const math_closed = parseFloat(document.getElementById('math_closed').value);
+            const math_coding = parseFloat(document.getElementById('math_coding').value);
 
-        function calculate(group) {
-            // Your calculation logic here
-            document.getElementById(`result_${group}`).innerText = "Hesablama nəticəsi...";
-        }
+            // Buraxılış imtahanı calculation
+            const azerbaijani_score = 2.5 * (2 * azerbaijani_open + azerbaijani_closed);
+            const english_score = (100 / 37) * (2 * english_open + english_closed);
+            const math_score = (25 / 8) * (2 * math_open + math_closed + math_coding);
+
+            // Total score
+            const total_score = azerbaijani_score + english_score + math_score;
+
+            // Display result
+            document.getElementById('result').innerHTML = `
+                <p>Azerbaijani Language Score: ${azerbaijani_score.toFixed(2)}</p>
+                <p>English Language Score: ${english_score.toFixed(2)}</p>
+                <p>Mathematics Score: ${math_score.toFixed(2)}</p>
+                <p><strong>Total Score: ${total_score.toFixed(2)}</strong></p>
+            `;
+        });
     </script>
 
 </body>
