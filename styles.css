@@ -1,26 +1,26 @@
-/* Убираем стрелки в полях ввода */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-    display: none; /* Скрыть стрелки */
+/* Стили для таблицы */
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-input[type="number"] {
-    -moz-appearance: textfield;
-    -webkit-appearance: none;
-    appearance: none;
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
 }
 
-/* Стили для контейнера */
+th {
+    background-color: #f4f4f4;
+}
+
+/* Стили для контейнера ввода */
 .input-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 5px;
 }
 
-/* Стили для полей ввода */
 input {
     width: 60px;
     text-align: center;
@@ -29,7 +29,6 @@ input {
     margin: 0 5px;
 }
 
-/* Кнопки + и - */
 button {
     font-size: 20px;
     background-color: #f0f0f0;
@@ -40,4 +39,8 @@ button {
 
 button:hover {
     background-color: #e0e0e0;
+}
+
+button:focus {
+    outline: none;
 }
