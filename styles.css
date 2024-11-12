@@ -1,24 +1,58 @@
-/* Стили для таблицы */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 20px;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+nav button {
+    margin: 0 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.group {
+    display: block;
+}
+
 table {
     width: 100%;
+    margin: 20px 0;
     border-collapse: collapse;
 }
 
+table, th, td {
+    border: 1px solid #ccc;
+}
+
 th, td {
-    border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
 }
 
-th {
-    background-color: #f4f4f4;
+button {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
 }
 
-/* Стили для контейнера ввода */
-.input-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+button:active {
+    background-color: #45a049;
 }
 
 input {
@@ -26,21 +60,5 @@ input {
     text-align: center;
     padding: 5px;
     font-size: 16px;
-    margin: 0 5px;
-}
-
-button {
-    font-size: 20px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #e0e0e0;
-}
-
-button:focus {
-    outline: none;
+    margin: 5px;
 }
