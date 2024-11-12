@@ -21,10 +21,6 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
             width: 80%;
             max-width: 700px;
-            transition: transform 0.3s ease-in-out;
-        }
-        .container:hover {
-            transform: scale(1.05);
         }
         button {
             background-color: #4CAF50;
@@ -43,22 +39,11 @@
         .form-container {
             margin-top: 20px;
             display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        .form-container.show {
-            display: block;
-            opacity: 1;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        table.show {
-            opacity: 1;
         }
         th, td {
             padding: 12px;
@@ -71,10 +56,6 @@
             text-align: center;
             border-radius: 5px;
             border: 1px solid #ddd;
-            transition: border-color 0.3s;
-        }
-        input[type="number"]:focus {
-            border-color: #4CAF50;
         }
         .input-wrapper {
             display: flex;
@@ -97,8 +78,6 @@
         .results {
             margin-top: 20px;
             display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
         }
         .result-item {
             font-size: 18px;
@@ -192,9 +171,7 @@
     <script>
         function showGraduationForm() {
             const form = document.getElementById('graduation-form');
-            const table = document.getElementById('subject-table');
-            form.classList.add('show');
-            table.classList.add('show');
+            form.style.display = 'block';
         }
 
         function calculateScores() {
@@ -218,14 +195,13 @@
 
             const results = document.getElementById('results');
             results.style.display = 'block';
-            results.style.opacity = 1;
         }
 
         function changeValue(id, delta) {
             const input = document.getElementById(id);
             let value = parseInt(input.value);
             value += delta;
-            if (value < 0) value = 0; // Не допускаем отрицательные значения
+            if (value < 0) value = 0;
             input.value = value;
         }
     </script>
