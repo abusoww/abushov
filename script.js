@@ -1,49 +1,24 @@
 function showGroup(group) {
-    const content = document.getElementById('content');
-    let groupInfo = '';
-
-    const subjects = {
-        'graduation': ['Математика', 'Русский язык', 'Английский'],
-        'group1': ['Математика', 'Физика', 'Информатика'],
-        'group2': ['География', 'История', 'Математика'],
-        'group3': ['Литература', 'История', 'Русский язык'],
-        'group4': ['Биология', 'Химия', 'Физика']
-    };
-
-    let subjectInputs = subjects[group].map(subject => {
-        return `
-            <div class="mb-3">
-                <label for="${subject}" class="form-label">${subject}</label>
-                <input type="number" class="form-control" id="${subject}" placeholder="Введите балл">
-            </div>
-        `;
-    }).join('');
-
-    groupInfo = `
-        <div class="card">
-            <h2 class="card-title">${group === 'graduation' ? 'Выпускной экзамен' : 'Группа ' + group.charAt(group.length - 1)}</h2>
-            ${subjectInputs}
-            <button class="btn btn-primary" onclick="calculateScore('${group}')">Рассчитать</button>
-            <p id="${group}-result"></p>
-        </div>
-    `;
-
-    content.innerHTML = groupInfo;
+    const groups = ['graduation', 'group1', 'group2', 'group3', 'group4'];
+    groups.forEach(g => {
+        const groupElement = document.getElementById(g);
+        if (group === g) {
+            groupElement.style.display = 'block';
+        } else {
+            groupElement.style.display = 'none';
+        }
+    });
 }
 
-function calculateScore(group) {
-    const subjects = {
-        'graduation': ['Математика', 'Русский язык', 'Английский'],
-        'group1': ['Математика', 'Физика', 'Информатика'],
-        'group2': ['География', 'История', 'Математика'],
-        'group3': ['Литература', 'История', 'Русский язык'],
-        'group4': ['Биология', 'Химия', 'Физика']
-    };
+function calculateGraduationScore() {
+    const openQuestions = document.getElementById('open-questions').value;
+    const closedQuestions = document.getElementById('closed-questions').value;
 
-    const totalScore = subjects[group].reduce((total, subject) => {
-        const score = parseFloat(document.getElementById(subject).value);
-        return total + (isNaN(score) ? 0 : score);
-    }, 0);
+    if (openQuestions === '' || closedQuestions === '') {
+        alert('Пожалуйста, заполните все поля');
+        return;
+    }
 
-    document.getElementById(`${group}-result`).innerHTML = `Общий балл: ${totalScore}`;
+    const score = 2.5 * (2 * openQuestions + closedQuestions);
+    document.getElementById('graduation-score').textContent = `Баллы: ${score.toFixed(2)}`;
 }
