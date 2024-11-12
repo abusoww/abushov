@@ -11,8 +11,8 @@ function showGroup(group) {
 }
 
 function calculateGraduationScore() {
-    const openQuestions = document.getElementById('open-questions').value;
-    const closedQuestions = document.getElementById('closed-questions').value;
+    const openQuestions = document.getElementById('open-questions-graduation').value;
+    const closedQuestions = document.getElementById('closed-questions-graduation').value;
 
     if (openQuestions === '' || closedQuestions === '') {
         alert('Пожалуйста, заполните все поля');
