@@ -10,9 +10,24 @@ function showGroup(group) {
     });
 }
 
-function calculateGraduationScore() {
-    const openQuestions = document.getElementById('open-questions-graduation').value;
-    const closedQuestions = document.getElementById('closed-questions-graduation').value;
+// Формула для Математики
+function calculateMathScore() {
+    const openQuestions = document.getElementById('open-questions-math').value;
+    const closedQuestions = document.getElementById('closed-questions-math').value;
+
+    if (openQuestions === '' || closedQuestions === '') {
+        alert('Пожалуйста, заполните все поля');
+        return;
+    }
+
+    const score = (25 / 8) * (2 * openQuestions + closedQuestions);
+    document.getElementById('math-score').textContent = `Баллы: ${score.toFixed(2)}`;
+}
+
+// Формула для Русского
+function calculateRussianScore() {
+    const openQuestions = document.getElementById('open-questions-russian').value;
+    const closedQuestions = document.getElementById('closed-questions-russian').value;
 
     if (openQuestions === '' || closedQuestions === '') {
         alert('Пожалуйста, заполните все поля');
@@ -20,5 +35,19 @@ function calculateGraduationScore() {
     }
 
     const score = 2.5 * (2 * openQuestions + closedQuestions);
-    document.getElementById('graduation-score').textContent = `Баллы: ${score.toFixed(2)}`;
+    document.getElementById('russian-score').textContent = `Баллы: ${score.toFixed(2)}`;
+}
+
+// Формула для Английского
+function calculateEnglishScore() {
+    const openQuestions = document.getElementById('open-questions-english').value;
+    const closedQuestions = document.getElementById('closed-questions-english').value;
+
+    if (openQuestions === '' || closedQuestions === '') {
+        alert('Пожалуйста, заполните все поля');
+        return;
+    }
+
+    const score = (100 / 37) * (2 * openQuestions + closedQuestions);
+    document.getElementById('english-score').textContent = `Баллы: ${score.toFixed(2)}`;
 }
