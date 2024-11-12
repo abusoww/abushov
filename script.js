@@ -17,7 +17,7 @@ function calculateMathScore() {
     const codingQuestions = document.getElementById('coding-questions-math').value;
 
     if (openQuestions === '' || closedQuestions === '' || codingQuestions === '') {
-        alert('Пожалуйста, заполните все поля');
+        alert('Пожалуйста, заполните все поля для математики');
         return 0;
     }
 
@@ -28,28 +28,26 @@ function calculateMathScore() {
 function calculateRussianScore() {
     const openQuestions = document.getElementById('open-questions-russian').value;
     const closedQuestions = document.getElementById('closed-questions-russian').value;
-    const codingQuestions = document.getElementById('coding-questions-russian').value;
 
-    if (openQuestions === '' || closedQuestions === '' || codingQuestions === '') {
-        alert('Пожалуйста, заполните все поля');
+    if (openQuestions === '' || closedQuestions === '') {
+        alert('Пожалуйста, заполните все поля для русского языка');
         return 0;
     }
 
-    return 2.5 * (2 * openQuestions + parseInt(closedQuestions) + parseInt(codingQuestions));
+    return 2.5 * (2 * openQuestions + parseInt(closedQuestions));
 }
 
 // Расчет баллов для Английского
 function calculateEnglishScore() {
     const openQuestions = document.getElementById('open-questions-english').value;
     const closedQuestions = document.getElementById('closed-questions-english').value;
-    const codingQuestions = document.getElementById('coding-questions-english').value;
 
-    if (openQuestions === '' || closedQuestions === '' || codingQuestions === '') {
-        alert('Пожалуйста, заполните все поля');
+    if (openQuestions === '' || closedQuestions === '') {
+        alert('Пожалуйста, заполните все поля для английского языка');
         return 0;
     }
 
-    return (100 / 37) * (2 * openQuestions + parseInt(closedQuestions) + parseInt(codingQuestions));
+    return (100 / 37) * (2 * openQuestions + parseInt(closedQuestions));
 }
 
 // Расчет всех баллов
