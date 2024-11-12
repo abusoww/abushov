@@ -3,159 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор баллов для экзаменов</title>
+    <title>Форма экзаменов</title>
     <style>
-        .form-section {
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin-top: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-around;
             margin-bottom: 20px;
         }
-
-        .form-section input[type="number"] {
-            width: 100px;
-            margin-left: 10px;
-        }
-
-        .form-section .score-cell {
-            font-weight: bold;
-            color: #4CAF50;
-        }
-
-        .form-section input[type="number"]:focus {
-            background-color: #f0f0f0;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .active {
-            background-color: #f0f8ff;
-        }
-
-        .calculate-button {
-            margin-top: 20px;
-            padding: 10px 15px;
+        .header button {
             background-color: #4CAF50;
-            color: white;
             border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
             cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
-
-        .calculate-button:hover {
+        .header button:hover {
             background-color: #45a049;
+        }
+        .subject-fields {
+            display: none;
+            margin-top: 20px;
+        }
+        .subject-fields.active {
+            display: block;
+        }
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        .field-group input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .result button {
+            background-color: #2196F3;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .result button:hover {
+            background-color: #1976D2;
         }
     </style>
 </head>
 <body>
-    <h1>Калькулятор баллов для экзаменов</h1>
 
-    <div class="form-section active" id="buraxilis-imtahani">
-        <h3>Buraxılış imtahanı:</h3>
+<div class="container">
+    <div class="header">
+        <button onclick="showFields('buraxilish')">Buraxılış imtahanı</button>
+        <button onclick="showFields('group1')">1-ci qrup</button>
+        <button onclick="showFields('group2')">2-ci qrup</button>
+        <button onclick="showFields('group3')">3-cü qrup</button>
+        <button onclick="showFields('group4')">4-cü qrup</button>
+    </div>
 
-        <div>
-            <h4>Azərbaycan dili</h4>
-            <p>Поля: Açıq yazılı, Qapalı</p>
-            <div>
-                <label for="azerbaijan-open">Açıq yazılı:</label>
-                <input type="number" id="azerbaijan-open" placeholder="Введите баллы">
-            </div>
-            <div>
-                <label for="azerbaijan-closed">Qapalı:</label>
-                <input type="number" id="azerbaijan-closed" placeholder="Введите баллы">
-            </div>
-            <div class="score-cell" id="azerbaijan-score">Баллы: 0</div>
+    <div id="buraxilish" class="subject-fields">
+        <div class="field-group">
+            <label>Azərbaycan dili: Açıq yazılı</label>
+            <input type="number" id="openAzerbaijani" placeholder="Введите баллы" />
+            <label>Azərbaycan dili: Qapalı</label>
+            <input type="number" id="closedAzerbaijani" placeholder="Введите баллы" />
         </div>
-
-        <div>
-            <h4>İngilis dili</h4>
-            <p>Поля: Açıq yazılı, Qapalı</p>
-            <div>
-                <label for="english-open">Açıq yazılı:</label>
-                <input type="number" id="english-open" placeholder="Введите баллы">
-            </div>
-            <div>
-                <label for="english-closed">Qapalı:</label>
-                <input type="number" id="english-closed" placeholder="Введите баллы">
-            </div>
-            <div class="score-cell" id="english-score">Баллы: 0</div>
+        <div class="field-group">
+            <label>İngilis dili: Açıq yazılı</label>
+            <input type="number" id="openEnglish" placeholder="Введите баллы" />
+            <label>İngilis dili: Qapalı</label>
+            <input type="number" id="closedEnglish" placeholder="Введите баллы" />
         </div>
-
-        <div>
-            <h4>Riyaziyyat</h4>
-            <p>Поля: Açıq yazılı, Qapalı, Açıq kodlaşma</p>
-            <div>
-                <label for="math-open">Açıq yazılı:</label>
-                <input type="number" id="math-open" placeholder="Введите баллы">
-            </div>
-            <div>
-                <label for="math-closed">Qapalı:</label>
-                <input type="number" id="math-closed" placeholder="Введите баллы">
-            </div>
-            <div>
-                <label for="math-open-code">Açıq kodlaşma:</label>
-                <input type="number" id="math-open-code" placeholder="Введите баллы">
-            </div>
-            <div class="score-cell" id="math-score">Баллы: 0</div>
+        <div class="field-group">
+            <label>Riyaziyyat: Açıq yazılı</label>
+            <input type="number" id="openMath" placeholder="Введите баллы" />
+            <label>Riyaziyyat: Qapalı</label>
+            <input type="number" id="closedMath" placeholder="Введите баллы" />
+            <label>Riyaziyyat: Açıq kodlaşma</label>
+            <input type="number" id="openCodeMath" placeholder="Введите баллы" />
         </div>
     </div>
 
-    <div class="form-section hidden" id="group-1">
-        <h3>1-ci qrup:</h3>
-
-        <div>
-            <h4>Riyaziyyat</h4>
-            <p>Поля: Qapalı, Yalnış qapalı, Açıq yazılı, Açıq kodlaşma</p>
-            <div>
-                <label for="group1-math-closed">Qapalı:</label>
-                <input type="number" id="group1-math-closed" placeholder="Введите баллы">
-            </div>
-            <div>
-                <label for="group1-math-incorrect">Yalnış qapalı:</label>
-                <input type="number" id="group1-math-incorrect" placeholder="Введите баллы">
-            </div>
-            <div>
-                <label for="group1-math-open">Açıq yazılı:</label>
-                <input type="number" id="group1-math-open" placeholder="Введите баллы">
-            </div>
-            <div>
-                <label for="group1-math-code">Açıq kodlaşma:</label>
-                <input type="number" id="group1-math-code" placeholder="Введите баллы">
-            </div>
-            <div class="score-cell" id="group1-math-score">Баллы: 0</div>
+    <div id="group1" class="subject-fields">
+        <div class="field-group">
+            <label>Riyaziyyat: Qapalı</label>
+            <input type="number" id="group1ClosedMath" placeholder="Введите баллы" />
+            <label>Riyaziyyat: Yalnış qapalı</label>
+            <input type="number" id="group1WrongMath" placeholder="Введите баллы" />
+            <label>Riyaziyyat: Açıq yazılı</label>
+            <input type="number" id="group1OpenMath" placeholder="Введите баллы" />
+            <label>Riyaziyyat: Açıq kodlaşma</label>
+            <input type="number" id="group1OpenCodeMath" placeholder="Введите баллы" />
         </div>
-
-        <!-- Повторить для других предметов -->
+        <div class="field-group">
+            <label>Fizika: Qapalı</label>
+            <input type="number" id="group1ClosedPhysics" placeholder="Введите баллы" />
+            <label>Fizika: Yalnış qapalı</label>
+            <input type="number" id="group1WrongPhysics" placeholder="Введите баллы" />
+            <label>Fizika: Açıq yazılı</label>
+            <input type="number" id="group1OpenPhysics" placeholder="Введите баллы" />
+            <label>Fizika: Açıq kodlaşma</label>
+            <input type="number" id="group1OpenCodePhysics" placeholder="Введите баллы" />
+        </div>
+        <div class="field-group">
+            <label>Kimya: Qapalı</label>
+            <input type="number" id="group1ClosedChemistry" placeholder="Введите баллы" />
+            <label>Kimya: Yalnış qapalı</label>
+            <input type="number" id="group1WrongChemistry" placeholder="Введите баллы" />
+            <label>Kimya: Açıq yazılı</label>
+            <input type="number" id="group1OpenChemistry" placeholder="Введите баллы" />
+            <label>Kimya: Açıq kodlaşma</label>
+            <input type="number" id="group1OpenCodeChemistry" placeholder="Введите баллы" />
+        </div>
     </div>
 
-    <button class="calculate-button" onclick="calculate()">Рассчитать</button>
+    <!-- Add the fields for other groups here, following the same structure -->
 
-    <script>
-        function clearFields() {
-            // Очистить все поля
-            document.querySelectorAll('.form-section.active input[type="number"]').forEach(function (input) {
-                input.value = '';
-            });
-        }
+    <div class="result">
+        <button onclick="calculateScores()">Расчитать баллы</button>
+        <p id="totalScore">Общий балл: 0</p>
+    </div>
+</div>
 
-        function calculate() {
-            // Пример вычислений для "Buraxılış imtahanı"
-            let azerbaijanOpen = parseFloat(document.getElementById('azerbaijan-open').value) || 0;
-            let azerbaijanClosed = parseFloat(document.getElementById('azerbaijan-closed').value) || 0;
-            let englishOpen = parseFloat(document.getElementById('english-open').value) || 0;
-            let englishClosed = parseFloat(document.getElementById('english-closed').value) || 0;
-            let mathOpen = parseFloat(document.getElementById('math-open').value) || 0;
-            let mathClosed = parseFloat(document.getElementById('math-closed').value) || 0;
-            let mathOpenCode = parseFloat(document.getElementById('math-open-code').value) || 0;
+<script>
+    function showFields(group) {
+        const groups = document.querySelectorAll('.subject-fields');
+        groups.forEach(group => group.classList.remove('active'));
 
-            // Формулы расчета баллов
-            let azerbaijanScore = 2.5 * (2 * azerbaijanOpen + azerbaijanClosed);
-            let englishScore = (100 / 37) * (2 * englishOpen + englishClosed);
-            let mathScore = (25 / 8) * (2 * mathOpen + mathClosed + mathOpenCode);
+        const activeGroup = document.getElementById(group);
+        activeGroup.classList.add('active');
+    }
 
-            // Отображение результатов
-            document.getElementById('azerbaijan-score').innerText = 'Баллы: ' + azerbaijanScore.toFixed(2);
-            document.getElementById('english-score').innerText = 'Баллы: ' + englishScore.toFixed(2);
-            document.getElementById('math-score').innerText = 'Баллы: ' + mathScore.toFixed(2);
-        }
-    </script>
+    function calculateScores() {
+        // Собираем баллы по полям
+        const openAzerbaijani = parseInt(document.getElementById('openAzerbaijani').value) || 0;
+        const closedAzerbaijani = parseInt(document.getElementById('closedAzerbaijani').value) || 0;
+        const openEnglish = parseInt(document.getElementById('openEnglish').value) || 0;
+        const closedEnglish = parseInt(document.getElementById('closedEnglish').value) || 0;
+        const openMath = parseInt(document.getElementById('openMath').value) || 0;
+        const closedMath = parseInt(document.getElementById('closedMath').value) || 0;
+        const openCodeMath = parseInt(document.getElementById('openCodeMath').value) || 0;
+
+        const scoreBuraxilish = 2.5 * (2 * openAzerbaijani + closedAzerbaijani) +
+            (100 / 37) * (2 * openEnglish + closedEnglish) +
+            (25 / 8) * (2 * openMath + closedMath + openCodeMath);
+
+        // Для других групп можно добавить дополнительные расчеты по аналогии
+
+        const totalScore = scoreBuraxilish; // Здесь комбинируем все баллы, как необходимо
+
+        document.getElementById('totalScore').innerText = `Общий балл: ${totalScore.toFixed(2)}`;
+    }
+</script>
+
 </body>
 </html>
