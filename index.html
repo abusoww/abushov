@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buraxılış imtahanının ballarının hesablanması</title>
+    <title>Подсчет баллов выпускного экзамена</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <button onclick="showGraduationForm()">Buraxılış imtahanı</button>
+        <button onclick="showGraduationForm()">Выпускной экзамен</button>
 
         <div id="graduation-form" class="form-container">
-            <h2>Buraxılış imtahanı</h2>
+            <h2>Выпускной экзамен</h2>
             <table id="subject-table">
                 <thead>
                     <tr>
-                        <th>Fənn</th>
-                        <th>Açıq suallar</th>
-                        <th>Qapalı suallar</th>
-                        <th>Kodlaşdırma sualları</th>
+                        <th>Предмет</th>
+                        <th>Открытые вопросы</th>
+                        <th>Закрытые вопросы</th>
+                        <th>Вопросы с кодированием</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Riyaziyyat</td>
+                        <td>Математика</td>
                         <td><div class="input-wrapper">
                                 <button onclick="changeValue('open-math', -1)">-</button>
                                 <input type="number" id="open-math" value="0">
@@ -44,7 +44,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>İngilis dili</td>
+                        <td>Английский</td>
                         <td><div class="input-wrapper">
                                 <button onclick="changeValue('open-english', -1)">-</button>
                                 <input type="number" id="open-english" value="0">
@@ -60,31 +60,31 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Azərbaycan dili</td>
+                        <td>Русский</td>
                         <td><div class="input-wrapper">
-                                <button onclick="changeValue('open-azerbaijani', -1)">-</button>
-                                <input type="number" id="open-azerbaijani" value="0">
-                                <button onclick="changeValue('open-azerbaijani', 1)">+</button>
+                                <button onclick="changeValue('open-russian', -1)">-</button>
+                                <input type="number" id="open-russian" value="0">
+                                <button onclick="changeValue('open-russian', 1)">+</button>
                             </div>
                         </td>
                         <td><div class="input-wrapper">
-                                <button onclick="changeValue('closed-azerbaijani', -1)">-</button>
-                                <input type="number" id="closed-azerbaijani" value="0">
-                                <button onclick="changeValue('closed-azerbaijani', 1)">+</button>
+                                <button onclick="changeValue('closed-russian', -1)">-</button>
+                                <input type="number" id="closed-russian" value="0">
+                                <button onclick="changeValue('closed-russian', 1)">+</button>
                             </div>
                         </td>
                         <td></td>
                     </tr>
                 </tbody>
             </table>
-            <button onclick="calculateScores()">Balları hesabla</button>
+            <button onclick="calculateScores()">Рассчитать баллы</button>
         </div>
 
         <div id="results" class="results">
-            <h3>Nəticələr:</h3>
+            <h3>Результаты:</h3>
             <p id="math-result" class="result-item"></p>
             <p id="english-result" class="result-item"></p>
-            <p id="azerbaijani-result" class="result-item"></p>
+            <p id="russian-result" class="result-item"></p>
         </div>
     </div>
 
