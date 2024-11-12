@@ -18,18 +18,42 @@
             <button onclick="showGroup('group3')">III группа</button>
             <button onclick="showGroup('group4')">IV группа</button>
         </nav>
-        
+
         <!-- Выпускной экзамен -->
         <div id="graduation" class="form-group" style="display:none;">
             <h2>Выпускной экзамен</h2>
+            
+            <!-- Математика -->
             <div class="subject">
-                <h3>Тədris dili (Азербайджанский язык)</h3>
-                <label for="open-questions-graduation">Открытые вопросы:</label>
-                <input type="number" id="open-questions-graduation" placeholder="Количество правильных ответов">
-                <label for="closed-questions-graduation">Закрытые вопросы:</label>
-                <input type="number" id="closed-questions-graduation" placeholder="Количество правильных ответов">
-                <button onclick="calculateGraduationScore()">Рассчитать баллы</button>
-                <p id="graduation-score"></p>
+                <h3>Математика</h3>
+                <label for="open-questions-math">Открытые вопросы:</label>
+                <input type="number" id="open-questions-math" placeholder="Количество правильных ответов">
+                <label for="closed-questions-math">Закрытые вопросы:</label>
+                <input type="number" id="closed-questions-math" placeholder="Количество правильных ответов">
+                <button onclick="calculateMathScore()">Рассчитать баллы</button>
+                <p id="math-score"></p>
+            </div>
+
+            <!-- Русский -->
+            <div class="subject">
+                <h3>Русский язык</h3>
+                <label for="open-questions-russian">Открытые вопросы:</label>
+                <input type="number" id="open-questions-russian" placeholder="Количество правильных ответов">
+                <label for="closed-questions-russian">Закрытые вопросы:</label>
+                <input type="number" id="closed-questions-russian" placeholder="Количество правильных ответов">
+                <button onclick="calculateRussianScore()">Рассчитать баллы</button>
+                <p id="russian-score"></p>
+            </div>
+
+            <!-- Английский -->
+            <div class="subject">
+                <h3>Английский язык</h3>
+                <label for="open-questions-english">Открытые вопросы:</label>
+                <input type="number" id="open-questions-english" placeholder="Количество правильных ответов">
+                <label for="closed-questions-english">Закрытые вопросы:</label>
+                <input type="number" id="closed-questions-english" placeholder="Количество правильных ответов">
+                <button onclick="calculateEnglishScore()">Рассчитать баллы</button>
+                <p id="english-score"></p>
             </div>
         </div>
 
