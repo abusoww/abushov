@@ -1,326 +1,198 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imtahan Balcları Hesablama</title>
+    <title>Калькулятор</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f9;
-        }
-        .container {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .group-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        .group-buttons button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        .group-buttons button:hover {
-            background-color: #45a049;
-        }
-        .exam-form {
-            display: none;
-            margin-top: 20px;
-        }
-        .exam-form input {
-            margin-bottom: 10px;
-            padding: 8px;
-            width: 100%;
-            font-size: 14px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        .exam-form label {
-            font-weight: bold;
-        }
-        .result {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-        }
         table {
-            width: 100%;
-            margin-top: 20px;
             border-collapse: collapse;
+            width: 100%;
         }
         table, th, td {
-            border: 1px solid #ddd;
+            border: 1px solid black;
         }
         th, td {
-            padding: 10px;
+            padding: 8px;
             text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
+    <h1>Калькулятор для групп</h1>
 
-    <div class="container">
-        <h1>Imtahan Balcları Hesablama</h1>
-        <div class="group-buttons">
-            <button onclick="showForm('buraxilis')">Buraxılış İmtahanı</button>
-            <button onclick="showForm('1ci')">1-ci Qrup</button>
-            <button onclick="showForm('2ci')">2-ci Qrup</button>
-            <button onclick="showForm('3cu')">3-cü Qrup</button>
-            <button onclick="showForm('4cu')">4-cü Qrup</button>
-        </div>
+    <table>
+        <tr>
+            <th colspan="2">Группа 1</th>
+        </tr>
+        <tr>
+            <td><input type="number" id="riyaziyyat_qapali_1" placeholder="Риазмат (закрытые)"></td>
+            <td><input type="number" id="riyaziyyat_yalnish_qapali_1" placeholder="Риазмат (ошибки)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="riyaziyyat_aciq_1" placeholder="Риазмат (открытые)"></td>
+            <td><input type="number" id="riyaziyyat_aciq_kod_1" placeholder="Риазмат (коды)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="fizika_qapali_1" placeholder="Физика (закрытые)"></td>
+            <td><input type="number" id="fizika_yalnish_qapali_1" placeholder="Физика (ошибки)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="fizika_aciq_1" placeholder="Физика (открытые)"></td>
+            <td><input type="number" id="fizika_aciq_kod_1" placeholder="Физика (коды)"></td>
+        </tr>
+        
+        <tr>
+            <th colspan="2">Группа 2</th>
+        </tr>
+        <tr>
+            <td><input type="number" id="riyaziyyat_qapali_2" placeholder="Риазмат (закрытые)"></td>
+            <td><input type="number" id="riyaziyyat_yalnish_qapali_2" placeholder="Риазмат (ошибки)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="riyaziyyat_aciq_2" placeholder="Риазмат (открытые)"></td>
+            <td><input type="number" id="riyaziyyat_aciq_kod_2" placeholder="Риазмат (коды)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="tarix_qapali_2" placeholder="Тарих (закрытые)"></td>
+            <td><input type="number" id="tarix_yalnish_qapali_2" placeholder="Тарих (ошибки)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="tarix_aciq_2" placeholder="Тарих (открытые)"></td>
+            <td><input type="number" id="tarix_aciq_kod_2" placeholder="Тарих (коды)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="cografiya_qapali_2" placeholder="Коография (закрытые)"></td>
+            <td><input type="number" id="cografiya_yalnish_qapali_2" placeholder="Коография (ошибки)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="cografiya_aciq_2" placeholder="Коография (открытые)"></td>
+            <td><input type="number" id="cografiya_aciq_kod_2" placeholder="Коография (коды)"></td>
+        </tr>
 
-        <!-- Buraxılış imtahanı formu -->
-        <div id="buraxilis" class="exam-form">
-            <h3>Buraxılış İmtahanı</h3>
-            <label>Azərbaycan dili:</label>
-            <input type="number" id="az_dili_aciq" placeholder="Açıq yazılı">
-            <input type="number" id="az_dili_qapali" placeholder="Qapalı">
-            <br><br>
-            <label>İngilis dili:</label>
-            <input type="number" id="ingilis_aciq" placeholder="Açıq yazılı">
-            <input type="number" id="ingilis_qapali" placeholder="Qapalı">
-            <br><br>
-            <label>Riyaziyyat:</label>
-            <input type="number" id="riyaziyyat_aciq" placeholder="Açıq yazılı">
-            <input type="number" id="riyaziyyat_qapali" placeholder="Qapalı">
-            <input type="number" id="riyaziyyat_aciq_kod" placeholder="Açıq kodlaşma">
-            <br><br>
-            <button onclick="calculate('buraxilis')">Hesabla</button>
-            <div id="result_buraxilis" class="result"></div>
-        </div>
+        <tr>
+            <th colspan="2">Группа 3</th>
+        </tr>
+        <tr>
+            <td><input type="number" id="riyaziyyat_qapali_3" placeholder="Риазмат (закрытые)"></td>
+            <td><input type="number" id="riyaziyyat_yalnish_qapali_3" placeholder="Риазмат (ошибки)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="riyaziyyat_aciq_3" placeholder="Риазмат (открытые)"></td>
+            <td><input type="number" id="riyaziyyat_aciq_kod_3" placeholder="Риазмат (коды)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="biologiya_qapali_3" placeholder="Биология (закрытые)"></td>
+            <td><input type="number" id="biologiya_yalnish_qapali_3" placeholder="Биология (ошибки)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="biologiya_aciq_3" placeholder="Биология (открытые)"></td>
+            <td><input type="number" id="biologiya_aciq_kod_3" placeholder="Биология (коды)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="kimya_qapali_3" placeholder="Химия (закрытые)"></td>
+            <td><input type="number" id="kimya_yalnish_qapali_3" placeholder="Химия (ошибки)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="kimya_aciq_3" placeholder="Химия (открытые)"></td>
+            <td><input type="number" id="kimya_aciq_kod_3" placeholder="Химия (коды)"></td>
+        </tr>
 
-        <!-- 1-ci qrup formu -->
-        <div id="1ci" class="exam-form">
-            <h3>1-ci Qrup</h3>
-            <label>Riyaziyyat:</label>
-            <input type="number" id="riyaziyyat_qapali_1" placeholder="Qapalı">
-            <input type="number" id="riyaziyyat_yalnish_qapali_1" placeholder="Yalnış qapalı">
-            <input type="number" id="riyaziyyat_aciq_1" placeholder="Açıq yazılı">
-            <input type="number" id="riyaziyyat_aciq_kod_1" placeholder="Açıq kodlaşma">
-            <br><br>
-            <label>Fizika:</label>
-            <input type="number" id="fizika_qapali_1" placeholder="Qapalı">
-            <input type="number" id="fizika_yalnish_qapali_1" placeholder="Yalnış qapalı">
-            <input type="number" id="fizika_aciq_1" placeholder="Açıq yazılı">
-            <input type="number" id="fizika_aciq_kod_1" placeholder="Açıq kodlaşma">
-            <br><br>
-            <label>Kimya:</label>
-            <input type="number" id="kimya_qapali_1" placeholder="Qapalı">
-            <input type="number" id="kimya_yalnish_qapali_1" placeholder="Yalnış qapalı">
-            <input type="number" id="kimya_aciq_1" placeholder="Açıq yazılı">
-            <input type="number" id="kimya_aciq_kod_1" placeholder="Açıq kodlaşma">
-            <br><br>
-            <button onclick="calculate('1ci')">Hesabla</button>
-            <div id="result_1ci" class="result"></div>
-        </div>
+        <tr>
+            <th colspan="2">Группа 4</th>
+        </tr>
+        <tr>
+            <td><input type="number" id="riyaziyyat_qapali_4" placeholder="Риазмат (закрытые)"></td>
+            <td><input type="number" id="riyaziyyat_yalnish_qapali_4" placeholder="Риазмат (ошибки)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="riyaziyyat_aciq_4" placeholder="Риазмат (открытые)"></td>
+            <td><input type="number" id="riyaziyyat_aciq_kod_4" placeholder="Риазмат (коды)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="edebiyyat_qapali_4" placeholder="Эдебият (закрытые)"></td>
+            <td><input type="number" id="edebiyyat_yalnish_qapali_4" placeholder="Эдебият (ошибки)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="edebiyyat_aciq_4" placeholder="Эдебият (открытые)"></td>
+            <td><input type="number" id="edebiyyat_aciq_kod_4" placeholder="Эдебият (коды)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="ingilis_qapali_4" placeholder="Английский (закрытые)"></td>
+            <td><input type="number" id="ingilis_yalnish_qapali_4" placeholder="Английский (ошибки)"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="ingilis_aciq_4" placeholder="Английский (открытые)"></td>
+            <td><input type="number" id="ingilis_aciq_kod_4" placeholder="Английский (коды)"></td>
+        </tr>
+    </table>
 
-        <!-- 2-ci qrup formu -->
-        <div id="2ci" class="exam-form">
-            <h3>2-ci Qrup</h3>
-            <label>Riyaziyyat:</label>
-            <input type="number" id="riyaziyyat_qapali_2" placeholder="Qapalı">
-            <input type="number" id="riyaziyyat_yalnish_qapali_2" placeholder="Yalnış qapalı">
-            <input type="number" id="riyaziyyat_aciq_2" placeholder="Açıq yazılı">
-            <input type="number" id="riyaziyyat_aciq_kod_2" placeholder="Açıq kodlaşma">
-            <br><br>
-            <label>Tarix:</label>
-            <input type="number" id="tarix_qapali_2" placeholder="Qapalı">
-            <input type="number" id="tarix_yalnish_qapali_2" placeholder="Yalnış qapalı">
-            <input type="number" id="tarix_aciq_2" placeholder="Açıq yazılı">
-            <input type="number" id="tarix_aciq_kod_2" placeholder="Açıq kodlaşma">
-            <br><br>
-            <label>Coğrafiya:</label>
-            <input type="number" id="cografiya_qapali_2" placeholder="Qapalı">
-            <input type="number" id="cografiya_yalnish_qapali_2" placeholder="Yalnış qapalı">
-            <input type="number" id="cografiya_aciq_2" placeholder="Açıq yazılı">
-            <input type="number" id="cografiya_aciq_kod_2" placeholder="Açıq kodlaşma">
-            <br><br>
-            <button onclick="calculate('2ci')">Hesabla</button>
-            <div id="result_2ci" class="result"></div>
-        </div>
+    <!-- Кнопка для расчёта -->
+    <button onclick="calculate()">Рассчитать</button>
 
-        <!-- 3-cü qrup formu -->
-        <div id="3cu" class="exam-form">
-            <h3>3-cü Qrup</h3>
-            <label>Riyaziyyat:</label>
-            <input type="number" id="riyaziyyat_qapali_3" placeholder="Qapalı">
-            <input type="number" id="riyaziyyat_yalnish_qapali_3" placeholder="Yalnış qapalı">
-            <input type="number" id="riyaziyyat_aciq_3" placeholder="Açıq yazılı">
-            <input type="number" id="riyaziyyat_aciq_kod_3" placeholder="Açıq kodlaşma">
-            <br><br>
-            <label>Biologiya:</label>
-            <input type="number" id="biologiya_qapali_3" placeholder="Qapalı">
-            <input type="number" id="biologiya_yalnish_qapali_3" placeholder="Yalnış qapalı">
-            <input type="number" id="biologiya_aciq_3" placeholder="Açıq yazılı">
-            <input type="number" id="biologiya_aciq_kod_3" placeholder="Açıq kodlaşma">
-            <br><br>
-            <label>Kimya:</label>
-            <input type="number" id="kimya_qapali_3" placeholder="Qapalı">
-            <input type="number" id="kimya_yalnish_qapali_3" placeholder="Yalnış qapalı">
-            <input type="number" id="kimya_aciq_3" placeholder="Açıq yazılı">
-            <input type="number" id="kimya_aciq_kod_3" placeholder="Açıq kodlaşma">
-            <br><br>
-            <button onclick="calculate('3cu')">Hesabla</button>
-            <div id="result_3cu" class="result"></div>
-        </div>
-
-        <!-- 4-cü qrup formu -->
-        <div id="4cu" class="exam-form">
-            <h3>4-cü Qrup</h3>
-            <label>Riyaziyyat:</label>
-            <input type="number" id="riyaziyyat_qapali_4" placeholder="Qapalı">
-            <input type="number" id="riyaziyyat_yalnish_qapali_4" placeholder="Yalnış qapalı">
-            <input type="number" id="riyaziyyat_aciq_4" placeholder="Açıq yazılı">
-            <input type="number" id="riyaziyyat_aciq_kod_4" placeholder="Açıq kodlaşma">
-            <br><br>
-            <label>Ədəbiyyat:</label>
-            <input type="number" id="edebiyyat_qapali_4" placeholder="Qapalı">
-            <input type="number" id="edebiyyat_yalnish_qapali_4" placeholder="Yalnış qapalı">
-            <input type="number" id="edebiyyat_aciq_4" placeholder="Açıq yazılı">
-            <input type="number" id="edebiyyat_aciq_kod_4" placeholder="Açıq kodlaşma">
-            <br><br>
-            <label>İngilis dili:</label>
-            <input type="number" id="ingilis_dili_qapali_4" placeholder="Qapalı">
-            <input type="number" id="ingilis_dili_yalnish_qapali_4" placeholder="Yalnış qapalı">
-            <input type="number" id="ingilis_dili_aciq_4" placeholder="Açıq yazılı">
-            <input type="number" id="ingilis_dili_aciq_kod_4" placeholder="Açıq kodlaşma">
-            <br><br>
-            <button onclick="calculate('4cu')">Hesabla</button>
-            <div id="result_4cu" class="result"></div>
-        </div>
-    </div>
+    <!-- Отображение результата -->
+    <h3>Результат:</h3>
+    <p id="result">0</p>
 
     <script>
-        function showForm(group) {
-            // Göstərilən formu göstər və digər formaları gizlət
-            let forms = document.querySelectorAll('.exam-form');
-            forms.forEach(form => form.style.display = 'none');
-            document.getElementById(group).style.display = 'block';
-        }
+        function calculate() {
+            let total = 0;
 
-        function calculate(group) {
-            let result = 0;
+            // Группа 1
+            total += parseInt(document.getElementById('riyaziyyat_qapali_1').value || 0);
+            total += parseInt(document.getElementById('riyaziyyat_yalnish_qapali_1').value || 0);
+            total += parseInt(document.getElementById('riyaziyyat_aciq_1').value || 0);
+            total += parseInt(document.getElementById('riyaziyyat_aciq_kod_1').value || 0);
+            total += parseInt(document.getElementById('fizika_qapali_1').value || 0);
+            total += parseInt(document.getElementById('fizika_yalnish_qapali_1').value || 0);
+            total += parseInt(document.getElementById('fizika_aciq_1').value || 0);
+            total += parseInt(document.getElementById('fizika_aciq_kod_1').value || 0);
 
-            // Buraxılış imtahanı hesablaması
-            if (group === 'buraxilis') {
-                let az_dili_aciq = parseFloat(document.getElementById('az_dili_aciq').value);
-                let az_dili_qapali = parseFloat(document.getElementById('az_dili_qapali').value);
-                let ingilis_aciq = parseFloat(document.getElementById('ingilis_aciq').value);
-                let ingilis_qapali = parseFloat(document.getElementById('ingilis_qapali').value);
-                let riyaziyyat_aciq = parseFloat(document.getElementById('riyaziyyat_aciq').value);
-                let riyaziyyat_qapali = parseFloat(document.getElementById('riyaziyyat_qapali').value);
-                let riyaziyyat_aciq_kod = parseFloat(document.getElementById('riyaziyyat_aciq_kod').value);
+            // Группа 2
+            total += parseInt(document.getElementById('riyaziyyat_qapali_2').value || 0);
+            total += parseInt(document.getElementById('riyaziyyat_yalnish_qapali_2').value || 0);
+            total += parseInt(document.getElementById('riyaziyyat_aciq_2').value || 0);
+            total += parseInt(document.getElementById('riyaziyyat_aciq_kod_2').value || 0);
+            total += parseInt(document.getElementById('tarix_qapali_2').value || 0);
+            total += parseInt(document.getElementById('tarix_yalnish_qapali_2').value || 0);
+            total += parseInt(document.getElementById('tarix_aciq_2').value || 0);
+            total += parseInt(document.getElementById('tarix_aciq_kod_2').value || 0);
+            total += parseInt(document.getElementById('cografiya_qapali_2').value || 0);
+            total += parseInt(document.getElementById('cografiya_yalnish_qapali_2').value || 0);
+            total += parseInt(document.getElementById('cografiya_aciq_2').value || 0);
+            total += parseInt(document.getElementById('cografiya_aciq_kod_2').value || 0);
 
-                result = az_dili_aciq + az_dili_qapali + ingilis_aciq + ingilis_qapali + riyaziyyat_aciq + riyaziyyat_qapali + riyaziyyat_aciq_kod;
-            }
+            // Группа 3
+            total += parseInt(document.getElementById('riyaziyyat_qapali_3').value || 0);
+            total += parseInt(document.getElementById('riyaziyyat_yalnish_qapali_3').value || 0);
+            total += parseInt(document.getElementById('riyaziyyat_aciq_3').value || 0);
+            total += parseInt(document.getElementById('riyaziyyat_aciq_kod_3').value || 0);
+            total += parseInt(document.getElementById('biologiya_qapali_3').value || 0);
+            total += parseInt(document.getElementById('biologiya_yalnish_qapali_3').value || 0);
+            total += parseInt(document.getElementById('biologiya_aciq_3').value || 0);
+            total += parseInt(document.getElementById('biologiya_aciq_kod_3').value || 0);
+            total += parseInt(document.getElementById('kimya_qapali_3').value || 0);
+            total += parseInt(document.getElementById('kimya_yalnish_qapali_3').value || 0);
+            total += parseInt(document.getElementById('kimya_aciq_3').value || 0);
+            total += parseInt(document.getElementById('kimya_aciq_kod_3').value || 0);
 
-            // 1-ci qrup hesablaması
-            if (group === '1ci') {
-                let riyaziyyat_qapali_1 = parseFloat(document.getElementById('riyaziyyat_qapali_1').value);
-                let riyaziyyat_yalnish_qapali_1 = parseFloat(document.getElementById('riyaziyyat_yalnish_qapali_1').value);
-                let riyaziyyat_aciq_1 = parseFloat(document.getElementById('riyaziyyat_aciq_1').value);
-                let riyaziyyat_aciq_kod_1 = parseFloat(document.getElementById('riyaziyyat_aciq_kod_1').value);
-                let fizika_qapali_1 = parseFloat(document.getElementById('fizika_qapali_1').value);
-                let fizika_yalnish_qapali_1 = parseFloat(document.getElementById('fizika_yalnish_qapali_1').value);
-                let fizika_aciq_1 = parseFloat(document.getElementById('fizika_aciq_1').value);
-                let fizika_aciq_kod_1 = parseFloat(document.getElementById('fizika_aciq_kod_1').value);
-                let kimya_qapali_1 = parseFloat(document.getElementById('kimya_qapali_1').value);
-                let kimya_yalnish_qapali_1 = parseFloat(document.getElementById('kimya_yalnish_qapali_1').value);
-                let kimya_aciq_1 = parseFloat(document.getElementById('kimya_aciq_1').value);
-                let kimya_aciq_kod_1 = parseFloat(document.getElementById('kimya_aciq_kod_1').value);
+            // Группа 4
+            total += parseInt(document.getElementById('riyaziyyat_qapali_4').value || 0);
+            total += parseInt(document.getElementById('riyaziyyat_yalnish_qapali_4').value || 0);
+            total += parseInt(document.getElementById('riyaziyyat_aciq_4').value || 0);
+            total += parseInt(document.getElementById('riyaziyyat_aciq_kod_4').value || 0);
+            total += parseInt(document.getElementById('edebiyyat_qapali_4').value || 0);
+            total += parseInt(document.getElementById('edebiyyat_yalnish_qapali_4').value || 0);
+            total += parseInt(document.getElementById('edebiyyat_aciq_4').value || 0);
+            total += parseInt(document.getElementById('edebiyyat_aciq_kod_4').value || 0);
+            total += parseInt(document.getElementById('ingilis_qapali_4').value || 0);
+            total += parseInt(document.getElementById('ingilis_yalnish_qapali_4').value || 0);
+            total += parseInt(document.getElementById('ingilis_aciq_4').value || 0);
+            total += parseInt(document.getElementById('ingilis_aciq_kod_4').value || 0);
 
-                result = (riyaziyyat_qapali_1 + riyaziyyat_yalnish_qapali_1 + riyaziyyat_aciq_1 + riyaziyyat_aciq_kod_1) +
-                         (fizika_qapali_1 + fizika_yalnish_qapali_1 + fizika_aciq_1 + fizika_aciq_kod_1) +
-                         (kimya_qapali_1 + kimya_yalnish_qapali_1 + kimya_aciq_1 + kimya_aciq_kod_1);
-            }
-
-            // 2-ci qrup hesablaması
-            if (group === '2ci') {
-                let riyaziyyat_qapali_2 = parseFloat(document.getElementById('riyaziyyat_qapali_2').value);
-                let riyaziyyat_yalnish_qapali_2 = parseFloat(document.getElementById('riyaziyyat_yalnish_qapali_2').value);
-                let riyaziyyat_aciq_2 = parseFloat(document.getElementById('riyaziyyat_aciq_2').value);
-                let riyaziyyat_aciq_kod_2 = parseFloat(document.getElementById('riyaziyyat_aciq_kod_2').value);
-                let tarix_qapali_2 = parseFloat(document.getElementById('tarix_qapali_2').value);
-                let tarix_yalnish_qapali_2 = parseFloat(document.getElementById('tarix_yalnish_qapali_2').value);
-                let tarix_aciq_2 = parseFloat(document.getElementById('tarix_aciq_2').value);
-                let tarix_aciq_kod_2 = parseFloat(document.getElementById('tarix_aciq_kod_2').value);
-                let cografiya_qapali_2 = parseFloat(document.getElementById('cografiya_qapali_2').value);
-                let cografiya_yalnish_qapali_2 = parseFloat(document.getElementById('cografiya_yalnish_qapali_2').value);
-                let cografiya_aciq_2 = parseFloat(document.getElementById('cografiya_aciq_2').value);
-                let cografiya_aciq_kod_2 = parseFloat(document.getElementById('cografiya_aciq_kod_2').value);
-
-                result = (riyaziyyat_qapali_2 + riyaziyyat_yalnish_qapali_2 + riyaziyyat_aciq_2 + riyaziyyat_aciq_kod_2) +
-                         (tarix_qapali_2 + tarix_yalnish_qapali_2 + tarix_aciq_2 + tarix_aciq_kod_2) +
-                         (cografiya_qapali_2 + cografiya_yalnish_qapali_2 + cografiya_aciq_2 + cografiya_aciq_kod_2);
-            }
-
-            // 3-cü qrup hesablaması
-            if (group === '3cu') {
-                let riyaziyyat_qapali_3 = parseFloat(document.getElementById('riyaziyyat_qapali_3').value);
-                let riyaziyyat_yalnish_qapali_3 = parseFloat(document.getElementById('riyaziyyat_yalnish_qapali_3').value);
-                let riyaziyyat_aciq_3 = parseFloat(document.getElementById('riyaziyyat_aciq_3').value);
-                let riyaziyyat_aciq_kod_3 = parseFloat(document.getElementById('riyaziyyat_aciq_kod_3').value);
-                let biologiya_qapali_3 = parseFloat(document.getElementById('biologiya_qapali_3').value);
-                let biologiya_yalnish_qapali_3 = parseFloat(document.getElementById('biologiya_yalnish_qapali_3').value);
-                let biologiya_aciq_3 = parseFloat(document.getElementById('biologiya_aciq_3').value);
-                let biologiya_aciq_kod_3 = parseFloat(document.getElementById('biologiya_aciq_kod_3').value);
-                let kimya_qapali_3 = parseFloat(document.getElementById('kimya_qapali_3').value);
-                let kimya_yalnish_qapali_3 = parseFloat(document.getElementById('kimya_yalnish_qapali_3').value);
-                let kimya_aciq_3 = parseFloat(document.getElementById('kimya_aciq_3').value);
-                let kimya_aciq_kod_3 = parseFloat(document.getElementById('kimya_aciq_kod_3').value);
-
-                result = (riyaziyyat_qapali_3 + riyaziyyat_yalnish_qapali_3 + riyaziyyat_aciq_3 + riyaziyyat_aciq_kod_3) +
-                         (biologiya_qapali_3 + biologiya_yalnish_qapali_3 + biologiya_aciq_3 + biologiya_aciq_kod_3) +
-                         (kimya_qapali_3 + kimya_yalnish_qapali_3 + kimya_aciq_3 + kimya_aciq_kod_3);
-            }
-
-            // 4-cü qrup hesablaması
-            if (group === '4cu') {
-                let riyaziyyat_qapali_4 = parseFloat(document.getElementById('riyaziyyat_qapali_4').value);
-                let riyaziyyat_yalnish_qapali_4 = parseFloat(document.getElementById('riyaziyyat_yalnish_qapali_4').value);
-                let riyaziyyat_aciq_4 = parseFloat(document.getElementById('riyaziyyat_aciq_4').value);
-                let riyaziyyat_aciq_kod_4 = parseFloat(document.getElementById('riyaziyyat_aciq_kod_4').value);
-                let edebiyyat_qapali_4 = parseFloat(document.getElementById('edebiyyat_qapali_4').value);
-                let edebiyyat_yalnish_qapali_4 = parseFloat(document.getElementById('edebiyyat_yalnish_qapali_4').value);
-                let edebiyyat_aciq_4 = parseFloat(document.getElementById('edebiyyat_aciq_4').value);
-                let edebiyyat_aciq_kod_4 = parseFloat(document.getElementById('edebiyyat_aciq_kod_4').value);
-                let ingilis_dili_qapali_4 = parseFloat(document.getElementById('ingilis_dili_qapali_4').value);
-                let ingilis_dili_yalnish_qapali_4 = parseFloat(document.getElementById('ingilis_dili_yalnish_qapali_4').value);
-                let ingilis_dili_aciq_4 = parseFloat(document.getElementById('ingilis_dili_aciq_4').value);
-                let ingilis_dili_aciq_kod_4 = parseFloat(document.getElementById('ingilis_dili_aciq_kod_4').value);
-
-                result = (riyaziyyat_qapali_4 + riyaziyyat_yalnish_qapali_4 + riyaziyyat_aciq_4 + riyaziyyat_aciq_kod_4) +
-                         (edebiyyat_qapali_4 + edebiyyat_yalnish_qapali_4 + edebiyyat_aciq_4 + edebiyyat_aciq_kod_4) +
-                         (ingilis_dili_qapali_4 + ingilis_dili_yalnish_qapali_4 + ingilis_dili_aciq_4 + ingilis_dili_aciq_kod_4);
-            }
-
-            // Nəticəni göstər
-            document.getElementById('result_' + group).innerText = 'Hesablama Nəticəsi: ' + result;
+            // Отображаем результат
+            document.getElementById('result').innerText = total;
         }
     </script>
-
 </body>
 </html>
