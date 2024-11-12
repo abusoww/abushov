@@ -14,39 +14,42 @@ function showGroup(group) {
 function calculateMathScore() {
     const openQuestions = document.getElementById('open-questions-math').value;
     const closedQuestions = document.getElementById('closed-questions-math').value;
+    const codingQuestions = document.getElementById('coding-questions-math').value;
 
-    if (openQuestions === '' || closedQuestions === '') {
+    if (openQuestions === '' || closedQuestions === '' || codingQuestions === '') {
         alert('Пожалуйста, заполните все поля');
         return 0;
     }
 
-    return (25 / 8) * (2 * openQuestions + parseInt(closedQuestions));
+    return (25 / 8) * (2 * openQuestions + parseInt(closedQuestions) + parseInt(codingQuestions));
 }
 
 // Расчет баллов для Русского
 function calculateRussianScore() {
     const openQuestions = document.getElementById('open-questions-russian').value;
     const closedQuestions = document.getElementById('closed-questions-russian').value;
+    const codingQuestions = document.getElementById('coding-questions-russian').value;
 
-    if (openQuestions === '' || closedQuestions === '') {
+    if (openQuestions === '' || closedQuestions === '' || codingQuestions === '') {
         alert('Пожалуйста, заполните все поля');
         return 0;
     }
 
-    return 2.5 * (2 * openQuestions + parseInt(closedQuestions));
+    return 2.5 * (2 * openQuestions + parseInt(closedQuestions) + parseInt(codingQuestions));
 }
 
 // Расчет баллов для Английского
 function calculateEnglishScore() {
     const openQuestions = document.getElementById('open-questions-english').value;
     const closedQuestions = document.getElementById('closed-questions-english').value;
+    const codingQuestions = document.getElementById('coding-questions-english').value;
 
-    if (openQuestions === '' || closedQuestions === '') {
+    if (openQuestions === '' || closedQuestions === '' || codingQuestions === '') {
         alert('Пожалуйста, заполните все поля');
         return 0;
     }
 
-    return (100 / 37) * (2 * openQuestions + parseInt(closedQuestions));
+    return (100 / 37) * (2 * openQuestions + parseInt(closedQuestions) + parseInt(codingQuestions));
 }
 
 // Расчет всех баллов
