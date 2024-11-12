@@ -1,35 +1,27 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tapşırıqlar</title>
+    <title>Exam Score Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Tapşırıqlar</h1>
-    <form id="taskForm">
-        <label for="language">Dil Seçin:</label>
-        <select id="language">
-            <option value="azerbaijani">Azərbaycan dili</option>
-            <option value="english">İngilis dili</option>
-            <option value="math">Riyaziyyat</option>
-        </select>
-
-        <label for="closed">Qapalı tipli tapşırıqlar:</label>
-        <input type="number" id="closed" min="0">
-
-        <label for="open">Açıq tipli tapşırıqlar:</label>
-        <input type="number" id="open" min="0">
-
-        <label for="openCode">Kodlaşdırılması tələb olunan açıq tipli tapşırıqlar:</label>
-        <input type="number" id="openCode" min="0">
-
-        <button type="submit">Yoxla</button>
-    </form>
-    
-    <div id="message"></div>
-
+    <div class="container">
+        <h1>Exam Score Calculator</h1>
+        <form id="score-form">
+            <label for="subject1">Subject 1 (0-100):</label>
+            <input type="number" id="subject1" min="0" max="100">
+            <label for="subject2">Subject 2 (0-100):</label>
+            <input type="number" id="subject2" min="0" max="100">
+            <label for="subject3">Subject 3 (0-100):</label>
+            <input type="number" id="subject3" min="0" max="100">
+            <label for="subject4">Subject 4 (0-100):</label>
+            <input type="number" id="subject4" min="0" max="100">
+            <button type="submit">Calculate</button>
+        </form>
+        <div id="result"></div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
