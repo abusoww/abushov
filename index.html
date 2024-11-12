@@ -1,27 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam Score Calculator</title>
+    <title>Калькулятор баллов</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Exam Score Calculator</h1>
+    <div class="container mt-5">
+        <header class="text-center">
+            <h1>Калькулятор баллов по экзаменам</h1>
         </header>
-        <nav>
-            <button onclick="showGroup('graduation')">Выпускной экзамен</button>
-            <button onclick="showGroup('group1')">I группа</button>
-            <button onclick="showGroup('group2')">II группа</button>
-            <button onclick="showGroup('group3')">III группа</button>
-            <button onclick="showGroup('group4')">IV группа</button>
+        <nav class="d-flex justify-content-center mb-4">
+            <button class="btn btn-primary m-2" onclick="showGroup('graduation')">Выпускной экзамен</button>
+            <button class="btn btn-primary m-2" onclick="showGroup('group1')">I группа</button>
+            <button class="btn btn-primary m-2" onclick="showGroup('group2')">II группа</button>
+            <button class="btn btn-primary m-2" onclick="showGroup('group3')">III группа</button>
+            <button class="btn btn-primary m-2" onclick="showGroup('group4')">IV группа</button>
         </nav>
         <section id="content">
             <p>Выберите группу для расчета баллов.</p>
         </section>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
