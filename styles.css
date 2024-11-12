@@ -1,8 +1,14 @@
 /* Убираем стрелки в полях ввода */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 input[type="number"] {
-    -moz-appearance: textfield; /* Для Firefox */
-    -webkit-appearance: none;  /* Для Chrome, Safari, Opera */
-    appearance: none; /* Для других браузеров */
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 /* Общие стили для полей ввода */
