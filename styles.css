@@ -1,55 +1,91 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #f9f9f9, #e0e0e0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    padding: 0;
 }
 
 .container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     width: 80%;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    text-align: center;
-    color: #333;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-label {
-    font-size: 16px;
-}
-
-input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    max-width: 700px;
 }
 
 button {
-    padding: 10px;
-    font-size: 16px;
     background-color: #4CAF50;
-    color: #fff;
+    color: white;
+    padding: 12px 25px;
     border: none;
     border-radius: 5px;
+    font-size: 18px;
     cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #45a049;
 }
 
-#result {
+.form-container {
     margin-top: 20px;
+    display: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+input[type="number"] {
+    width: 60px;
+    padding: 8px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-wrapper button {
+    background-color: #ddd;
+    width: 30px;
+    height: 30px;
     font-size: 18px;
+    padding: 0;
+    margin: 0 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.input-wrapper button:hover {
+    background-color: #bbb;
+}
+
+.results {
+    margin-top: 20px;
+    display: none;
+}
+
+.result-item {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
 }
