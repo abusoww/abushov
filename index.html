@@ -12,20 +12,17 @@
             <h1>Buraxılış İmtahanı Balqları Hesablama</h1>
         </header>
         <nav>
-            <button onclick="showExamForm('english')">İngilis Dili</button>
-            <button onclick="showExamForm('az_dili')">Azərbaycan Dili</button>
-            <button onclick="showExamForm('riyaziyyat')">Riyaziyyat</button>
-            <button onclick="showExamForm('kimya')">Kimya</button>
-            <button onclick="showExamForm('fizika')">Fizika</button>
+            <button onclick="showGroupForm('general')">Buraxılış İmtahanı</button>
+            <button onclick="showGroupForm('group1')">1-ci Qrup</button>
+            <button onclick="showGroupForm('group2')">2-ci Qrup</button>
+            <button onclick="showGroupForm('group3')">3-cü Qrup</button>
+            <button onclick="showGroupForm('group4')">4-cü Qrup</button>
         </nav>
         <div id="exam-form" class="form-container">
             <h2>İmtahan Forması</h2>
-            <label for="correct-open">Açıq Yazılı (Doğru cavablar):</label>
-            <input type="number" id="correct-open">
-            <label for="correct-closed">Qapalı (Doğru cavablar):</label>
-            <input type="number" id="correct-closed">
-            <label for="incorrect-closed">Qapalı (Yanlış cavablar):</label>
-            <input type="number" id="incorrect-closed">
+            <div id="subject-fields">
+                <!-- Fields will be inserted here based on the selected group -->
+            </div>
             <button onclick="calculateScore()">Hesabla</button>
         </div>
         <div id="result">
