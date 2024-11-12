@@ -30,6 +30,3 @@ function calculateScores() {
         <div class="result-item">Max Possible Score: ${maxPossibleScore}</div>
     `;
 }
-
-// Event listener to trigger score calculation
-document.querySelector("button").addEventListener("click", calculateScores);
