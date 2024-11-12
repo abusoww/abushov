@@ -137,27 +137,27 @@
         <table class="table">
             <tr>
                 <th>Ədəbiyyat</th>
-                <th>Qapalı</th>
-                <th>Açıq</th>
-                <th class="cell-description">Здесь введите баллы за письменную работу</th>
+                <th>Qapalı (Закрытые вопросы)</th>
+                <th>Açıq (Открытые вопросы)</th>
+                <th>Данные для ввода</th>
             </tr>
             <tr>
                 <td>Azərbaycan dili</td>
-                <td><input type="number" id="azeri_open_written" placeholder="0-100"></td>
-                <td><input type="number" id="azeri_closed" placeholder="0-100"></td>
-                <td class="cell-description">Введите ваши баллы за закрытую и открытую часть</td>
+                <td><input type="number" id="azeri_open_written" placeholder="Введите баллы за открытые вопросы"></td>
+                <td><input type="number" id="azeri_closed" placeholder="Введите баллы за закрытые вопросы"></td>
+                <td class="cell-description">Баллы за письменную работу (от 0 до 100)</td>
             </tr>
             <tr>
                 <td>İngilis dili</td>
-                <td><input type="number" id="english_open_written" placeholder="0-100"></td>
-                <td><input type="number" id="english_closed" placeholder="0-100"></td>
-                <td class="cell-description">Введите баллы за оба экзамена</td>
+                <td><input type="number" id="english_open_written" placeholder="Введите баллы за открытые вопросы"></td>
+                <td><input type="number" id="english_closed" placeholder="Введите баллы за закрытые вопросы"></td>
+                <td class="cell-description">Баллы за экзамен по английскому (от 0 до 100)</td>
             </tr>
             <tr>
                 <td>Riyaziyyat</td>
-                <td><input type="number" id="math_open_written" placeholder="0-100"></td>
-                <td><input type="number" id="math_closed" placeholder="0-100"></td>
-                <td class="cell-description">Введите ваши баллы за открытые и закрытые части</td>
+                <td><input type="number" id="math_open_written" placeholder="Введите баллы за открытые вопросы"></td>
+                <td><input type="number" id="math_closed" placeholder="Введите баллы за закрытые вопросы"></td>
+                <td class="cell-description">Баллы за экзамен по математике (от 0 до 100)</td>
             </tr>
         </table>
         <button onclick="calculate('buraxilis')">Рассчитать</button>
@@ -169,31 +169,31 @@
         <table class="table">
             <tr>
                 <th>Riyaziyyat</th>
-                <th>Qapalı</th>
-                <th>Yanlış qapalı</th>
-                <th>Açıq</th>
-                <th class="cell-description">Баллы по предмету</th>
+                <th>Qapalı (Закрытые вопросы)</th>
+                <th>Yanlış qapalı (Неверные закрытые вопросы)</th>
+                <th>Açıq (Открытые вопросы)</th>
+                <th>Данные для ввода</th>
             </tr>
             <tr>
                 <td>Riyaziyyat</td>
-                <td><input type="number" id="math_group1_closed" placeholder="0-100"></td>
-                <td><input type="number" id="math_group1_wrong_closed" placeholder="0-100"></td>
-                <td><input type="number" id="math_group1_open_written" placeholder="0-100"></td>
-                <td class="cell-description">Введите баллы за закрытую и открытую части экзамена по математике</td>
+                <td><input type="number" id="math_group1_closed" placeholder="Закрытые вопросы (от 0 до 100)"></td>
+                <td><input type="number" id="math_group1_wrong_closed" placeholder="Неверные закрытые вопросы (от 0 до 100)"></td>
+                <td><input type="number" id="math_group1_open_written" placeholder="Открытые вопросы (от 0 до 100)"></td>
+                <td class="cell-description">Введите ваши баллы за закрытые и открытые вопросы</td>
             </tr>
             <tr>
                 <td>Fizika</td>
-                <td><input type="number" id="physics_group1_closed" placeholder="0-100"></td>
-                <td><input type="number" id="physics_group1_wrong_closed" placeholder="0-100"></td>
-                <td><input type="number" id="physics_group1_open_written" placeholder="0-100"></td>
-                <td class="cell-description">Введите баллы за экзамен по физике</td>
+                <td><input type="number" id="physics_group1_closed" placeholder="Закрытые вопросы (от 0 до 100)"></td>
+                <td><input type="number" id="physics_group1_wrong_closed" placeholder="Неверные закрытые вопросы (от 0 до 100)"></td>
+                <td><input type="number" id="physics_group1_open_written" placeholder="Открытые вопросы (от 0 до 100)"></td>
+                <td class="cell-description">Баллы за экзамен по физике</td>
             </tr>
             <tr>
                 <td>Kimya</td>
-                <td><input type="number" id="chemistry_group1_closed" placeholder="0-100"></td>
-                <td><input type="number" id="chemistry_group1_wrong_closed" placeholder="0-100"></td>
-                <td><input type="number" id="chemistry_group1_open_written" placeholder="0-100"></td>
-                <td class="cell-description">Введите баллы за экзамен по химии</td>
+                <td><input type="number" id="chemistry_group1_closed" placeholder="Закрытые вопросы (от 0 до 100)"></td>
+                <td><input type="number" id="chemistry_group1_wrong_closed" placeholder="Неверные закрытые вопросы (от 0 до 100)"></td>
+                <td><input type="number" id="chemistry_group1_open_written" placeholder="Открытые вопросы (от 0 до 100)"></td>
+                <td class="cell-description">Баллы за экзамен по химии</td>
             </tr>
         </table>
         <button onclick="calculate('group1')">Рассчитать</button>
@@ -211,11 +211,19 @@
 
         // Показать выбранную форму
         document.getElementById(group).classList.add('active');
+        clearFields(); // Очистить поля при переходе
+    }
+
+    function clearFields() {
+        // Очистить все поля ввода в активной форме
+        document.querySelectorAll('.form-section.active input[type="number"]').forEach(function (input) {
+            input.value = '';
+        });
     }
 
     function calculate(group) {
-        // Логика расчёта на основе введённых данных
-        alert('Рассчитаем для ' + group + '!');
+        // Пример вычислений
+        alert('Расчет для ' + group);
     }
 </script>
 
