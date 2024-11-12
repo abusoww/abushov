@@ -1,1 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    text-align: center;
+    font-size: 24px;
+}
+
+nav {
+    margin: 20px 0;
+    text-align: center;
+}
+
+nav button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f4f4f4;
+}
+
+button {
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    background-color: #ccc;
+}
+
+h2 {
+    text-align: center;
+}
 
