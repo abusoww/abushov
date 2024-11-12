@@ -76,6 +76,24 @@
         input[type="number"]:focus {
             border-color: #4CAF50;
         }
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .input-wrapper button {
+            background-color: #ddd;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            padding: 0;
+            margin: 0 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .input-wrapper button:hover {
+            background-color: #bbb;
+        }
         .results {
             margin-top: 20px;
             display: none;
@@ -107,20 +125,55 @@
                 <tbody>
                     <tr>
                         <td>Математика</td>
-                        <td><input type="number" id="open-math" value="0"></td>
-                        <td><input type="number" id="closed-math" value="0"></td>
-                        <td><input type="number" id="coding-math" value="0"></td>
+                        <td><div class="input-wrapper">
+                                <button onclick="changeValue('open-math', -1)">-</button>
+                                <input type="number" id="open-math" value="0">
+                                <button onclick="changeValue('open-math', 1)">+</button>
+                            </div>
+                        </td>
+                        <td><div class="input-wrapper">
+                                <button onclick="changeValue('closed-math', -1)">-</button>
+                                <input type="number" id="closed-math" value="0">
+                                <button onclick="changeValue('closed-math', 1)">+</button>
+                            </div>
+                        </td>
+                        <td><div class="input-wrapper">
+                                <button onclick="changeValue('coding-math', -1)">-</button>
+                                <input type="number" id="coding-math" value="0">
+                                <button onclick="changeValue('coding-math', 1)">+</button>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>Английский</td>
-                        <td><input type="number" id="open-english" value="0"></td>
-                        <td><input type="number" id="closed-english" value="0"></td>
+                        <td><div class="input-wrapper">
+                                <button onclick="changeValue('open-english', -1)">-</button>
+                                <input type="number" id="open-english" value="0">
+                                <button onclick="changeValue('open-english', 1)">+</button>
+                            </div>
+                        </td>
+                        <td><div class="input-wrapper">
+                                <button onclick="changeValue('closed-english', -1)">-</button>
+                                <input type="number" id="closed-english" value="0">
+                                <button onclick="changeValue('closed-english', 1)">+</button>
+                            </div>
+                        </td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Русский</td>
-                        <td><input type="number" id="open-russian" value="0"></td>
-                        <td><input type="number" id="closed-russian" value="0"></td>
+                        <td><div class="input-wrapper">
+                                <button onclick="changeValue('open-russian', -1)">-</button>
+                                <input type="number" id="open-russian" value="0">
+                                <button onclick="changeValue('open-russian', 1)">+</button>
+                            </div>
+                        </td>
+                        <td><div class="input-wrapper">
+                                <button onclick="changeValue('closed-russian', -1)">-</button>
+                                <input type="number" id="closed-russian" value="0">
+                                <button onclick="changeValue('closed-russian', 1)">+</button>
+                            </div>
+                        </td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -166,6 +219,14 @@
             const results = document.getElementById('results');
             results.style.display = 'block';
             results.style.opacity = 1;
+        }
+
+        function changeValue(id, delta) {
+            const input = document.getElementById(id);
+            let value = parseInt(input.value);
+            value += delta;
+            if (value < 0) value = 0; // Не допускаем отрицательные значения
+            input.value = value;
         }
     </script>
 </body>
