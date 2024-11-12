@@ -40,3 +40,42 @@ button:focus {
 input {
     border-radius: 5px;
 }
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+        margin: 5px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    button {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .card {
+        padding: 10px;
+    }
+}
