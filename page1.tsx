@@ -3,8 +3,8 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import ExamForm from '../components/ExamForm'
-import ResultsTable from '../components/ResultsTable'
+import ExamForm from '../ExamForm'
+import ResultsTable from '../ResultsTable'
 
 const subjects = ['Azərbaycan dili', 'Riyaziyyat', 'Fizika', 'Kimya', 'Biologiya']
 
