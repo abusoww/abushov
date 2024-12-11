@@ -13,6 +13,7 @@
             --text-color: #ffffff;
             --input-background: rgba(59, 130, 246, 0.1);
             --input-border: rgba(255, 255, 255, 0.2);
+            --star-color: #ffffff;
         }
 
         body {
@@ -26,11 +27,14 @@
             transition: background-color 0.3s ease;
         }
 
-        .dark-mode {
+        body.light-mode {
             --background-color: #ffffff;
             --text-color: #05061a;
-            --input-background: rgba(59, 130, 246, 0.1);
-            --input-border: rgba(0, 0, 0, 0.2);
+            --input-background: rgba(59, 130, 246, 0.05);
+            --input-border: rgba(0, 0, 0, 0.1);
+            --primary-color: #0ea5e9;
+            --secondary-color: #8b5cf6;
+            --star-color: #000000;
         }
 
         #stars {
@@ -45,7 +49,7 @@
 
         .star {
             position: absolute;
-            background-color: #ffffff;
+            background-color: var(--star-color);
             border-radius: 50%;
             animation: twinkle 5s infinite;
         }
@@ -85,7 +89,7 @@
 
         .btn {
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: var(--text-color);
+            color: #ffffff;
             border: none;
             padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
@@ -110,6 +114,15 @@
             box-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
         }
 
+        body.light-mode .btn {
+            background: linear-gradient(45deg, #0ea5e9, #6366f1);
+            color: white;
+        }
+
+        body.light-mode .btn.active {
+            background: linear-gradient(45deg, #6366f1, #0ea5e9);
+        }
+
         .form-container, .results-container {
             background-color: var(--input-background);
             backdrop-filter: blur(10px);
@@ -117,6 +130,7 @@
             padding: 2rem;
             margin-top: 2rem;
             transition: all 0.5s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .results-container {
@@ -154,9 +168,9 @@
         }
 
         .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
         }
 
         .input-group label {
@@ -166,7 +180,9 @@
 
         .input-group input {
             width: 100%;
-            padding: 0.5rem;
+            max-width: 100%;
+            box-sizing: border-box;
+            padding: 0.75rem;
             background-color: var(--input-background);
             border: 1px solid var(--input-border);
             border-radius: 0.25rem;
@@ -216,6 +232,9 @@
 
         .btn-secondary {
             background: linear-gradient(45deg, #4b5563, #6b7280);
+        }
+        body.light-mode .btn-secondary {
+            background: linear-gradient(45deg, #64748b, #94a3b8);
         }
 
         .error-message {
@@ -272,11 +291,20 @@
             }
 
             .title {
-                font-size: 2rem;
+                font-size: 1.75rem;
             }
 
-            .btn {
-                width: 100%;
+            .subject {
+                padding: 0.75rem;
+            }
+
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group input {
+                padding: 0.5rem;
+                font-size: 16px; /* Prevents iOS zoom */
             }
         }
     </style>
@@ -284,7 +312,7 @@
 <body>
     <div id="stars"></div>
     <div class="container">
-        <button id="themeToggle">🌙</button>
+        <button id="themeToggle">☀️</button>
         <button id="languageToggle">🇦🇿</button>
         <h1 class="title">İmtahan Ballarını Hesablama</h1>
         <p class="description">Doğru, yanlış, açıq və qapalı suallar haqqında məlumat daxil edərək ballarınızı hesablaya bilərsiniz.</p>
@@ -400,6 +428,7 @@
             document.getElementById('languageToggle').addEventListener('click', toggleLanguage);
 
             document.addEventListener('mousemove', moveStars);
+            updateStarColors();
         }
 
         function createStars() {
@@ -423,11 +452,23 @@
             const mouseY = e.clientY / window.innerHeight;
 
             stars.forEach((star) => {
-                const speed = parseFloat(star.style.animationDuration);
-                const x = (mouseX - 0.5) * speed * 50;
-                const y = (mouseY - 0.5) * speed * 50;
-
-                star.style.transform= `translate(${x}px, ${y}px)`;
+                const rect = star.getBoundingClientRect();
+                const starX = (rect.left + rect.width / 2) / window.innerWidth;
+                const starY = (rect.top + rect.height / 2) / window.innerHeight;
+                
+                const deltaX = mouseX - starX;
+                const deltaY = mouseY - starY;
+                
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                const maxDistance = Math.sqrt(2);
+                
+                const scale = 1 - distance / maxDistance;
+                const movement = 50 * scale * scale;
+                
+                const translateX = deltaX * movement;
+                const translateY = deltaY * movement;
+                
+                star.style.transform = `translate(${translateX}px, ${translateY}px)`;
             });
         }
 
@@ -641,9 +682,18 @@
         }
 
         function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode');
             const themeToggle = document.getElementById('themeToggle');
-            themeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            themeToggle.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
+            updateStarColors();
+        }
+
+        function updateStarColors() {
+            const stars = document.querySelectorAll('.star');
+            const starColor = getComputedStyle(document.body).getPropertyValue('--star-color').trim();
+            stars.forEach(star => {
+                star.style.backgroundColor = starColor;
+            });
         }
 
         function toggleLanguage() {
