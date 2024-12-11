@@ -6,14 +6,31 @@
     <title>İmtahan Ballarını Hesablama</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #8b5cf6;
+            --background-color: #05061a;
+            --text-color: #ffffff;
+            --input-background: rgba(59, 130, 246, 0.1);
+            --input-border: rgba(255, 255, 255, 0.2);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #05061a;
-            color: white;
+            background-color: var(--background-color);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
             min-height: 100vh;
             overflow-x: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        .dark-mode {
+            --background-color: #ffffff;
+            --text-color: #05061a;
+            --input-background: rgba(59, 130, 246, 0.1);
+            --input-border: rgba(0, 0, 0, 0.2);
         }
 
         #stars {
@@ -48,13 +65,13 @@
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 1rem;
-            color: #ffffff;
+            color: var(--text-color);
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         .description {
             text-align: center;
-            color: #a0aec0;
+            color: var(--text-color);
             margin-bottom: 2rem;
         }
 
@@ -67,8 +84,8 @@
         }
 
         .btn {
-            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
-            color: white;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
             border: none;
             padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
@@ -89,12 +106,12 @@
         }
 
         .btn.active {
-            background: linear-gradient(45deg, #8b5cf6, #3b82f6);
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
             box-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
         }
 
         .form-container, .results-container {
-            background-color: rgba(59, 130, 246, 0.1);
+            background-color: var(--input-background);
             backdrop-filter: blur(10px);
             border-radius: 1rem;
             padding: 2rem;
@@ -115,7 +132,7 @@
         .group-title, .results-title {
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
-            color: #f0f4f8;
+            color: var(--text-color);
         }
 
         .subject {
@@ -133,7 +150,7 @@
 
         .subject h3 {
             margin-top: 0;
-            color: #a0aec0;
+            color: var(--text-color);
         }
 
         .input-group {
@@ -150,10 +167,10 @@
         .input-group input {
             width: 100%;
             padding: 0.5rem;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: var(--input-background);
+            border: 1px solid var(--input-border);
             border-radius: 0.25rem;
-            color: white;
+            color: var(--text-color);
             margin-top: 0.25rem;
             transition: all 0.3s ease;
         }
@@ -181,7 +198,7 @@
         th, td {
             padding: 0.75rem;
             text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--input-border);
         }
 
         th {
@@ -199,6 +216,54 @@
 
         .btn-secondary {
             background: linear-gradient(45deg, #4b5563, #6b7280);
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        #themeToggle, #languageToggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        #themeToggle:hover, #languageToggle:hover {
+            transform: scale(1.1);
         }
 
         @media (max-width: 640px) {
@@ -219,6 +284,8 @@
 <body>
     <div id="stars"></div>
     <div class="container">
+        <button id="themeToggle">🌙</button>
+        <button id="languageToggle">🇦🇿</button>
         <h1 class="title">İmtahan Ballarını Hesablama</h1>
         <p class="description">Doğru, yanlış, açıq və qapalı suallar haqqında məlumat daxil edərək ballarınızı hesablaya bilərsiniz.</p>
         
@@ -226,13 +293,11 @@
         
         <div id="examForm" class="form-container" style="display: none;">
             <h2 id="activeGroupTitle" class="group-title"></h2>
-            <form id="scoreForm">
-                <!-- Form will be dynamically generated here -->
-            </form>
+            <form id="scoreForm"></form>
             <button id="calculateButton" class="btn">Hesabla</button>
         </div>
         
-        <div id="results" class="results-container" style="display: none;">
+        <div id="results" class="results-container">
             <h2 class="results-title">Nəticələr</h2>
             <div class="table-container">
                 <table id="resultsTable">
@@ -242,9 +307,7 @@
                             <th>Bal</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Results will be dynamically inserted here -->
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
             <div class="button-group">
@@ -255,15 +318,69 @@
     </div>
     <script>
         const groups = [
-            { name: '1-ci Qrup', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Fizika', 'Kimya', 'Biologiya'] },
-            { name: '2-ci Qrup', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Tarix', 'Coğrafiya', 'Ədəbiyyat'] },
-            { name: '3-cü Qrup', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Tarix', 'Ədəbiyyat', 'Xarici dil'] },
-            { name: '4-cü Qrup', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Tarix', 'Coğrafiya', 'Xarici dil'] },
-            { name: 'Buraxılış İmtahanı', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Xarici dil'] },
+            { 
+                name: '1-ci Qrup', 
+                subjects: ['Riyaziyyat', 'Fizika', 'Kimya'],
+                maxScores: [150, 150, 100]
+            },
+            { 
+                name: '2-ci Qrup', 
+                subjects: ['Riyaziyyat', 'Coğrafiya', 'Tarix'],
+                maxScores: [150, 100, 150]
+            },
+            { 
+                name: '3-cü Qrup', 
+                subjects: ['Azərbaycan dili', 'Ədəbiyyat', 'Tarix'],
+                maxScores: [150, 100, 150]
+            },
+            { 
+                name: '4-cü Qrup', 
+                subjects: ['Biologiya', 'Kimya', 'Fizika'],
+                maxScores: [100, 150, 100]
+            },
+            { 
+                name: 'Buraxılış İmtahanı', 
+                subjects: ['Riyaziyyat', 'Azərbaycan dili', 'İngilis dili'],
+                maxScores: [100, 100, 100]
+            },
         ];
 
         let activeGroup = null;
         let results = null;
+        let language = 'az';
+
+        const translations = {
+            az: {
+                title: 'İmtahan Ballarını Hesablama',
+                description: 'Doğru, yanlış, açıq və qapalı suallar haqqında məlumat daxil edərək ballarınızı hesablaya bilərsiniz.',
+                calculate: 'Hesabla',
+                results: 'Nəticələr',
+                subject: 'Fənn',
+                score: 'Bal',
+                saveResults: 'Nəticələri Saxla',
+                recalculate: 'Yenidən hesabla',
+                correct: 'Doğru',
+                incorrect: 'Yanlış',
+                open: 'Açıq',
+                closed: 'Qapalı',
+                coding: 'Kodlaşdırma',
+            },
+            ru: {
+                title: 'Калькулятор баллов экзамена',
+                description: 'Вы можете рассчитать свои баллы, введя информацию о правильных, неправильных, открытых и закрытых вопросах.',
+                calculate: 'Рассчитать',
+                results: 'Результаты',
+                subject: 'Предмет',
+                score: 'Балл',
+                saveResults: 'Сохранить результаты',
+                recalculate: 'Пересчитать',
+                correct: 'Правильно',
+                incorrect: 'Неправильно',
+                open: 'Открытые',
+                closed: 'Закрытые',
+                coding: 'Кодирование',
+            }
+        };
 
         function init() {
             createStars();
@@ -279,20 +396,10 @@
             document.getElementById('calculateButton').addEventListener('click', calculateScores);
             document.getElementById('recalculateButton').addEventListener('click', resetForm);
             document.getElementById('downloadButton').addEventListener('click', downloadResults);
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('languageToggle').addEventListener('click', toggleLanguage);
 
-            document.addEventListener('mousemove', (e) => {
-                const stars = document.querySelectorAll('.star');
-                const mouseX = e.clientX / window.innerWidth;
-                const mouseY = e.clientY / window.innerHeight;
-
-                stars.forEach((star) => {
-                    const speed = parseFloat(star.style.animationDuration);
-                    const x = (mouseX - 0.5) * speed * 100;
-                    const y = (mouseY - 0.5) * speed * 100;
-
-                    star.style.transform = `translate(${x}px, ${y}px)`;
-                });
-            });
+            document.addEventListener('mousemove', moveStars);
         }
 
         function createStars() {
@@ -310,6 +417,20 @@
             }
         }
 
+        function moveStars(e) {
+            const stars = document.querySelectorAll('.star');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            stars.forEach((star) => {
+                const speed = parseFloat(star.style.animationDuration);
+                const x = (mouseX - 0.5) * speed * 50;
+                const y = (mouseY - 0.5) * speed * 50;
+
+                star.style.transform= `translate(${x}px, ${y}px)`;
+            });
+        }
+
         function handleGroupClick(groupName) {
             activeGroup = groups.find(g => g.name === groupName);
             document.getElementById('activeGroupTitle').textContent = activeGroup.name;
@@ -317,56 +438,161 @@
             document.getElementById('examForm').style.display = 'block';
             document.getElementById('results').style.display = 'none';
             
-            // Update active button
             document.querySelectorAll('#groupButtons .btn').forEach(button => {
                 button.classList.toggle('active', button.textContent === groupName);
             });
+
+            document.getElementById('examForm').scrollIntoView({ behavior: 'smooth' });
         }
 
         function generateForm() {
             const form = document.getElementById('scoreForm');
             form.innerHTML = '';
-            activeGroup.subjects.forEach(subject => {
+            activeGroup.subjects.forEach((subject, index) => {
                 const subjectDiv = document.createElement('div');
                 subjectDiv.className = 'subject';
+                let inputFields = '';
+                if (activeGroup.name === 'Buraxılış İmtahanı') {
+                    const maxClosed = subject === 'İngilis dili' ? 23 : (subject === 'Azərbaycan dili' ? 20 : 13);
+                    const maxOpen = subject === 'İngilis dili' ? 7 : (subject === 'Azərbaycan dili' ? 10 : 7);
+                    inputFields = `
+                        <div class="input-group">
+                            <label>
+                                ${translations[language].closed}:
+                                <input type="number" name="${subject}-closed" min="0" max="${maxClosed}" class="input-field">
+                                <span class="error-message"></span>
+                            </label>
+                            <label>
+                                ${translations[language].open}:
+                                <input type="number" name="${subject}-open" min="0" max="${maxOpen}" class="input-field">
+                                <span class="error-message"></span>
+                            </label>
+                    `;
+                    if (subject === 'Riyaziyyat') {
+                        inputFields += `
+                            <label>
+                                ${translations[language].coding}:
+                                <input type="number" name="${subject}-coding" min="0" max="5" class="input-field">
+                                <span class="error-message"></span>
+                            </label>
+                        `;
+                    }
+                } else {
+                    inputFields = `
+                        <div class="input-group">
+                            <label>
+                                ${translations[language].correct}:
+                                <input type="number" name="${subject}-correct" min="0" max="22" class="input-field">
+                                <span class="error-message"></span>
+                            </label>
+                            <label>
+                                ${translations[language].incorrect}:
+                                <input type="number" name="${subject}-incorrect" min="0" max="22" class="input-field">
+                                <span class="error-message"></span>
+                            </label>
+                            <label>
+                                ${translations[language].coding}:
+                                <input type="number" name="${subject}-coding" min="0" max="5" class="input-field">
+                                <span class="error-message"></span>
+                            </label>
+                            <label>
+                                ${translations[language].open}:
+                                <input type="number" name="${subject}-open" min="0" max="3" class="input-field">
+                                <span class="error-message"></span>
+                            </label>
+                        </div>
+                    `;
+                }
                 subjectDiv.innerHTML = `
-                    <h3>${subject}</h3>
-                    <div class="input-group">
-                        <label>
-                            Doğru:
-                            <input type="number" name="${subject}-correct" min="0">
-                        </label>
-                        <label>
-                            Yanlış:
-                            <input type="number" name="${subject}-incorrect" min="0">
-                        </label>
-                        <label>
-                            Açıq:
-                            <input type="number" name="${subject}-open" min="0">
-                        </label>
-                        <label>
-                            Qapalı:
-                            <input type="number" name="${subject}-closed" min="0">
-                        </label>
-                    </div>
+                    <h3>${subject} (${activeGroup.maxScores[index]} bal)</h3>
+                    ${inputFields}
                 `;
                 form.appendChild(subjectDiv);
             });
+
+            document.querySelectorAll('.input-field').forEach(input => {
+                input.addEventListener('input', validateInput);
+            });
+        }
+
+        function validateInput(event) {
+            const input = event.target;
+            const min = parseInt(input.min);
+            const max = parseInt(input.max);
+            const value = parseInt(input.value);
+            const errorMessage = input.nextElementSibling;
+
+            if (isNaN(value)) {
+                errorMessage.textContent = '';
+            } else if (value < min || value > max) {
+                errorMessage.textContent = `Dəyər ${min} və ${max} arasında olmalıdır.`;
+            } else {
+                errorMessage.textContent = '';
+            }
         }
 
         function calculateScores() {
             results = {};
-            activeGroup.subjects.forEach(subject => {
-                const correct = parseInt(document.querySelector(`[name="${subject}-correct"]`).value) || 0;
-                const incorrect = parseInt(document.querySelector(`[name="${subject}-incorrect"]`).value) || 0;
-                const open = parseInt(document.querySelector(`[name="${subject}-open"]`).value) || 0;
-                const closed = parseInt(document.querySelector(`[name="${subject}-closed"]`).value) || 0;
+            let totalScore = 0;
 
-                const score = Math.max(0, Math.min(100, correct * 2 + incorrect * -0.5 + open * 3 + closed * 1));
-                results[subject] = score;
-            });
+            if (activeGroup.name === '1-ci Qrup') {
+                const riyaziyyat = getSubjectScores('Riyaziyyat');
+                const fizika = getSubjectScores('Fizika');
+                const kimya = getSubjectScores('Kimya');
+
+                results['Riyaziyyat'] = 1.5 * 100/33 * ((riyaziyyat.correct - riyaziyyat.incorrect/4) + (2*riyaziyyat.open + riyaziyyat.coding));
+                results['Fizika'] = 1.5 * 100/33 * ((fizika.correct - fizika.incorrect/4) + (2*fizika.open + fizika.coding));
+                results['Kimya'] = 100/33 * ((kimya.correct - kimya.incorrect/4) + (2*kimya.open + kimya.coding));
+            } else if (activeGroup.name === '2-ci Qrup') {
+                const riyaziyyat = getSubjectScores('Riyaziyyat');
+                const cografiya = getSubjectScores('Coğrafiya');
+                const tarix = getSubjectScores('Tarix');
+
+                results['Riyaziyyat'] = 1.5 * 100/33 * ((riyaziyyat.correct - riyaziyyat.incorrect/4) + (2*riyaziyyat.open + riyaziyyat.coding));
+                results['Coğrafiya'] = 100/33 * ((cografiya.correct - cografiya.incorrect/4) + (2*cografiya.open + cografiya.coding));
+                results['Tarix'] = 1.5 * 100/33 * ((tarix.correct - tarix.incorrect/4) + (2*tarix.open + tarix.coding));
+            } else if (activeGroup.name === '3-cü Qrup') {
+                const azDili = getSubjectScores('Azərbaycan dili');
+                const edebiyyat = getSubjectScores('Ədəbiyyat');
+                const tarix = getSubjectScores('Tarix');
+
+                results['Azərbaycan dili'] = 1.5 * 100/33 * ((azDili.correct - azDili.incorrect/4) + (2*azDili.open + azDili.coding));
+                results['Ədəbiyyat'] = 100/33 * ((edebiyyat.correct - edebiyyat.incorrect/4) + (2*edebiyyat.open + edebiyyat.coding));
+                results['Tarix'] = 1.5 * 100/33 * ((tarix.correct - tarix.incorrect/4) + (2*tarix.open + tarix.coding));
+            } else if (activeGroup.name === '4-cü Qrup') {
+                const biologiya = getSubjectScores('Biologiya');
+                const kimya = getSubjectScores('Kimya');
+                const fizika = getSubjectScores('Fizika');
+
+                results['Biologiya'] = 100/33 * ((biologiya.correct - biologiya.incorrect/4) + (2*biologiya.open + biologiya.coding));
+                results['Kimya'] = 1.5 * 100/33 * ((kimya.correct - kimya.incorrect/4) + (2*kimya.open + kimya.coding));
+                results['Fizika'] = 100/33 * ((fizika.correct - fizika.incorrect/4) + (2*fizika.open + fizika.coding));
+            } else if (activeGroup.name === 'Buraxılış İmtahanı') {
+                const riyaziyyat = getSubjectScores('Riyaziyyat');
+                const azDili = getSubjectScores('Azərbaycan dili');
+                const ingilisDili = getSubjectScores('İngilis dili');
+
+                results['Riyaziyyat'] = 25 / 8 * (2 * riyaziyyat.open + riyaziyyat.closed + riyaziyyat.coding);
+                results['Azərbaycan dili'] = 2.5 * (2 * azDili.open + azDili.closed);
+                results['İngilis dili'] = 100 / 37 * (2 * ingilisDili.open + ingilisDili.closed);
+            }
+
+            for (const score of Object.values(results)) {
+                totalScore += score;
+            }
+            results['Ümumi bal'] = totalScore;
 
             displayResults();
+        }
+
+        function getSubjectScores(subject) {
+            return {
+                correct: parseInt(document.querySelector(`[name="${subject}-correct"]`)?.value) || 0,
+                incorrect: parseInt(document.querySelector(`[name="${subject}-incorrect"]`)?.value) || 0,
+                open: parseInt(document.querySelector(`[name="${subject}-open"]`)?.value) || 0,
+                closed: parseInt(document.querySelector(`[name="${subject}-closed"]`)?.value) || 0,
+                coding: parseInt(document.querySelector(`[name="${subject}-coding"]`)?.value) || 0
+            };
         }
 
         function displayResults() {
@@ -396,12 +622,13 @@
         function resetForm() {
             document.getElementById('examForm').style.display = 'block';
             document.getElementById('results').style.display = 'none';
+            document.getElementById('examForm').scrollIntoView({ behavior: 'smooth' });
         }
 
         function downloadResults() {
             if (results) {
                 const resultsText = Object.entries(results)
-                    .map(([subject, score]) => `${subject}: ${score.toFixed(2)}`)
+                    .map(([subject, score]) => `${subject}: ${score.toFixed(1)}`)
                     .join('\n');
                 const blob = new Blob([resultsText], { type: 'text/plain' });
                 const url = URL.createObjectURL(blob);
@@ -410,6 +637,34 @@
                 a.download = 'imtahan_neticeleri.txt';
                 a.click();
                 URL.revokeObjectURL(url);
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const themeToggle = document.getElementById('themeToggle');
+            themeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        }
+
+        function toggleLanguage() {
+            language = language === 'az' ? 'ru' : 'az';
+            const languageToggle = document.getElementById('languageToggle');
+            languageToggle.textContent = language === 'az' ? '🇦🇿' : '🇷🇺';
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            document.querySelector('.title').textContent = translations[language].title;
+            document.querySelector('.description').textContent = translations[language].description;
+            document.getElementById('calculateButton').textContent = translations[language].calculate;
+            document.querySelector('.results-title').textContent = translations[language].results;
+            document.querySelector('#resultsTable th:first-child').textContent = translations[language].subject;
+            document.querySelector('#resultsTable th:last-child').textContent = translations[language].score;
+            document.getElementById('downloadButton').textContent = translations[language].saveResults;
+            document.getElementById('recalculateButton').textContent = translations[language].recalculate;
+
+            if (activeGroup) {
+                generateForm();
             }
         }
 
