@@ -1,30 +1,49 @@
-const groups = [
-    { name: '1-ci Qrup', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Fizika', 'Kimya', 'Biologiya'] },
-    { name: '2-ci Qrup', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Tarix', 'Coğrafiya', 'Ədəbiyyat'] },
-    { name: '3-cü Qrup', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Tarix', 'Ədəbiyyat', 'Xarici dil'] },
-    { name: '4-cü Qrup', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Tarix', 'Coğrafiya', 'Xarici dil'] },
-    { name: 'Buraxılış İmtahanı', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Xarici dil'] },
-];
-
-let activeGroup = null;
-let results = null;
-
-function init() {
-    createStars();
-    const groupButtons = document.getElementById('groupButtons');
-    groups.forEach(group => {
-        const button = document.createElement('button');
-        button.textContent = group.name;
-        button.className = 'btn';
-        button.addEventListener('click', () => handleGroupClick(group.name));
-        groupButtons.appendChild(button);
-    });
-
-    document.getElementById('calculateButton').addEventListener('click', calculateScores);
-    document.getElementById('recalculateButton').addEventListener('click', resetForm);
-    document.getElementById('downloadButton').addEventListener('click', downloadResults);
-}
-
-function createStars() {
-    const starsContainer =
-
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İmtahan Ballarını Hesablama</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="stars"></div>
+    <div class="container">
+        <h1 class="title">İmtahan Ballarını Hesablama</h1>
+        <p class="description">Doğru, yanlış, açıq və qapalı suallar haqqında məlumat daxil edərək ballarınızı hesablaya bilərsiniz.</p>
+        
+        <div id="groupButtons" class="button-group"></div>
+        
+        <div id="examForm" class="form-container" style="display: none;">
+            <h2 id="activeGroupTitle" class="group-title"></h2>
+            <form id="scoreForm">
+                <!-- Form will be dynamically generated here -->
+            </form>
+            <button id="calculateButton" class="btn btn-primary">Hesabla</button>
+        </div>
+        
+        <div id="results" class="results-container" style="display: none;">
+            <h2 class="results-title">Nəticələr</h2>
+            <div class="table-container">
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>Fənn</th>
+                            <th>Bal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Results will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="button-group">
+                <button id="recalculateButton" class="btn btn-secondary">Yenidən hesabla</button>
+                <button id="downloadButton" class="btn btn-primary">Nəticələri yüklə</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
