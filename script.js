@@ -1,133 +1,684 @@
+const examDate = new Date('2025-03-01T10:00:00').getTime();
+
 const groups = [
-    { name: '1-ci Qrup', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Fizika', 'Kimya', 'Biologiya'] },
-    { name: '2-ci Qrup', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Tarix', 'Coğrafiya', 'Ədəbiyyat'] },
-    { name: '3-cü Qrup', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Tarix', 'Ədəbiyyat', 'Xarici dil'] },
-    { name: '4-cü Qrup', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Tarix', 'Coğrafiya', 'Xarici dil'] },
-    { name: 'Buraxılış İmtahanı', subjects: ['Azərbaycan dili', 'Riyaziyyat', 'Xarici dil'] },
+    { 
+        name: '1-ci Qrup', 
+        subjects: ['Riyaziyyat', 'Fizika', 'Kimya'],
+        maxScores: [150, 150, 100]
+    },
+    { 
+        name: '2-ci Qrup', 
+        subjects: ['Riyaziyyat', 'Coğrafiya', 'Tarix'],
+        maxScores: [150, 100, 150]
+    },
+    { 
+        name: '3-cü Qrup', 
+        subjects: ['Azərbaycan dili', 'Ədəbiyyat', 'Tarix'],
+        maxScores: [150, 100, 150]
+    },
+    { 
+        name: '4-cü Qrup', 
+        subjects: ['Biologiya', 'Kimya', 'Fizika'],
+        maxScores: [100, 150, 100]
+    },
+    { 
+        name: 'Buraxılış İmtahanı', 
+        subjects: ['Riyaziyyat', 'Azərbaycan dili', 'İngilis dili'],
+        maxScores: [100, 100, 100]
+    },
 ];
 
 let activeGroup = null;
 let results = null;
+let language = 'az';
+
+const translations = {
+    az: {
+        title: 'İmtahan Ballarını Hesablama',
+        description: 'Doğru, yanlış, açıq və qapalı suallar haqqında məlumat daxil edərək ballarınızı hesablaya bilrsiniz.',
+        calculate: 'Hesabla',
+        results: 'Nəticələr',
+        subject: 'Fənn',
+        score: 'Bal',
+        saveResults: 'Nəticələri Saxla',
+        recalculate: 'Yenidən hesabla',
+        correct: 'Doğru',
+        incorrect: 'Yanlış',
+        open: 'Açıq',
+        closed: 'Qapalı',
+        coding: 'Kodlaşdırma',
+        days: 'Gün',
+        hours: 'Saat',
+        minutes: 'Dəqiqə',
+        seconds: 'Saniyə',
+        examStarted: 'İmtahan başladı!',
+        daysLeft: 'Gün qaldı',
+        hoursLeft: 'Saat qaldı',
+        minutesLeft: 'Dəqiqə qaldı',
+        secondsLeft: 'Saniyə qaldı',
+        groups: {
+            '1-ci Qrup': '1-ci Qrup',
+            '2-ci Qrup': '2-ci Qrup',
+            '3-cü Qrup': '3-cü Qrup',
+            '4-cü Qrup': '4-cü Qrup',
+            'Buraxılış İmtahanı': 'Buraxılış İmtahanı'
+        },
+        subjects: {
+            'Riyaziyyat': 'Riyaziyyat',
+            'Fizika': 'Fizika',
+            'Kimya': 'Kimya',
+            'Biologiya': 'Biologiya',
+            'Coğrafiya': 'Coğrafiya',
+            'Tarix': 'Tarix',
+            'Azərbaycan dili': 'Azərbaycan dili',
+            'Ədəbiyyat': 'Ədəbiyyat',
+            'İngilis dili': 'İngilis dili',
+            'Ümumi bal': 'Ümumi bal'
+        }
+    },
+    ru: {
+        title: 'Калькулятор баллов экзамена',
+        description: 'Вы можете рассчитать свои баллы, введя информацию о правильных, неправильных, открытых и закрытых вопросах.',
+        calculate: 'Рассчитать',
+        results: 'Результаты',
+        subject: 'Предмет',
+        score: 'Балл',
+        saveResults: 'Сохранить результаты',
+        recalculate: 'Пересчитать',
+        correct: 'Правильно',
+        incorrect: 'Неправильно',
+        open: 'Открытые',
+        closed: 'Закрытые',
+        coding: 'Кодирование',
+        days: 'Дней',
+        hours: 'Часов',
+        minutes: 'Минут',
+        seconds: 'Секунд',
+        examStarted: 'Экзамен начался!',
+        daysLeft: 'Дней осталось',
+        hoursLeft: 'Часов осталось',
+        minutesLeft: 'Минут осталось',
+        secondsLeft: 'Секунд осталось',
+        groups: {
+            '1-ci Qrup': '1-я Группа',
+            '2-ci Qrup': '2-я Группа',
+            '3-cü Qrup': '3-я Группа',
+            '4-cü Qrup': '4-я Группа',
+            'Buraxılış İmtahanı': 'Выпускной экзамен'
+        },
+        subjects: {
+            'Riyaziyyat': 'Математика',
+            'Fizika': 'Физика',
+            'Kimya': 'Химия',
+            'Biologiya': 'Биология',
+            'Coğrafiya': 'География',
+            'Tarix': 'История',
+            'Azərbaycan dili': 'Азербайджанский язык',
+            'Ədəbiyyat': 'Литература',
+            'İngilis dili': 'Английский язык',
+            'Ümumi bal': 'Общий балл'
+        }
+    }
+};
+
+// Объект с интервалами баллов для каждой группы
+const scoreRanges = {
+    '1-ci Qrup': {
+        max: 400,
+        ranges: [
+            { min: 350, max: 400, level: 'excellent' },
+            { min: 250, max: 349, level: 'good' },
+            { min: 150, max: 249, level: 'average' },
+            { min: 0, max: 149, level: 'low' }
+        ]
+    },
+    '2-ci Qrup': {
+        max: 400,
+        ranges: [
+            { min: 350, max: 400, level: 'excellent' },
+            { min: 250, max: 349, level: 'good' },
+            { min: 150, max: 249, level: 'average' },
+            { min: 0, max: 149, level: 'low' }
+        ]
+    },
+    '3-cü Qrup': {
+        max: 400,
+        ranges: [
+            { min: 350, max: 400, level: 'excellent' },
+            { min: 250, max: 349, level: 'good' },
+            { min: 150, max: 249, level: 'average' },
+            { min: 0, max: 149, level: 'low' }
+        ]
+    },
+    '4-cü Qrup': {
+        max: 350,
+        ranges: [
+            { min: 300, max: 350, level: 'excellent' },
+            { min: 200, max: 299, level: 'good' },
+            { min: 150, max: 199, level: 'average' },
+            { min: 0, max: 149, level: 'low' }
+        ]
+    },
+    'Buraxılış İmtahanı': {
+        max: 300,
+        ranges: [
+            { min: 250, max: 300, level: 'excellent' },
+            { min: 200, max: 249, level: 'good' },
+            { min: 150, max: 199, level: 'average' },
+            { min: 0, max: 149, level: 'low' }
+        ]
+    }
+};
+
+// Сообщения для каждого уровня результатов
+const resultMessages = {
+    excellent: {
+        az: {
+            '1-ci Qrup': {
+                text: 'Təbrik edirik! Siz texniki sahələrdə əla nəticə göstərdiniz! 🎉',
+                gif: 'https://giphy.com/embed/l0HlQXlQ3nHyLMvte'
+            },
+            '2-ci Qrup': {
+                text: 'Möhtəşəm! İqtisadiyyat sahəsində parlaq gələcək sizi gözləyir! 🌟',
+                gif: 'https://giphy.com/embed/xT8qB4KH2hCnlE1T2w'
+            },
+            '3-cü Qrup': {
+                text: 'Əla! Humanitar elmlər sahəsində yüksək nəticə! ⭐',
+                gif: 'https://giphy.com/embed/3o7TKS6AWINqbg3FV6'
+            },
+            '4-cü Qrup': {
+                text: 'Fantastik! Tibb sahəsində böyük potensial göstərdiniz! 🏥',
+                gif: 'https://giphy.com/embed/26u4cqiYI30juCOGY'
+            },
+            'Buraxılış İmtahanı': {
+                text: 'Əla nəticə! Siz buraxılış imtahanını uğurla keçdiniz! 🎓',
+                gif: 'https://giphy.com/embed/l0MYt5jPR6QX5pnqM'
+            }
+        },
+        ru: {
+            '1-ci Qrup': {
+                text: 'Поздравляем! Отличный результат в технической сфере! 🎉',
+                gif: 'https://giphy.com/embed/l0HlQXlQ3nHyLMvte'
+            },
+            '2-ci Qrup': {
+                text: 'Превосходно! Блестящее будущее в экономике ждет вас! 🌟',
+                gif: 'https://giphy.com/embed/xT8qB4KH2hCnlE1T2w'
+            },
+            '3-cü Qrup': {
+                text: 'Отлично! Высокий результат в гуманитарных науках! ⭐',
+                gif: 'https://giphy.com/embed/3o7TKS6AWINqbg3FV6'
+            },
+            '4-cü Qrup': {
+                text: 'Фантастика! Вы показали большой потенциал в медицине! 🏥',
+                gif: 'https://giphy.com/embed/26u4cqiYI30juCOGY'
+            },
+            'Buraxılış İmtahanı': {
+                text: 'Отличный результат! Вы успешно сдали выпускной экзамен! 🎓',
+                gif: 'https://giphy.com/embed/l0MYt5jPR6QX5pnqM'
+            }
+        }
+    },
+    good: {
+        az: {
+            '1-ci Qrup': {
+                text: 'Yaxşı nəticədir! Texniki biliklərinizi daha da inkişaf etdirə bilərsiniz! 👍',
+                gif: 'https://giphy.com/embed/3oEjHV0z8S7WM4MwnK'
+            },
+            '2-ci Qrup': {
+                text: 'Yaxşı iş! İqtisadiyyat sahəsində yaxşı təməliniz var! 📈',
+                gif: 'https://giphy.com/embed/xT5LMHxhOfscxPfIfm'
+            },
+            '3-cü Qrup': {
+                text: 'Yaxşı nəticə! Humanitar elmlərdə potensialınız var! 📚',
+                gif: 'https://giphy.com/embed/26DMYwkCwa8G8uGcg'
+            },
+            '4-cü Qrup': {
+                text: 'Yaxşı göstərici! Tibb sahəsində inkişaf üçün yaxşı təməliniz var! ⚕️',
+                gif: 'https://giphy.com/embed/3o7TKDEhaXOzP13RYs'
+            },
+            'Buraxılış İmtahanı': {
+                text: 'Yaxşı nəticə! Növbəti mərhələyə hazırsınız! 🎯',
+                gif: 'https://giphy.com/embed/l0MYxef0mpdcnQnvi'
+            }
+        },
+        ru: {
+            '1-ci Qrup': {
+                text: 'Хороший результат! Вы можете развить свои технические навыки еще больше! 👍',
+                gif: 'https://giphy.com/embed/3oEjHV0z8S7WM4MwnK'
+            },
+            '2-ci Qrup': {
+                text: 'Хорошая работа! У вас хорошая база в экономике! 📈',
+                gif: 'https://giphy.com/embed/xT5LMHxhOfscxPfIfm'
+            },
+            '3-cü Qrup': {
+                text: 'Хороший результат! У вас есть потенциал в гуманитарных науках! 📚',
+                gif: 'https://giphy.com/embed/26DMYwkCwa8G8uGcg'
+            },
+            '4-cü Qrup': {
+                text: 'Хороший показатель! У вас хорошая база для развития в медицине! ⚕️',
+                gif: 'https://giphy.com/embed/3o7TKDEhaXOzP13RYs'
+            },
+            'Buraxılış İmtahanı': {
+                text: 'Хороший результат! Вы готовы к следующему этапу! 🎯',
+                gif: 'https://giphy.com/embed/l0MYxef0mpdcnQnvi'
+            }
+        }
+    },
+    average: {
+        az: {
+            '1-ci Qrup': {
+                text: 'Orta nəticədir. Daha çox texniki tapşırıqlar üzərində işləyin! 💪',
+                gif: 'https://giphy.com/embed/3oEjI6SIIHBdRxXI40'
+            },
+            '2-ci Qrup': {
+                text: 'Normal nəticədir. İqtisadi anlayışları daha çox öyrənin! 📊',
+                gif: 'https://giphy.com/embed/l46CyJmS9KUbokzsI'
+            },
+            '3-cü Qrup': {
+                text: 'Orta bal. Humanitar fənləri daha çox oxuyun! 📖',
+                gif: 'https://giphy.com/embed/3o7TKF5DnsSLv4zVBu'
+            },
+            '4-cü Qrup': {
+                text: 'Orta göstərici. Tibbi biliklərə daha çox diqqət yetirin! 🔬',
+                gif: 'https://giphy.com/embed/3o7TKMeCOV3oXSb5bq'
+            },
+            'Buraxılış İmtahanı': {
+                text: 'Orta nəticə. Biraz daha səy göstərin! 🎯',
+                gif: 'https://giphy.com/embed/3o7TKT089pgqvzqFWw'
+            }
+        },
+        ru: {
+            '1-ci Qrup': {
+                text: 'Средний результат. Работайте больше над техническими заданиям! 💪',
+                gif: 'https://giphy.com/embed/3oEjI6SIIHBdRxXI40'
+            },
+            '2-ci Qrup': {
+                text: 'Нормальный результат. Изучайте больше экономических концепций! 📊',
+                gif: 'https://giphy.com/embed/l46CyJmS9KUbokzsI'
+            },
+            '3-cü Qrup': {
+                text: 'Средний балл. Читайте больше гуманитарных предметов! 📖',
+                gif: 'https://giphy.com/embed/3o7TKF5DnsSLv4zVBu'
+            },
+            '4-cü Qrup': {
+                text: 'Средний показатель. Уделите больше внимания медицинским знаниям! 🔬',
+                gif: 'https://giphy.com/embed/3o7TKMeCOV3oXSb5bq'
+            },
+            'Buraxılış İmtahanı': {
+                text: 'Средний результат. Приложите немного больше усилий! 🎯',
+                gif: 'https://giphy.com/embed/3o7TKT089pgqvzqFWw'
+            }
+        }
+    },
+    low: {
+        az: {
+            '1-ci Qrup': {
+                text: 'Daha çox çalışmalısınız! Texniki fənlərə daha çox vaxt ayırın! ����',
+                gif: 'https://giphy.com/embed/3o7TKqnN349PBUtGFO'
+            },
+            '2-ci Qrup': {
+                text: 'Əlavə hazırlıq lazımdır! İqtisadi məsələləri daha çox həll edin! 📈',
+                gif: 'https://giphy.com/embed/3o7TKPdUkkbCAVqWk0'
+            },
+            '3-cü Qrup': {
+                text: 'Daha çox oxumalısınız! Humanitar fənlərə fokuslanın! 📖',
+                gif: 'https://giphy.com/embed/3o7TKqm1mNujcBPSpy'
+            },
+            '4-cü Qrup': {
+                text: 'Əlavə hazırlıq vacibdir! Tibbi terminləri daha çox öyrənin! 🔬',
+                gif: 'https://giphy.com/embed/3o7TKz3l0BMtZ4ZxrG'
+            },
+            'Buraxılış İmtahanı': {
+                text: 'Daha çox hazırlaşmalısınız! Əsas fənlərə diqqət yetirin! 📚',
+                gif: 'https://giphy.com/embed/3o7TKL9BEXxlUbAAN2'
+            }
+        },
+        ru: {
+            '1-ci Qrup': {
+                text: 'Нужно больше работать! Уделите больше времени техническим предметам! 📚',
+                gif: 'https://giphy.com/embed/3o7TKqnN349PBUtGFO'
+            },
+            '2-ci Qrup': {
+                text: 'Требуется дополнительная подготовка! Решайте больше экономических задач! 📈',
+                gif: 'https://giphy.com/embed/3o7TKPdUkkbCAVqWk0'
+            },
+            '3-cü Qrup': {
+                text: 'Нужно больше читать! Сфокусируйтесь на гуманитарных предметах! 📖',
+                gif: 'https://giphy.com/embed/3o7TKqm1mNujcBPSpy'
+            },
+            '4-cü Qrup': {
+                text: 'Необходима дополнительная подготовка! Учите больше медицинских терминов! 🔬',
+                gif: 'https://giphy.com/embed/3o7TKz3l0BMtZ4ZxrG'
+            },
+            'Buraxılış İmtahanı': {
+                text: 'Нужно больше готовться! Обратите внимание на основные предметы! 📚',
+                gif: 'https://giphy.com/embed/3o7TKL9BEXxlUbAAN2'
+            }
+        }
+    }
+};
 
 function init() {
     createStars();
-    const groupButtons = document.getElementById('groupButtons');
+    
+    const buttonContainer = document.getElementById('groupButtons');
     groups.forEach(group => {
         const button = document.createElement('button');
-        button.textContent = group.name;
-        button.className = 'button';
+        button.className = 'btn';
+        button.textContent = translations[language].groups[group.name];
         button.addEventListener('click', () => handleGroupClick(group.name));
-        groupButtons.appendChild(button);
+        buttonContainer.appendChild(button);
     });
 
+    if (window.innerWidth > 800) {
+        document.addEventListener('mousemove', moveStars);
+    }
+    
     document.getElementById('calculateButton').addEventListener('click', calculateScores);
     document.getElementById('recalculateButton').addEventListener('click', resetForm);
     document.getElementById('downloadButton').addEventListener('click', downloadResults);
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    document.getElementById('languageToggle').addEventListener('click', toggleLanguage);
+
+    updateStarColors();
 }
 
 function createStars() {
-    const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 100; i++) {
+    const stars = document.getElementById('stars');
+    if (!stars) return;
+
+    stars.innerHTML = '';
+    
+    const isMobile = window.innerWidth <= 800;
+    const numStars = isMobile ? 50 : 100;
+
+    for (let i = 0; i < numStars; i++) {
         const star = document.createElement('div');
         star.className = 'star';
-        star.style.width = `${Math.random() * 3}px`;
-        star.style.height = star.style.width;
-        star.style.left = `${Math.random() * 100}%`;
-        star.style.top = `${Math.random() * 100}%`;
-        star.style.animationDelay = `${Math.random() * 5}s`;
-        starsContainer.appendChild(star);
+        star.style.width = star.style.height = Math.random() * (isMobile ? 2 : 3) + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 5 + 's';
+        stars.appendChild(star);
     }
+}
+
+// Обновляем обработчик ресайза
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        const wasMobile = window.innerWidth <= 800;
+        const isMobile = window.innerWidth <= 800;
+        
+        if (wasMobile !== isMobile) {
+            createStars();
+            
+            if (isMobile) {
+                document.querySelectorAll('.cursor-trail, .cursor-click').forEach(el => el.remove());
+                document.removeEventListener('mousemove', moveStars);
+            } else {
+                initCursor();
+                document.addEventListener('mousemove', moveStars);
+            }
+        }
+    }, 150);
+});
+
+function moveStars(e) {
+    const stars = document.querySelectorAll('.star');
+    const mouseX = e.clientX / window.innerWidth;
+    const mouseY = e.clientY / window.innerHeight;
+
+    stars.forEach((star) => {
+        const rect = star.getBoundingClientRect();
+        const starX = (rect.left + rect.width / 2) / window.innerWidth;
+        const starY = (rect.top + rect.height / 2) / window.innerHeight;
+        
+        const deltaX = mouseX - starX;
+        const deltaY = mouseY - starY;
+        
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        const maxDistance = Math.sqrt(2);
+        
+        const scale = 1 - distance / maxDistance;
+        const movement = 50 * scale * scale;
+        
+        const translateX = deltaX * movement;
+        const translateY = deltaY * movement;
+        
+        star.style.transform = `translate(${translateX}px, ${translateY}px)`;
+    });
 }
 
 function handleGroupClick(groupName) {
     activeGroup = groups.find(g => g.name === groupName);
-    document.getElementById('activeGroupTitle').textContent = activeGroup.name;
-    generateForm();
+    document.querySelectorAll('#groupButtons .btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === translations[language].groups[groupName]);
+    });
+    
     document.getElementById('examForm').style.display = 'block';
     document.getElementById('results').style.display = 'none';
+    document.getElementById('examForm').scrollIntoView({ behavior: 'smooth' });
     
-    // Update active button
-    document.querySelectorAll('#groupButtons .button').forEach(button => {
-        button.classList.toggle('active', button.textContent === groupName);
-    });
+    generateForm();
 }
 
 function generateForm() {
     const form = document.getElementById('scoreForm');
     form.innerHTML = '';
-    activeGroup.subjects.forEach(subject => {
+    document.getElementById('activeGroupTitle').textContent = translations[language].groups[activeGroup.name];
+
+    activeGroup.subjects.forEach((subject, index) => {
         const subjectDiv = document.createElement('div');
         subjectDiv.className = 'subject';
+        let inputFields = '';
+        if (activeGroup.name === 'Buraxılış İmtahanı') {
+            const maxClosed = subject === 'İngilis dili' ? 23 : (subject === 'Azərbaycan dili' ? 20 : 13);
+            const maxOpen = subject === 'İngilis dili' ? 7 : (subject === 'Azərbaycan dili' ? 10 : 7);
+            inputFields = `
+                <div class="input-group">
+                    <label>
+                        ${translations[language].closed}:
+                        <input type="number" name="${subject}-closed" min="0" max="${maxClosed}" class="input-field">
+                        <span class="error-message"></span>
+                    </label>
+                    <label>
+                        ${translations[language].open}:
+                        <input type="number" name="${subject}-open" min="0" max="${maxOpen}" class="input-field">
+                        <span class="error-message"></span>
+                    </label>
+            `;
+            if (subject === 'Riyaziyyat') {
+                inputFields += `
+                    <label>
+                        ${translations[language].coding}:
+                        <input type="number" name="${subject}-coding" min="0" max="5" class="input-field">
+                        <span class="error-message"></span>
+                    </label>
+                `;
+            }
+        } else {
+            inputFields = `
+                <div class="input-group">
+                    <label>
+                        ${translations[language].correct}:
+                        <input type="number" name="${subject}-correct" min="0" max="22" class="input-field">
+                        <span class="error-message"></span>
+                    </label>
+                    <label>
+                        ${translations[language].incorrect}:
+                        <input type="number" name="${subject}-incorrect" min="0" max="22" class="input-field">
+                        <span class="error-message"></span>
+                    </label>
+                    <label>
+                        ${translations[language].coding}:
+                        <input type="number" name="${subject}-coding" min="0" max="5" class="input-field">
+                        <span class="error-message"></span>
+                    </label>
+                    <label>
+                        ${translations[language].open}:
+                        <input type="number" name="${subject}-open" min="0" max="3" class="input-field">
+                        <span class="error-message"></span>
+                    </label>
+                </div>
+            `;
+        }
         subjectDiv.innerHTML = `
-            <h3>${subject}</h3>
-            <div class="input-group">
-                <label>
-                    Doğru:
-                    <input type="number" name="${subject}-correct" min="0">
-                </label>
-                <label>
-                    Yanlış:
-                    <input type="number" name="${subject}-incorrect" min="0">
-                </label>
-                <label>
-                    Açıq:
-                    <input type="number" name="${subject}-open" min="0">
-                </label>
-                <label>
-                    Qapalı:
-                    <input type="number" name="${subject}-closed" min="0">
-                </label>
-            </div>
+            <h3>${translations[language].subjects[subject]} (${activeGroup.maxScores[index]} ${translations[language].score})</h3>
+            ${inputFields}
         `;
         form.appendChild(subjectDiv);
     });
+
+    document.querySelectorAll('.input-field').forEach(input => {
+        input.addEventListener('input', validateInput);
+    });
+}
+
+function validateInput(event) {
+    const input = event.target;
+    const min = parseInt(input.min);
+    const max = parseInt(input.max);
+    const value = parseInt(input.value);
+    const errorMessage = input.nextElementSibling;
+
+    if (isNaN(value)) {
+        errorMessage.textContent = '';
+    } else if (value < min || value > max) {
+        errorMessage.textContent = `Dəyər ${min} və ${max} arasında olmalıdır.`;
+    } else {
+        errorMessage.textContent = '';
+    }
 }
 
 function calculateScores() {
     results = {};
-    activeGroup.subjects.forEach(subject => {
-        const correct = parseInt(document.querySelector(`[name="${subject}-correct"]`).value) || 0;
-        const incorrect = parseInt(document.querySelector(`[name="${subject}-incorrect"]`).value) || 0;
-        const open = parseInt(document.querySelector(`[name="${subject}-open"]`).value) || 0;
-        const closed = parseInt(document.querySelector(`[name="${subject}-closed"]`).value) || 0;
+    let totalScore = 0;
 
-        const score = Math.max(0, Math.min(100, correct * 2 + incorrect * -0.5 + open * 3 + closed * 1));
-        results[subject] = score;
-    });
+    if (activeGroup.name === '1-ci Qrup') {
+        const riyaziyyat = getSubjectScores('Riyaziyyat');
+        const fizika = getSubjectScores('Fizika');
+        const kimya = getSubjectScores('Kimya');
+
+        results['Riyaziyyat'] = 1.5 * 100/33 * ((riyaziyyat.correct - riyaziyyat.incorrect/4) + (2*riyaziyyat.open + riyaziyyat.coding));
+        results['Fizika'] = 1.5 * 100/33 * ((fizika.correct - fizika.incorrect/4) + (2*fizika.open + fizika.coding));
+        results['Kimya'] = 100/33 * ((kimya.correct - kimya.incorrect/4) + (2*kimya.open + kimya.coding));
+    } else if (activeGroup.name === '2-ci Qrup') {
+        const riyaziyyat = getSubjectScores('Riyaziyyat');
+        const cografiya = getSubjectScores('Coğrafiya');
+        const tarix = getSubjectScores('Tarix');
+
+        results['Riyaziyyat'] = 1.5 * 100/33 * ((riyaziyyat.correct - riyaziyyat.incorrect/4) + (2*riyaziyyat.open + riyaziyyat.coding));
+        results['Coğrafiya'] = 100/33 * ((cografiya.correct - cografiya.incorrect/4) + (2*cografiya.open + cografiya.coding));
+        results['Tarix'] = 1.5 * 100/33 * ((tarix.correct - tarix.incorrect/4) + (2*tarix.open + tarix.coding));
+    } else if (activeGroup.name === '3-cü Qrup') {
+        const azDili = getSubjectScores('Azərbaycan dili');
+        const edebiyyat = getSubjectScores('Ədəbiyyat');
+        const tarix = getSubjectScores('Tarix');
+
+        results['Azərbaycan dili'] = 1.5 * 100/33 * ((azDili.correct - azDili.incorrect/4) + (2*azDili.open + azDili.coding));
+        results['Ədəbiyyat'] = 100/33 * ((edebiyyat.correct - edebiyyat.incorrect/4) + (2*edebiyyat.open + edebiyyat.coding));
+        results['Tarix'] = 1.5 * 100/33 * ((tarix.correct - tarix.incorrect/4) + (2*tarix.open + tarix.coding));
+    } else if (activeGroup.name === '4-cü Qrup') {
+        const biologiya = getSubjectScores('Biologiya');
+        const kimya = getSubjectScores('Kimya');
+        const fizika = getSubjectScores('Fizika');
+
+        results['Biologiya'] = 100/33 * ((biologiya.correct - biologiya.incorrect/4) + (2*biologiya.open + biologiya.coding));
+        results['Kimya'] = 1.5 * 100/33 * ((kimya.correct - kimya.incorrect/4) + (2*kimya.open + kimya.coding));
+        results['Fizika'] = 100/33 * ((fizika.correct - fizika.incorrect/4) + (2*fizika.open + fizika.coding));
+    } else if (activeGroup.name === 'Buraxılış İmtahanı') {
+        const riyaziyyat = getSubjectScores('Riyaziyyat');
+        const azDili = getSubjectScores('Azərbaycan dili');
+        const ingilisDili = getSubjectScores('İngilis dili');
+
+        results['Riyaziyyat'] = 25 / 8 * (2 * riyaziyyat.open + riyaziyyat.closed + riyaziyyat.coding);
+        results['Azərbaycan dili'] = 2.5 * (2 * azDili.open + azDili.closed);
+        results['İngilis dili'] = 100 / 37 * (2 * ingilisDili.open + ingilisDili.closed);
+    }
+
+    for (const score of Object.values(results)) {
+        totalScore += score;
+    }
+    results['Ümumi bal'] = totalScore;
 
     displayResults();
 }
 
-function displayResults() {
+function getSubjectScores(subject) {
+    return {
+        correct: parseInt(document.querySelector(`[name="${subject}-correct"]`)?.value) || 0,
+        incorrect: parseInt(document.querySelector(`[name="${subject}-incorrect"]`)?.value) || 0,
+        open: parseInt(document.querySelector(`[name="${subject}-open"]`)?.value) || 0,
+        closed: parseInt(document.querySelector(`[name="${subject}-closed"]`)?.value) || 0,
+        coding: parseInt(document.querySelector(`[name="${subject}-coding"]`)?.value) || 0
+    };
+}
+
+function getResultLevel(score, groupName) {
+    const groupRanges = scoreRanges[groupName].ranges;
+    for (const range of groupRanges) {
+        if (score >= range.min && score <= range.max) {
+            return range.level;
+        }
+    }
+    return 'low'; // По умолчанию
+}
+
+function displayResultMessage(totalScore) {
+    const messageContainer = document.getElementById('resultMessage');
+    const level = getResultLevel(totalScore, activeGroup.name);
+    const message = resultMessages[level][language][activeGroup.name];
+
+    if (message) {
+        messageContainer.innerHTML = `
+            <iframe src="${message.gif}" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+            <p>${message.text}</p>
+        `;
+        messageContainer.classList.add('show');
+    } else {
+        messageContainer.classList.remove('show');
+    }
+}
+
+function displayResults(preventScroll = false) {
     const tableBody = document.querySelector('#resultsTable tbody');
     tableBody.innerHTML = '';
-    let totalScore = 0;
 
     for (const [subject, score] of Object.entries(results)) {
         const row = tableBody.insertRow();
-        row.insertCell(0).textContent = subject;
-        row.insertCell(1).textContent = score.toFixed(2);
-        totalScore += score;
+        row.insertCell(0).textContent = translations[language].subjects[subject];
+        row.insertCell(1).textContent = score.toFixed(1);
+        if (subject === 'Ümumi bal') {
+            row.classList.add('total');
+            displayResultMessage(score);
+        }
     }
 
-    const totalRow = tableBody.insertRow();
-    totalRow.className = 'total';
-    totalRow.insertCell(0).textContent = 'Ümumi bal';
-    totalRow.insertCell(1).textContent = totalScore.toFixed(2);
-
-    document.getElementById('examForm').style.display = 'none';
     document.getElementById('results').style.display = 'block';
+    
+    if (!preventScroll) {
+        document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    const rows = tableBody.querySelectorAll('tr');
+    rows.forEach((row, index) => {
+        row.style.animation = `fadeIn 0.5s ease ${index * 0.1}s forwards`;
+        row.style.opacity = '0';
+    });
 }
 
 function resetForm() {
     document.getElementById('examForm').style.display = 'block';
     document.getElementById('results').style.display = 'none';
+    document.getElementById('examForm').scrollIntoView({ behavior: 'smooth' });
 }
 
 function downloadResults() {
     if (results) {
         const resultsText = Object.entries(results)
-            .map(([subject, score]) => `${subject}: ${score.toFixed(2)}`)
+            .map(([subject, score]) => `${subject}: ${score.toFixed(1)}`)
             .join('\n');
         const blob = new Blob([resultsText], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
@@ -139,4 +690,238 @@ function downloadResults() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', init);
+function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    const themeToggle = document.getElementById('themeToggle');
+    const isDark = !document.body.classList.contains('light-mode');
+    themeToggle.innerHTML = `
+        <i class="fas ${isDark ? 'fa-sun' : 'fa-moon'}"></i>
+        <span>${isDark ? 'İşıq' : 'Qaranlıq'}</span>
+    `;
+    updateStarColors();
+}
+
+function updateStarColors() {
+    const stars = document.querySelectorAll('.star');
+    const starColor = getComputedStyle(document.body).getPropertyValue('--star-color').trim();
+    stars.forEach(star => {
+        star.style.backgroundColor = starColor;
+    });
+}
+
+function toggleLanguage() {
+    language = language === 'az' ? 'ru' : 'az';
+    const languageToggle = document.getElementById('languageToggle');
+    languageToggle.innerHTML = `
+        <i class="fas fa-globe"></i>
+        <span>${language === 'az' ? 'RU' : 'AZ'}</span>
+    `;
+    updateLanguage();
+}
+
+function updateLanguage() {
+    document.querySelector('.title').textContent = translations[language].title;
+    document.querySelector('.description').textContent = translations[language].description;
+    document.getElementById('calculateButton').textContent = translations[language].calculate;
+    document.querySelector('.results-title').textContent = translations[language].results;
+    document.querySelector('#resultsTable th:first-child').textContent = translations[language].subject;
+    document.querySelector('#resultsTable th:last-child').textContent = translations[language].score;
+    document.getElementById('downloadButton').textContent = translations[language].saveResults;
+    document.getElementById('recalculateButton').textContent = translations[language].recalculate;
+
+    if (activeGroup) {
+        generateForm();
+    }
+
+    document.querySelectorAll('.countdown-label').forEach((label, index) => {
+        const labels = ['days', 'hours', 'minutes', 'seconds'];
+        label.textContent = translations[language][labels[index]];
+    });
+
+    // Обновляем назван групп в копках
+    document.querySelectorAll('#groupButtons .btn').forEach(button => {
+        const groupName = button.textContent;
+        const groupKey = Object.keys(translations.az.groups).find(
+            key => translations[language === 'az' ? 'ru' : 'az'].groups[key] === groupName
+        );
+        if (groupKey) {
+            button.textContent = translations[language].groups[groupKey];
+        }
+    });
+
+    // Если есть активная группа, обновляем её заголовок
+    if (activeGroup) {
+        document.getElementById('activeGroupTitle').textContent = 
+            translations[language].groups[activeGroup.name];
+    }
+
+    // Если есть результаты, обновляем их отображение бе прокрутки
+    if (results) {
+        displayResults(true);
+    }
+}
+
+function startCountdown() {
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const timeLeft = examDate - now;
+        
+        if (timeLeft < 0) {
+            document.querySelector('.countdown-container').innerHTML = 
+                `<h2 style="text-align: center; font-size: 2rem; color: var(--primary-color);">
+                    ${translations[language].examStarted}
+                </h2>`;
+            return;
+        }
+
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+        const secondsElement = document.getElementById('seconds');
+        secondsElement.style.transform = 'scale(1.1)';
+        secondsElement.style.color = 'var(--secondary-color)';
+        
+        setTimeout(() => {
+            secondsElement.style.transform = 'scale(1)';
+            secondsElement.style.color = 'var(--primary-color)';
+        }, 500);
+
+        if (days <= 10) {
+            document.querySelector('.countdown-container').style.animation = 'pulse 2s infinite';
+        }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
+
+function initCursor() {
+    if (window.innerWidth <= 800) return;
+
+    const cursor = document.querySelector('.cursor-dot');
+    const numTrails = 5;
+    const trails = Array.from({ length: numTrails }, () => {
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        document.body.appendChild(trail);
+        return trail;
+    });
+
+    // Создаем элемент для эффекта клика
+    const clickEffect = document.createElement('div');
+    clickEffect.className = 'cursor-click';
+    document.body.appendChild(clickEffect);
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+    const trailPositions = trails.map(() => ({ x: 0, y: 0 }));
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    // Обработчики кликов
+    document.addEventListener('mousedown', (e) => {
+        if (e.button === 0) { // Левый клик
+            cursor.classList.add('clicking');
+            showClickEffect(mouseX, mouseY, 'var(--primary-color)');
+        } else if (e.button === 2) { // Правый клик
+            cursor.classList.add('right-clicking');
+            showClickEffect(mouseX, mouseY, 'var(--secondary-color)');
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        cursor.classList.remove('clicking', 'right-clicking');
+    });
+
+    function showClickEffect(x, y, color) {
+        clickEffect.style.left = `${x}px`;
+        clickEffect.style.top = `${y}px`;
+        clickEffect.style.background = `radial-gradient(circle, ${color} 0%, transparent 70%)`;
+        clickEffect.style.transform = 'translate(-50%, -50%) scale(1)';
+        clickEffect.style.opacity = '1';
+
+        setTimeout(() => {
+            clickEffect.style.transform = 'translate(-50%, -50%) scale(0)';
+            clickEffect.style.opacity = '0';
+        }, 300);
+    }
+
+    function animate() {
+        const ease = 0.5;
+        cursorX += (mouseX - cursorX) * ease;
+        cursorY += (mouseY - cursorY) * ease;
+
+        cursor.style.left = `${cursorX}px`;
+        cursor.style.top = `${cursorY}px`;
+
+        trails.forEach((trail, index) => {
+            const prevIndex = Math.max(0, index - 1);
+            const speed = 0.7;
+
+            if (index === 0) {
+                trailPositions[0].x += (cursorX - trailPositions[0].x) * speed;
+                trailPositions[0].y += (cursorY - trailPositions[0].y) * speed;
+            } else {
+                trailPositions[index].x += (trailPositions[prevIndex].x - trailPositions[index].x) * speed;
+                trailPositions[index].y += (trailPositions[prevIndex].y - trailPositions[index].y) * speed;
+            }
+
+            const scale = 1 - (index * 0.15);
+            trail.style.left = `${trailPositions[index].x}px`;
+            trail.style.top = `${trailPositions[index].y}px`;
+            trail.style.transform = `translate(-50%, -50%) scale(${scale})`;
+            trail.style.opacity = 1 - (index * 0.2);
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        trails.forEach(trail => trail.style.opacity = '0');
+    });
+
+    document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+        trails.forEach(trail => trail.style.opacity = '1');
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const isMobile = window.innerWidth <= 800;
+    
+    init();
+    startCountdown();
+    
+    // Инициализируем курсор только на десктопе
+    if (!isMobile) {
+        initCursor();
+    }
+});
+
+document.addEventListener('contextmenu', event => event.preventDefault());
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'F12') {
+        e.preventDefault();
+    }
+    if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+    }
+    if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+    }
+});
