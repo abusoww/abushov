@@ -371,40 +371,49 @@ body.light-mode .btn-secondary {
 }
 
 .header-controls {
-    position: relative;
     display: flex;
     justify-content: space-between;
-    padding: 1rem 2rem;
-    z-index: 1000;
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
+    width: 100%;
+    padding: 1rem 2rem;
     box-sizing: border-box;
 }
 
-#themeToggle, #languageToggle {
+.header-controls-left,
+.header-controls-right {
+    display: flex;
+    gap: 1rem;
+}
+
+#themeToggle,
+#languageToggle {
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text-color);
-    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 0.5rem 1rem;
-    border-radius: 2rem;
+    border-radius: 0.5rem;
+    color: var(--text-color);
     display: flex;
     align-items: center;
     gap: 0.5rem;
     transition: all 0.3s ease;
     font-size: 0.875rem;
+    cursor: pointer;
+    white-space: nowrap;
 }
 
-#themeToggle i, #languageToggle i {
+#themeToggle i,
+#languageToggle i {
     font-size: 1rem;
 }
 
-#themeToggle span, #languageToggle span {
+#themeToggle span,
+#languageToggle span {
     font-weight: 500;
 }
 
-#themeToggle:hover, #languageToggle:hover {
+#themeToggle:hover,
+#languageToggle:hover {
     transform: translateY(-2px);
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -427,15 +436,39 @@ body.light-mode #languageToggle:hover {
 @media (max-width: 640px) {
     .header-controls {
         padding: 0.75rem 1rem;
+        position: relative;
+        z-index: 1000;
     }
 
-    #themeToggle, #languageToggle {
+    #themeToggle,
+    #languageToggle {
         padding: 0.4rem 0.75rem;
         font-size: 0.75rem;
+        min-width: auto;
     }
 
-    #themeToggle i, #languageToggle i {
-        font-size: 0.875rem;
+    #themeToggle i,
+    #languageToggle i {
+        font-size: 1rem;
+        margin-right: 0.25rem;
+    }
+}
+
+/* Стили для очень маленьких экранов */
+@media (max-width: 360px) {
+    .header-controls {
+        padding: 0.5rem;
+    }
+
+    #themeToggle,
+    #languageToggle {
+        padding: 0.35rem 0.5rem;
+        font-size: 0.7rem;
+    }
+
+    #themeToggle i,
+    #languageToggle i {
+        font-size: 0.9rem;
     }
 }
 
