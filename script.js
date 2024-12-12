@@ -237,7 +237,7 @@ const resultMessages = {
                 gif: 'https://giphy.com/embed/3o7TKDEhaXOzP13RYs'
             },
             'Buraxılış İmtahanı': {
-                text: 'Yaxşı nəticə! Növbəti mərhələyə hazırsınız! 🎯',
+                text: 'Yaxşı nəticə! Növb��ti mərhələyə hazırsınız! 🎯',
                 gif: 'https://giphy.com/embed/l0MYxef0mpdcnQnvi'
             }
         },
@@ -313,7 +313,7 @@ const resultMessages = {
     low: {
         az: {
             '1-ci Qrup': {
-                text: 'Daha çox çalışmalısınız! Texniki fənlərə daha çox vaxt ayırın! ����',
+                text: 'Daha çox çalışmalısınız! Texniki fənlərə daha çox vaxt ayırın!     ',
                 gif: 'https://giphy.com/embed/3o7TKqnN349PBUtGFO'
             },
             '2-ci Qrup': {
@@ -329,7 +329,7 @@ const resultMessages = {
                 gif: 'https://giphy.com/embed/3o7TKz3l0BMtZ4ZxrG'
             },
             'Buraxılış İmtahanı': {
-                text: 'Daha çox hazırlaşmalısınız! Əsas fənlərə diqqət yetirin! 📚',
+                text: 'Daha ��ox hazırlaşmalısınız! Əsas fənlərə diqqət yetirin! 📚',
                 gif: 'https://giphy.com/embed/3o7TKL9BEXxlUbAAN2'
             }
         },
@@ -351,7 +351,7 @@ const resultMessages = {
                 gif: 'https://giphy.com/embed/3o7TKz3l0BMtZ4ZxrG'
             },
             'Buraxılış İmtahanı': {
-                text: 'Нужно больше готовться! Обратите внимание на основные предметы! 📚',
+                text: 'Нужно больше готовться! ��братите внимание на основные предметы! 📚',
                 gif: 'https://giphy.com/embed/3o7TKL9BEXxlUbAAN2'
             }
         }
@@ -374,11 +374,16 @@ function init() {
         document.addEventListener('mousemove', moveStars);
     }
     
+    // Добавляем обработчики для кнопок темы и языка
+    const themeSwitch = document.querySelector('.theme-switch');
+    themeSwitch.addEventListener('click', toggleTheme);
+    
+    const languageButton = document.getElementById('languageToggle');
+    languageButton.addEventListener('click', toggleLanguage);
+    
     document.getElementById('calculateButton').addEventListener('click', calculateScores);
     document.getElementById('recalculateButton').addEventListener('click', resetForm);
     document.getElementById('downloadButton').addEventListener('click', downloadResults);
-    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-    document.getElementById('languageToggle').addEventListener('click', toggleLanguage);
 
     updateStarColors();
 }
@@ -692,12 +697,6 @@ function downloadResults() {
 
 function toggleTheme() {
     document.body.classList.toggle('light-mode');
-    const themeToggle = document.getElementById('themeToggle');
-    const isDark = !document.body.classList.contains('light-mode');
-    themeToggle.innerHTML = `
-        <i class="fas ${isDark ? 'fa-sun' : 'fa-moon'}"></i>
-        <span>${isDark ? 'İşıq' : 'Qaranlıq'}</span>
-    `;
     updateStarColors();
 }
 
@@ -907,10 +906,18 @@ document.addEventListener('DOMContentLoaded', () => {
     init();
     startCountdown();
     
-    // Инициализируем курсор только на десктопе
     if (!isMobile) {
         initCursor();
     }
+
+    // Устанавливаем светлую тему по умолчанию
+    if (!document.body.classList.contains('light-mode')) {
+        document.body.classList.add('light-mode');
+    }
+    
+    const checkbox = document.getElementById('checkbox');
+    checkbox.checked = true; // Устанавливаем checkbox в активное состояние
+    checkbox.addEventListener('change', toggleTheme);
 });
 
 document.addEventListener('contextmenu', event => event.preventDefault());
