@@ -8,18 +8,24 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="light-mode">
     <div class="cursor-dot"></div>
     <div id="stars"></div>
     <div class="header-controls">
         <div class="header-controls-left">
-            <button id="themeToggle">
-                <i class="fas fa-sun"></i>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </label>
                 <span>Tema</span>
-            </button>
+            </div>
         </div>
         <div class="header-controls-right">
-            <button id="languageToggle">
+            <button id="languageToggle" class="lang-button">
                 <i class="fas fa-globe"></i>
                 <span>Dil</span>
             </button>
@@ -74,11 +80,7 @@
         </div>
     </div>
     <script src="script.js"></script>
-
-
     <script defer src="https://cloud.umami.is/script.js" data-website-id="99064832-b906-409f-abfd-d1586d96b366"></script>
-
-    
 </body>
 </html>
 
